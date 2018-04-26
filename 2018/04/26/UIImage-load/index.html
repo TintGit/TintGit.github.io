@@ -9,14 +9,14 @@
   <title>UIIMage两种加载方式 | Unruly的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="Apple官方为生成一个UIImage对象提供了两种方法： 12* imageNamed:* imageWithContentsOfFile: imageNamed: 这个方法用一个指定的名字在系统 缓存 中查找并返回一个图片对象，如果它存在的话。如果缓存中没有找到相应的图片，这个方法从指定的文档中加载然后 缓存 并返回这个对象。 不难看出，imageNamed 的优点是加载时会缓存图片。所以当图">
-<meta name="keywords" content="iOS,OC,Objective-C,Swift,开发者,程序猿,程序媛,极客,编程,代码,开源,Developer">
+<meta name="keywords" content="UIImage,图片,内存">
 <meta property="og:type" content="article">
 <meta property="og:title" content="UIIMage两种加载方式">
 <meta property="og:url" content="http://yoursite.com/2018/04/26/UIImage-load/index.html">
 <meta property="og:site_name" content="Unruly的博客">
 <meta property="og:description" content="Apple官方为生成一个UIImage对象提供了两种方法： 12* imageNamed:* imageWithContentsOfFile: imageNamed: 这个方法用一个指定的名字在系统 缓存 中查找并返回一个图片对象，如果它存在的话。如果缓存中没有找到相应的图片，这个方法从指定的文档中加载然后 缓存 并返回这个对象。 不难看出，imageNamed 的优点是加载时会缓存图片。所以当图">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-04-26T02:53:30.789Z">
+<meta property="og:updated_time" content="2018-04-26T03:00:18.042Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="UIIMage两种加载方式">
 <meta name="twitter:description" content="Apple官方为生成一个UIImage对象提供了两种方法： 12* imageNamed:* imageWithContentsOfFile: imageNamed: 这个方法用一个指定的名字在系统 缓存 中查找并返回一个图片对象，如果它存在的话。如果缓存中没有找到相应的图片，这个方法从指定的文档中加载然后 缓存 并返回这个对象。 不难看出，imageNamed 的优点是加载时会缓存图片。所以当图">
@@ -224,6 +224,25 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">UIImage</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">图片</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">内存</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -414,6 +433,18 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">UIImage</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">图片</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">内存</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>
