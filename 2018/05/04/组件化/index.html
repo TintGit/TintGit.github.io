@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>iOS博客推荐 | Unruly的博客</title>
+  <title>关于组件化 | Unruly的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="###OneV’s Den  喵神 对 Swift 技术在国内的推广做了很大的贡献。  ###Limboy’s HQ  李忠 蘑菇街 关于 RAC 、组件化的文章流传很广。博客中对架构、编程的思考都很精髓。  ###Casa Taloyum  Casa 对架构有很深的理解，《iOS 应用架构谈》系列文章影响深远。  ###bang’s blog  JSPatch 稳定更新，每篇文章质量都很高。">
-<meta name="keywords" content="博客,GitHub,大牛">
+  <meta name="description" content="主要方案:  URL注册方案 Target-Action runtime调用方案 Protocol注册方案    蘑菇街App的组件化之路 iOS应用架构谈 组件化方案 蘑菇街App的组件化之路·续 iOS应用架构谈 组件化方案(补充) iOS 组件化方案探索 iOS组件化方案 在现有工程中实施基于CTMediator的组件化方案 iOS 组件化 —— 路由设计思路分析  Limboy’s HQ">
+<meta name="keywords" content="架构,router">
 <meta property="og:type" content="article">
-<meta property="og:title" content="iOS博客推荐">
-<meta property="og:url" content="http://yoursite.com/2018/05/03/blog/index.html">
+<meta property="og:title" content="关于组件化">
+<meta property="og:url" content="http://yoursite.com/2018/05/04/组件化/index.html">
 <meta property="og:site_name" content="Unruly的博客">
-<meta property="og:description" content="###OneV’s Den  喵神 对 Swift 技术在国内的推广做了很大的贡献。  ###Limboy’s HQ  李忠 蘑菇街 关于 RAC 、组件化的文章流传很广。博客中对架构、编程的思考都很精髓。  ###Casa Taloyum  Casa 对架构有很深的理解，《iOS 应用架构谈》系列文章影响深远。  ###bang’s blog  JSPatch 稳定更新，每篇文章质量都很高。">
+<meta property="og:description" content="主要方案:  URL注册方案 Target-Action runtime调用方案 Protocol注册方案    蘑菇街App的组件化之路 iOS应用架构谈 组件化方案 蘑菇街App的组件化之路·续 iOS应用架构谈 组件化方案(补充) iOS 组件化方案探索 iOS组件化方案 在现有工程中实施基于CTMediator的组件化方案 iOS 组件化 —— 路由设计思路分析  Limboy’s HQ">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-05-03T03:39:00.554Z">
+<meta property="og:updated_time" content="2018-05-04T09:22:45.701Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS博客推荐">
-<meta name="twitter:description" content="###OneV’s Den  喵神 对 Swift 技术在国内的推广做了很大的贡献。  ###Limboy’s HQ  李忠 蘑菇街 关于 RAC 、组件化的文章流传很广。博客中对架构、编程的思考都很精髓。  ###Casa Taloyum  Casa 对架构有很深的理解，《iOS 应用架构谈》系列文章影响深远。  ###bang’s blog  JSPatch 稳定更新，每篇文章质量都很高。">
+<meta name="twitter:title" content="关于组件化">
+<meta name="twitter:description" content="主要方案:  URL注册方案 Target-Action runtime调用方案 Protocol注册方案    蘑菇街App的组件化之路 iOS应用架构谈 组件化方案 蘑菇街App的组件化之路·续 iOS应用架构谈 组件化方案(补充) iOS 组件化方案探索 iOS组件化方案 在现有工程中实施基于CTMediator的组件化方案 iOS 组件化 —— 路由设计思路分析  Limboy’s HQ">
   
     <link rel="alternative" href="/atom.xml" title="Unruly的博客" type="application/atom+xml">
   
@@ -155,123 +155,45 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-blog" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-组件化" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      iOS博客推荐
+      关于组件化
     </h1>
   
 
         
-        <a href="/2018/05/03/blog/" class="archive-article-date">
-  	<time datetime="2018-05-03T03:39:00.554Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-03</time>
+        <a href="/2018/05/04/组件化/" class="archive-article-date">
+  	<time datetime="2018-05-04T09:22:45.701Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-04</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>###<a href="https://onevcat.com/#blog" target="_blank" rel="noopener">OneV’s Den</a></p>
-<blockquote>
-<p><strong>喵神</strong> 对 Swift 技术在国内的推广做了很大的贡献。</p>
+        <blockquote>
+<p>主要方案:</p>
+<ul>
+<li>URL注册方案</li>
+<li>Target-Action runtime调用方案</li>
+<li>Protocol注册方案</li>
+</ul>
 </blockquote>
-<p>###<a href="http://limboy.me/category/tech.html" target="_blank" rel="noopener">Limboy’s HQ</a></p>
-<blockquote>
-<p><strong>李忠</strong> 蘑菇街 关于 RAC 、组件化的文章流传很广。博客中对架构、编程的思考都很精髓。</p>
-</blockquote>
-<p>###<a href="https://casatwy.com/" target="_blank" rel="noopener">Casa Taloyum</a></p>
-<blockquote>
-<p><strong>Casa</strong> 对架构有很深的理解，《iOS 应用架构谈》系列文章影响深远。</p>
-</blockquote>
-<p>###<a href="http://blog.cnbang.net/" target="_blank" rel="noopener">bang’s blog</a></p>
-<blockquote>
-<p><strong>JSPatch</strong> 稳定更新，每篇文章质量都很高。</p>
-</blockquote>
-<p>###<a href="https://blog.ibireme.com/" target="_blank" rel="noopener">Garan no dou | 一只魔法师的工坊</a></p>
-<blockquote>
-<p><strong>YYKit</strong> 很多文章如《iOS 保持界面流畅的技巧》《深入理解RunLoop》等都有极高的实用价值。</p>
-</blockquote>
-<p>###<a href="https://draveness.me/index" target="_blank" rel="noopener">Draveness’s Blog</a></p>
-<blockquote>
-<p><strong>灯塔</strong> Draveness 涉猎很广，文章也很有深度，一半以上的文章我连标题都看不懂。</p>
-</blockquote>
-<p>###<a href="https://halfrost.com/" target="_blank" rel="noopener">Halfrost-Field</a></p>
-<blockquote>
-<p><strong>霜神</strong> 冰霜的文章针对某个问题总是能有深入、全面的剖析</p>
-</blockquote>
-<p>###<a href="https://ming1016.github.io/" target="_blank" rel="noopener">Starming 星光社</a></p>
-<blockquote>
-<p><strong>戴铭</strong> 滴滴技术专家戴铭的博客，每篇都是精品。</p>
-</blockquote>
-<p>###<a href="http://yulingtianxia.com/" target="_blank" rel="noopener">玉令天下</a></p>
-<blockquote>
-<p><strong>杨萧玉</strong> 腾讯杨萧玉的博客，底层细节能深入到汇编的实现，令人惊叹。</p>
-</blockquote>
-<p>###<a href="http://mrpeak.cn/" target="_blank" rel="noopener">MrPeak杂货铺</a></p>
-<blockquote>
-<p><strong>Peak</strong> 以一系列 TCP/IP 相关的文章让人折服，之前博客更新频率很高，多有涉猎。17 年底去 facebook 赚奶粉钱后更新频率有所下降，望早日回归。</p>
-</blockquote>
-<p>###<a href="https://juejin.im/user/57638ad8207703006b06e3ef/posts" target="_blank" rel="noopener">Bestswifter</a></p>
-<blockquote>
-<p><strong>张星宇</strong> <a href="https://github.com/bestswifter/blog/blob/master/articles/bat-offer.md" target="_blank" rel="noopener">《让 BAT 的 offer 不再难拿》</a>介绍了他在大学时准备面试最后进入百度的经历，这篇文章也引起了不小的积极反响。</p>
-</blockquote>
-<p>###<a href="https://www.jianshu.com/u/8d5b91490ca5" target="_blank" rel="noopener">故胤道长</a></p>
-<blockquote>
-<p><strong>道长</strong> 顶级 iOS 开发者，曾就职于 Uber，现就职于美帝亚马逊。文风流畅，博客也会谈到不少中美编程文化的差异。</p>
-</blockquote>
-<p>###<a href="https://www.jianshu.com/u/96a14318a4de" target="_blank" rel="noopener">iOS程序犭袁</a></p>
-<blockquote>
-<p><strong>CYLTabBarController</strong> 软件工程师 头条文章作者。</p>
-</blockquote>
-<p>###<a href="http://blog.sunnyxx.com/" target="_blank" rel="noopener">sunnyxx</a></p>
-<blockquote>
-<p><strong>孙源</strong> 滴滴技术专家，对于 OC 语言特性有深入研究。对runtime有深刻讲解，值得大家学习。</p>
-</blockquote>
-<p>###<a href="http://blog.leichunfeng.com/blog/archives/" target="_blank" rel="noopener">雷纯锋的技术博客</a></p>
-<blockquote>
-<p><strong>雷锋</strong> 有多篇经典的博客。</p>
-</blockquote>
-<p>###<a href="http://www.desgard.com/" target="_blank" rel="noopener">瓜地</a></p>
-<blockquote>
-<p><strong>冬瓜</strong> 作为曾经 acm‘er 的素质与修养，博客总是能够深入底层。</p>
-</blockquote>
-<p>###<a href="https://juejin.im/user/5656f11760b28da566412f03/posts" target="_blank" rel="noopener">Joy_xx</a></p>
-<blockquote>
-<p><strong>架构 joy</strong> 有不少关于 APM 的好文。</p>
-</blockquote>
-<p>###<a href="https://juejin.im/user/57f8ffda2e958a005581e3c0/posts" target="_blank" rel="noopener">J_Knight_</a></p>
-<blockquote>
-<p><strong>J_Knight</strong> 文章总是清晰易懂，更新的也很勤快。</p>
-</blockquote>
-<p>###<a href="https://www.jianshu.com/u/7c787af04cd1" target="_blank" rel="noopener">Lefe_x</a></p>
-<blockquote>
-<p><strong>Lefe_x</strong> 百度 iOSer，Node，大前端，音视频，架构。</p>
-</blockquote>
-<p>###<a href="https://kangzubin.com" target="_blank" rel="noopener">halohily</a></p>
-<blockquote>
-<p><strong>刘毅</strong> 网易有道，正在探索大前端。</p>
-</blockquote>
-<p>###<a href="http://awhisper.github.io/" target="_blank" rel="noopener">折腾范儿の味精</a></p>
-<blockquote>
-<p><strong>味精</strong></p>
-</blockquote>
-<p>###<a href="http://southpeak.github.io/" target="_blank" rel="noopener">南峰子</a></p>
-<blockquote>
-<p><strong>老驴</strong> 百度</p>
-</blockquote>
-<p>###<a href="http://blog.devtang.com/" target="_blank" rel="noopener">唐巧的技术博客</a></p>
-<blockquote>
-<p><strong>唐巧</strong></p>
-</blockquote>
-<p>###<a href="http://www.alonemonkey.com/" target="_blank" rel="noopener">AloneMonkey</a></p>
-<blockquote>
-<p><strong>MonkeyDev</strong> 逆向大神</p>
-</blockquote>
-<p>感谢<a href="https://www.jianshu.com/u/88a056103c02" target="_blank" rel="noopener">没故事的卓同学</a>的分享<br>原文地址：<a href="https://www.jianshu.com/p/ea9fabdc12ed" target="_blank" rel="noopener">https://www.jianshu.com/p/ea9fabdc12ed</a></p>
+<ul>
+<li><a href="http://limboy.me/tech/2016/03/10/mgj-components.html" target="_blank" rel="noopener">蘑菇街App的组件化之路</a></li>
+<li><a href="https://casatwy.com/iOS-Modulization.html" target="_blank" rel="noopener">iOS应用架构谈 组件化方案</a></li>
+<li><a href="http://limboy.me/tech/2016/03/14/mgj-components-continued.html" target="_blank" rel="noopener">蘑菇街App的组件化之路·续</a></li>
+<li><a href="https://casatwy.com/iOS-Modulization.html" target="_blank" rel="noopener">iOS应用架构谈 组件化方案(补充)</a></li>
+<li><a href="http://blog.cnbang.net/tech/3080/" target="_blank" rel="noopener">iOS 组件化方案探索</a></li>
+<li><a href="http://mrpeak.cn/blog/module/" target="_blank" rel="noopener">iOS组件化方案</a></li>
+<li><a href="https://casatwy.com/modulization_in_action.html" target="_blank" rel="noopener">在现有工程中实施基于CTMediator的组件化方案</a></li>
+<li><a href="https://halfrost.com/ios_router/" target="_blank" rel="noopener">iOS 组件化 —— 路由设计思路分析</a></li>
+</ul>
+<p><a href="http://limboy.me/category/tech.html" target="_blank" rel="noopener">Limboy’s HQ</a> <a href="https://casatwy.com/" target="_blank" rel="noopener">Casa Taloyum</a> <a href="http://blog.cnbang.net/" target="_blank" rel="noopener">bang’s blog</a> <a href="http://mrpeak.cn/" target="_blank" rel="noopener">MrPeak杂货铺</a> <a href="https://halfrost.com/" target="_blank" rel="noopener">Halfrost-Field</a> 之前的博弈</p>
 
       
 
@@ -316,15 +238,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">博客</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">架构</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">GitHub</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">大牛</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">router</a>
         		</li>
       		
 		</ul>
@@ -380,7 +298,7 @@
         <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
         <p>扫一扫，分享到微信</p>
         <div class="wx-qrcode">
-            <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/05/03/blog/" alt="微信分享二维码">
+            <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/05/04/组件化/" alt="微信分享二维码">
         </div>
     </div>
 
@@ -394,18 +312,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/05/04/组件化/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/05/07/杭州游玩攻略/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          关于组件化
+          杭州游玩攻略
         
       </div>
     </a>
   
   
-    <a href="/2018/04/26/JavaScript/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">JavaScript- WXS</div>
+    <a href="/2018/05/03/blog/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">iOS博客推荐</div>
       <i class="icon-circle-right"></i>
     </a>
   
