@@ -631,6 +631,135 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/06/blog/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Unruly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/blogImg/mine.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Unruly的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/06/blog/" itemprop="url">iOS博客推荐</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-06T00:00:00+08:00">
+                2018-04-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <blockquote>
+<p><strong>喵神</strong> 对 Swift 技术在国内的推广做了很大的贡献。</p>
+</blockquote>
+<ul>
+<li><a href="https://onevcat.com/#blog" target="_blank" rel="noopener">OneV’s Den</a></li>
+</ul>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/04/06/blog/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-tags" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/06/小程序/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -759,7 +888,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/22/blog/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/09/CocoaPods/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Unruly">
@@ -778,7 +907,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/10/22/blog/" itemprop="url">iOS博客推荐</a></h1>
+                <a class="post-title-link" href="/2017/08/09/CocoaPods/" itemprop="url">CocoaPods</a></h1>
         
 
         <div class="post-meta">
@@ -790,8 +919,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-22T00:00:00+08:00">
-                2017-10-22
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-09T00:00:00+08:00">
+                2017-08-09
               </time>
             
 
@@ -829,19 +958,52 @@
 
       
         
-          <blockquote>
-<p><strong>喵神</strong> 对 Swift 技术在国内的推广做了很大的贡献。</p>
-</blockquote>
-<ul>
-<li><a href="https://onevcat.com/#blog" target="_blank" rel="noopener">OneV’s Den</a></li>
+          
+            <h2 id="CocoaPods-使用"><a href="#CocoaPods-使用" class="headerlink" title="CocoaPods 使用"></a>CocoaPods 使用</h2><h3 id="项目支持pod"><a href="#项目支持pod" class="headerlink" title="项目支持pod"></a>项目支持pod</h3><ul>
+<li>cd 项目目录</li>
+<li>建立配置文件 vim Podfile</li>
 </ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/10/22/blog/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+<ul>
+<li><code>-</code> 编辑 Podfile<ul>
+<li>platform :ios, ‘8.0’</li>
+<li>target “TextDemo” do</li>
+<li>pod ‘AFNetworking’</li>
+<li>end</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>pod install</li>
+</ul>
+<h3 id="修改pod-版本"><a href="#修改pod-版本" class="headerlink" title="修改pod 版本"></a>修改pod 版本</h3><ul>
+<li>pod –version</li>
+<li>gem list</li>
+<li>安装版本 sudo gem install cocoapods -v 1.0.0</li>
+<li>移除版本 sudo gem uninstall cocoapods -v 0.36.0</li>
+</ul>
+<h2 id="CocoaPods建立自己的Podspec"><a href="#CocoaPods建立自己的Podspec" class="headerlink" title="CocoaPods建立自己的Podspec"></a>CocoaPods建立自己的Podspec</h2><ul>
+<li>创建podspec文件 pod spec create TextDemo</li>
+<li>编辑podspec文件</li>
+<li><code>-</code> 验证podspec<ul>
+<li>pod spec lint 本地校验</li>
+<li>pod lib lint 远程本地检验</li>
+</ul>
+</li>
+<li><code>-</code> podspec验证失败错误排查<ul>
+<li>^ 文件语法错误</li>
+<li>–verbose 查看详细错误</li>
+<li>.a静态库错误 解决：可以使用 –use-libraries 通过</li>
+<li>-allow-warnings 允许警告</li>
+<li>用了Swift库的同学都知道必须加上use_frameworks! 这个标记是说Pod管理的依赖全部编译为动态库，然后呢我们的很多组件又依赖了诸如百度地图，微信分享等静态库 会报 上面静态库的错误 解决：把静态库放到你自己的 pod 内，自己 vendor 这个静态 framework <a href="http://www.cocoachina.com/ios/20170427/19136.html" target="_blank" rel="noopener">参考文章</a></li>
+<li>Don’t forget to anonymize any private data! 解决：重新安装cocoapods  gem install cocoapods</li>
+</ul>
+</li>
+<li>使用 Trunk 发布 pod trunk register 邮箱 “名字”</li>
+<li>pod trunk push .podspec (–use-libraries –allow-warnings)</li>
+<li>版本升级 </li>
+</ul>
+
+          
         
       
     </div>
@@ -1014,6 +1176,131 @@
   
   
 
+  <article class="post post-type-tags" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/16/block/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Unruly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/blogImg/mine.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Unruly的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/11/16/block/" itemprop="url">Block 详解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-16T00:00:00+08:00">
+                2016-11-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>iOS SDK 4.0开始，Apple引入了<strong>block</strong>这一特性，它是带有自动变量的匿名函数。先来看看block的经典用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[UIView animateWithDuration:0.3 animations:^&#123;</span><br><span class="line">  	//code</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2016/11/16/block/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
@@ -1089,14 +1376,10 @@
 
       
         
-          <h2 id="Hello-I-am-Ming-Yan-welcome-to-my-personal-blog"><a href="#Hello-I-am-Ming-Yan-welcome-to-my-personal-blog" class="headerlink" title="Hello, I am Ming Yan, welcome to my personal blog."></a>Hello, I am Ming Yan, welcome to my personal blog.</h2><p>一个农民，通过自身努力终于分到了一块地，不再需要在地主的土地上创造流量价值时，于是翻身作主的他可以宣告说：Hello World。当然这个农民确切来说是个码农。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2016/03/15/hello-world/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
+            <h2 id="Hello-I-am-Ming-Yan-welcome-to-my-personal-blog"><a href="#Hello-I-am-Ming-Yan-welcome-to-my-personal-blog" class="headerlink" title="Hello, I am Ming Yan, welcome to my personal blog."></a>Hello, I am Ming Yan, welcome to my personal blog.</h2><p>一个农民，通过自身努力终于分到了一块地，不再需要在地主的土地上创造流量价值时，于是翻身作主的他可以宣告说：Hello World。当然这个农民确切来说是个码农。</p>
+
+          
         
       
     </div>
@@ -1180,7 +1463,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1193,7 +1476,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -1226,7 +1509,7 @@
 
           
           
-            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
               <div class="links-of-blogroll-title">
                 <i class="fa  fa-fw fa-link"></i>
                 Links

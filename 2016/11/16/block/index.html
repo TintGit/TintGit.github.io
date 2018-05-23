@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="block,闭包,Swift,closure," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="概述iOS SDK 4.0开始，Apple引入了block这一特性，它是带有自动变量的匿名函数。先来看看block的经典用法： 123[UIView animateWithDuration:0.3 animations:^&amp;#123;  	//code&amp;#125;];">
+<meta name="keywords" content="block,闭包,Swift,closure">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Block 详解">
+<meta property="og:url" content="http://yoursite.com/2016/11/16/block/index.html">
+<meta property="og:site_name" content="Unruly的博客">
+<meta property="og:description" content="概述iOS SDK 4.0开始，Apple引入了block这一特性，它是带有自动变量的匿名函数。先来看看block的经典用法： 123[UIView animateWithDuration:0.3 animations:^&amp;#123;  	//code&amp;#125;];">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-05-17T06:46:05.975Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Block 详解">
+<meta name="twitter:description" content="概述iOS SDK 4.0开始，Apple引入了block这一特性，它是带有自动变量的匿名函数。先来看看block的经典用法： 123[UIView animateWithDuration:0.3 animations:^&amp;#123;  	//code&amp;#125;];">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/11/16/block/"/>
+
+
+
+
+
+  <title>Block 详解 | Unruly的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Unruly的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">心存善念，必有善行；善念善行，天必佑之。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-tags" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/16/block/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Unruly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/blogImg/mine.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Unruly的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Block 详解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-16T00:00:00+08:00">
+                2016-11-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>iOS SDK 4.0开始，Apple引入了<strong>block</strong>这一特性，它是带有自动变量的匿名函数。先来看看block的经典用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[UIView animateWithDuration:0.3 animations:^&#123;</span><br><span class="line">  	//code</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="定义block变量"><a href="#定义block变量" class="headerlink" title="定义block变量"></a>定义block变量</h3><p>关于block的语法，请使劲戳这里-&gt; <a href="http://fuckingblocksyntax.com/" target="_blank" rel="noopener">语法</a></p>
+<p>返回值类型 (^变量名)(参数类型 …) = ^ 返回值类型 (参数类型 入参名 …) {return 返回值}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// even or uneven</span><br><span class="line">    BOOL (^isInputEven)(int) = ^(int input) &#123;</span><br><span class="line">        if (input % 2 == 0) &#123;</span><br><span class="line">            return YES;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            return NO;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    NSLog(@&quot;%d %@ number&quot;, x, isInputEven(3) ? @&quot;is an even&quot; : @&quot;is not an even&quot;);</span><br></pre></td></tr></table></figure>
+<p><code>返回值-&gt;BOOL</code> <code>名称-&gt; isInputEven</code> <code>参数-&gt; int</code> <code>入参-&gt; input</code></p>
+<h3 id="全局变量"><a href="#全局变量" class="headerlink" title="全局变量"></a>全局变量</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">    @property (nonatomic,assign) int count;</span><br><span class="line">    ...</span><br><span class="line">    self.count = 10;</span><br><span class="line">    //防止循环引用</span><br><span class="line">    __weak typeof(self) weakSelf = self;</span><br><span class="line">    void (^result)(void) = ^() &#123;</span><br><span class="line">        NSLog(@&quot;block内部全局变量count：%d&quot;,weakSelf.count);</span><br><span class="line">    &#125;;</span><br><span class="line">    result();</span><br><span class="line">    self.count = 20;</span><br><span class="line">    NSLog(@&quot;block外部全局变量count：%d&quot;,self.count);</span><br></pre></td></tr></table></figure>
+<h3 id="局部变量"><a href="#局部变量" class="headerlink" title="局部变量"></a>局部变量</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> x = <span class="number">25</span>;</span><br><span class="line">    <span class="keyword">void</span> (^block)(<span class="keyword">void</span>) = ^() &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"x = %d\n"</span>, x);</span><br><span class="line">    &#125;;</span><br><span class="line">    block();</span><br><span class="line">    x = <span class="number">1</span>;</span><br><span class="line">    block();</span><br><span class="line">    编译运行后得到的输出同样是两个<span class="number">25</span>。</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//将局部变量声明为__block，表示外部变化将会在block内进行同样操作</span></span><br><span class="line">    __block <span class="keyword">int</span> y = <span class="number">50</span>;</span><br><span class="line">    <span class="keyword">void</span> (^blockB)(<span class="keyword">void</span>) = ^() &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"y = %d\n"</span>, y);</span><br><span class="line">    &#125;;</span><br><span class="line">    blockB();</span><br><span class="line">    y = <span class="number">2</span>;</span><br><span class="line">    blockB();</span><br><span class="line">    编译运行后得到的输出<span class="number">50</span> <span class="number">2</span></span><br></pre></td></tr></table></figure>
+<h3 id="typedef-block"><a href="#typedef-block" class="headerlink" title="typedef block"></a>typedef block</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">typedef int (^blockName)(int param);</span><br><span class="line">    </span><br><span class="line">    @property (nonatomic,copy) blockName block;</span><br><span class="line">    block = ^(int param) &#123;</span><br><span class="line">        return param * param;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Swift-逃逸闭包-escaping"><a href="#Swift-逃逸闭包-escaping" class="headerlink" title="Swift 逃逸闭包(@escaping)"></a>Swift 逃逸闭包(@escaping)</h3><p>逃逸闭包:当函数执行结束后,才去调用函数内部的闭包,叫做逃逸闭包@escaping</p>
+<p>非逃逸闭包:当函数执行过程中,执行的函数内部的闭包,叫做非逃逸闭包 @noescape</p>
+<p>从 Swift 3开始, non-escaping 闭包闭包默认声明为 non-escaping , 如果你想让参数闭包逃逸的话, 你需要加上一个 @escaping 去修饰类型. 上代码:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> <span class="built_in">count</span> = <span class="number">100</span></span><br><span class="line">   <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">       <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line">       closureEscaping &#123;[<span class="keyword">weak</span> <span class="keyword">self</span>] <span class="keyword">in</span></span><br><span class="line">           <span class="keyword">guard</span> <span class="keyword">let</span> `<span class="keyword">self</span>` = <span class="keyword">self</span> <span class="keyword">else</span> &#123;<span class="keyword">return</span>&#125;</span><br><span class="line">           <span class="built_in">print</span>(<span class="keyword">self</span>.<span class="built_in">count</span>)<span class="comment">// 输出200</span></span><br><span class="line">       &#125;</span><br><span class="line">       closureNoescaping &#123;[<span class="keyword">weak</span> <span class="keyword">self</span>] <span class="keyword">in</span></span><br><span class="line">           <span class="keyword">guard</span> <span class="keyword">let</span> `<span class="keyword">self</span>` = <span class="keyword">self</span> <span class="keyword">else</span> &#123;<span class="keyword">return</span>&#125;</span><br><span class="line">           <span class="built_in">print</span>(<span class="keyword">self</span>.<span class="built_in">count</span>) <span class="comment">//输出300</span></span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="function"><span class="keyword">func</span> <span class="title">closureEscaping</span><span class="params">(<span class="number">_</span> completion: @escaping <span class="params">()</span></span></span> -&gt; <span class="type">Swift</span>.<span class="type">Void</span>)&#123;</span><br><span class="line">       <span class="type">DispatchQueue</span>.main.async &#123;</span><br><span class="line">           completion()</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">self</span>.<span class="built_in">count</span> = <span class="number">200</span></span><br><span class="line">   &#125;</span><br><span class="line">   <span class="function"><span class="keyword">func</span> <span class="title">closureNoescaping</span><span class="params">(<span class="number">_</span> completion: <span class="params">()</span></span></span> -&gt; <span class="type">Swift</span>.<span class="type">Void</span>)&#123;</span><br><span class="line">       completion()</span><br><span class="line">       <span class="keyword">self</span>.<span class="built_in">count</span> = <span class="number">300</span></span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="block-内存"><a href="#block-内存" class="headerlink" title="block 内存"></a>block 内存</h3><p><strong>_NSConcreteGlobalBlock 静态区（全局区）block:</strong>这是一种特殊的bloclk，因为不引用外部变量或引用全局变量、静态变量而存在。另外，作为静态区的对象，它的释放是有操作系统控制的。</p>
+<p><strong>_NSConcreteStackBlock 栈区block:</strong>位于内存的栈区，一般作为函数的参数出现。 </p>
+<p><strong>_NSConcreteMallocBlock 堆区block:</strong>位于内存的堆区，一般作为对象的property出现。</p>
+<p>如果一个blcok引用了外部变量是栈block，则其不引用外部变量就成为了静态blcok。<br>如果一个block引用了外部变量是堆block，则其不引用外部变量就成为了静态block。<br>深入 请看霜神: <a href="https://www.jianshu.com/p/ee9756f3d5f6" target="_blank" rel="noopener">深入研究Block捕获外部变量和__block实现原理</a> 和 <a href="https://www.jianshu.com/p/701da54bd78c" target="_blank" rel="noopener">深入研究Block用weakSelf、strongSelf、@weakify、@strongify解决循环引用</a></p>
+<h3 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h3><ul>
+<li>block的实质是什么？一共有几种block？都是什么情况下生成的？</li>
+<li>为什么在默认情况下无法修改被block捕获的变量？ __block都做了什么？</li>
+</ul>
+<ul>
+<li><code>-</code> <ul>
+<li>自动变量是以值传递方式传递到Block的构造函数里面去的。Block只捕获Block中会用到的变量。由于只捕获了自动变量的值，并非内存地址，所以Block内部不能改变自动变量的值</li>
+<li>一是传递内存地址指针到Block中(例:NSMutableString拼接)，二是改变存储区方式(__block)。</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>模拟一下循环引用的一个情况？block实现界面反向传值如何实现？</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/block/" rel="tag"># block</a>
+          
+            <a href="/tags/闭包/" rel="tag"># 闭包</a>
+          
+            <a href="/tags/Swift/" rel="tag"># Swift</a>
+          
+            <a href="/tags/closure/" rel="tag"># closure</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/03/15/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/16/组件化/" rel="prev" title="关于组件化">
+                关于组件化 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/assets/blogImg/mine.jpg"
+                alt="Unruly" />
+            
+              <p class="site-author-name" itemprop="name">Unruly</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/TintGit" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/u/5027328866" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>微博</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.kalman03.com" title="kalman" target="_blank">kalman</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义block变量"><span class="nav-number">2.</span> <span class="nav-text">定义block变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#全局变量"><span class="nav-number">3.</span> <span class="nav-text">全局变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#局部变量"><span class="nav-number">4.</span> <span class="nav-text">局部变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#typedef-block"><span class="nav-number">5.</span> <span class="nav-text">typedef block</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Swift-逃逸闭包-escaping"><span class="nav-number">6.</span> <span class="nav-text">Swift 逃逸闭包(@escaping)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#block-内存"><span class="nav-number">7.</span> <span class="nav-text">block 内存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#笔记"><span class="nav-number">8.</span> <span class="nav-text">笔记</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Unruly</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
