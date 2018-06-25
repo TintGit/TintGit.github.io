@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Unruly的博客">
 <meta property="og:description" content="CocoaPods 使用项目支持pod cd 项目目录 建立配置文件 vim Podfile   - 编辑 Podfile platform :ios, ‘8.0’ target “TextDemo” do pod ‘AFNetworking’ end     pod install  修改pod 版本 pod –version gem list 安装版本 sudo gem install coc">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-01T02:57:49.180Z">
+<meta property="og:updated_time" content="2018-06-25T08:32:15.242Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CocoaPods">
 <meta name="twitter:description" content="CocoaPods 使用项目支持pod cd 项目目录 建立配置文件 vim Podfile   - 编辑 Podfile platform :ios, ‘8.0’ target “TextDemo” do pod ‘AFNetworking’ end     pod install  修改pod 版本 pod –version gem list 安装版本 sudo gem install coc">
@@ -367,10 +367,12 @@
 <li>-allow-warnings 允许警告</li>
 <li>用了Swift库的同学都知道必须加上use_frameworks! 这个标记是说Pod管理的依赖全部编译为动态库，然后呢我们的很多组件又依赖了诸如百度地图，微信分享等静态库 会报 上面静态库的错误 解决：把静态库放到你自己的 pod 内，自己 vendor 这个静态 framework <a href="http://www.cocoachina.com/ios/20170427/19136.html" target="_blank" rel="noopener">参考文章</a></li>
 <li>Don’t forget to anonymize any private data! 解决：重新安装cocoapods  gem install cocoapods</li>
+<li>include of non-modular header inside framework module解决: pod lib lint –verbose –allow-warnings –use-libraries</li>
+<li>静态framework问题:将framework 打包成.a <a href="https://blog.csdn.net/wiseuc_jianghai/article/details/79170098" target="_blank" rel="noopener">参考</a></li>
 </ul>
 </li>
 <li>使用 Trunk 发布 pod trunk register 邮箱 “名字”</li>
-<li>pod trunk push .podspec (–use-libraries –allow-warnings)</li>
+<li>pod trunk push –allow-warnings –use-libraries</li>
 <li>版本升级 </li>
 </ul>
 <p>优秀文章: <a href="https://juejin.im/post/5b0f98b75188251576540041" target="_blank" rel="noopener">玩转iOS开发《创建CocoaPods开发库》</a>   </p>
@@ -499,7 +501,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -510,7 +512,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">1</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -521,7 +523,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

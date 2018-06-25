@@ -260,6 +260,163 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/25/创建私有SepcRepo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Unruly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/blogImg/mine.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Unruly的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/25/创建私有SepcRepo/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-25T16:26:14+08:00">
+                2018-06-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="创建私有-Sepc-Repo"><a href="#创建私有-Sepc-Repo" class="headerlink" title="创建私有 Sepc Repo"></a>创建私有 Sepc Repo</h3><p>CocoaPods对于一名iOS开发来说再熟悉不过了，它的工作原理就是在GitHub上面有个<strong>Spec Repo</strong>，它里面包括成千上万的<strong>podspec</strong>文件索引目录。然后我们在项目集成的时候可以通过它去找到我们需要的开源代码。其实CocoaPods的<strong>Spec Repo</strong>就是一个中介。</p>
+<ul>
+<li>The Specs Repo is the repository on GitHub that contains the list of all available pods. Every library has an individual folder, which contains sub folders of the available versions of that pod.</li>
+</ul>
+<p>创建私有 <strong>Spec Repo</strong>，然后把我们公共组件的<strong>podspec</strong>文件放在里面，然后集成的时候让CocoaPods帮我们集成那我们就能达到目的</p>
+<p>私有 Spec 仓库需要在 git 托管平台托管，现有的免费私有仓库有 Coding、CSDN 以及自己搭建 Gitlab，本文选用 Gitlab 托管平台演示如何进行组件化开发。</p>
+<h4 id="进入-cocoapods-repos-查看已经存在的spec-repo"><a href="#进入-cocoapods-repos-查看已经存在的spec-repo" class="headerlink" title="进入 ./cocoapods/repos 查看已经存在的spec repo"></a>进入 ./cocoapods/repos 查看已经存在的spec repo</h4><ul>
+<li>cd ./cocoapods/repos</li>
+<li>ls -l</li>
+</ul>
+<h4 id="在私有git服务器上创建自己的sepc-repo"><a href="#在私有git服务器上创建自己的sepc-repo" class="headerlink" title="在私有git服务器上创建自己的sepc repo"></a>在私有git服务器上创建自己的sepc repo</h4><ul>
+<li>创建项目 获取访问地址 <a href="https://git.xxx.cn/TestSpecs.git" target="_blank" rel="noopener">https://git.xxx.cn/TestSpecs.git</a></li>
+<li>终端执行 pod repo add [本地名字] <a href="https://git.xxx.cn/TestSpecs.git" target="_blank" rel="noopener">https://git.xxx.cn/TestSpecs.git</a></li>
+<li>ls -l 或者 pod repo list 查看</li>
+</ul>
+<h3 id="创建Pods仓库"><a href="#创建Pods仓库" class="headerlink" title="创建Pods仓库"></a>创建Pods仓库</h3><p>详见 <a href="https://tintgit.github.io/2017/08/09/CocoaPods/" target="_blank" rel="noopener">CocoaPods建立自己的Podspec</a></p>
+<p>验证通过后 提交podspec 到私有spec repo</p>
+<ul>
+<li>pod repo push [本地名字] xx.podspec<br>成功后 在目录 ./cocoapods/repos 查看</li>
+</ul>
+<h3 id="集成测试"><a href="#集成测试" class="headerlink" title="集成测试"></a>集成测试</h3><ul>
+<li>pod search xx</li>
+<li>创建项目测试 </li>
+</ul>
+<ul>
+<li><code>-</code> pod install 如果[!] Unable to find a specification for <code>xx</code> 因为默认是去公有的索引库查找<ul>
+<li><strong>解决：</strong> 增加两个source  # 表示先去找私有，再找公有</li>
+<li>source ‘<a href="https://git.xxx.cn/TestSpecs.git&#39;" target="_blank" rel="noopener">https://git.xxx.cn/TestSpecs.git&#39;</a></li>
+<li>source ‘<a href="https://github.com/CocoaPods/Specs.git&#39;" target="_blank" rel="noopener">https://github.com/CocoaPods/Specs.git&#39;</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><ul>
+<li>git status</li>
+<li>更新 repo: pod repo update <code>REPO_NAME</code></li>
+<li>git clean -f</li>
+</ul>
+<h3 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h3><p>官方文档: <a href="http://guides.cocoapods.org/making/private-cocoapods.html" target="_blank" rel="noopener">Private Pods</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/11/Tips/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1412,146 +1569,17 @@
 <li>-allow-warnings 允许警告</li>
 <li>用了Swift库的同学都知道必须加上use_frameworks! 这个标记是说Pod管理的依赖全部编译为动态库，然后呢我们的很多组件又依赖了诸如百度地图，微信分享等静态库 会报 上面静态库的错误 解决：把静态库放到你自己的 pod 内，自己 vendor 这个静态 framework <a href="http://www.cocoachina.com/ios/20170427/19136.html" target="_blank" rel="noopener">参考文章</a></li>
 <li>Don’t forget to anonymize any private data! 解决：重新安装cocoapods  gem install cocoapods</li>
+<li>include of non-modular header inside framework module解决: pod lib lint –verbose –allow-warnings –use-libraries</li>
+<li>静态framework问题:将framework 打包成.a <a href="https://blog.csdn.net/wiseuc_jianghai/article/details/79170098" target="_blank" rel="noopener">参考</a></li>
 </ul>
 </li>
 <li>使用 Trunk 发布 pod trunk register 邮箱 “名字”</li>
-<li>pod trunk push .podspec (–use-libraries –allow-warnings)</li>
+<li>pod trunk push –allow-warnings –use-libraries</li>
 <li>版本升级 </li>
 </ul>
 <p>优秀文章: <a href="https://juejin.im/post/5b0f98b75188251576540041" target="_blank" rel="noopener">玩转iOS开发《创建CocoaPods开发库》</a>   </p>
 
           
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-tags" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/16/组件化/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Unruly">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/assets/blogImg/mine.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Unruly的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/16/组件化/" itemprop="url">关于组件化</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-16T00:00:00+08:00">
-                2017-06-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>主要方案:</p>
-<ul>
-<li>URL注册方案</li>
-<li>Target-Action runtime调用方案</li>
-<li>Protocol注册方案</li>
-</ul>
-</blockquote>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/06/16/组件化/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
         
       
     </div>
@@ -1639,7 +1667,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1650,7 +1678,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">1</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1661,7 +1689,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
