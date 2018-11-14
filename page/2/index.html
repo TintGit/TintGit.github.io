@@ -679,148 +679,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/23/组件化实践/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Unruly">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/assets/blogImg/mine.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Unruly的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/23/组件化实践/" itemprop="url">组件化实践</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-23T16:40:25+08:00">
-                2018-05-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>组件化大体思路<br><img src="https://upload-images.jianshu.io/upload_images/1064540-f949b35414955594.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/665" alt="持续集成"></p>
-<p>框架说明:</p>
-<ul>
-<li>持续集成: 主工程(壳工程),包含所有内容，用于发布打包等</li>
-<li>基础组件: 不依赖其他任何组件，独立完成功能。主要有：与业务无法的功能（如string或data的加密，category的封装）对第三方库的封装（如AFNetworking，SDWebImage的封装）</li>
-<li>业务公用组件: 依赖基础组件或UIKit等系统组件，创建业务共同使用的功能（如分享，支付，网络访问）</li>
-<li>中间组件: 连接业务公用组件和业务组件，及业务组件之间的互相调用。（如Mediator的组件）</li>
-<li>业务组件：单独的业务功能，不依赖其他业务组件。</li>
-</ul>
-<p>##基础组件：<br>没有业务场景 不允许依赖业务组件</p>
-<p>###公共基础<br>多项目可用</p>
-<p>###非公共基础<br>ProjectA依赖，但是ProjectB不依赖</p>
-<h2 id="桥接层"><a href="#桥接层" class="headerlink" title="桥接层"></a>桥接层</h2><ul>
-<li>桥接层的主要作用是为上层业务层和下层基础框架层做桥接，主要考虑底层业务层的开放接口变动频繁以及不适配上层业务。</li>
-<li>想要达到每个组件之间相对低耦合，比较常用的方案就是断掉<strong>横向依赖</strong>，使用中间人模式将依赖下沉至<strong>中间件</strong>，而且组件对中间件是<strong>单向依赖</strong></li>
-</ul>
-<p>##业务组件<br>业务之间不允许相互依赖</p>
-<p>隐性依赖库 -&gt; Podfile.lock</p>
-<p>##过程</p>
-<p>开源组件-&gt;基础组件-&gt;平台中间件-&gt;业务组件-&gt;壳工程</p>
-<p>副作用：因为多库开发在发布与集成时 很多依赖冲突lock文件冲突</p>
-<p>自动发版与自动集成</p>
-<p>壳工程分离</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/23/noun/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1049,6 +907,148 @@
           
             <p>如何避免把 Model View Controller 写成 Massive View Controller 已经是老生常谈的问题了</p>
 <p><img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1526556597900&amp;di=986c24c58fc7f939f2baba1aec18f02c&amp;imgtype=jpg&amp;src=http%3A%2F%2Fimg4.imgtn.bdimg.com%2Fit%2Fu%3D3732253054%2C1631968037%26fm%3D214%26gp%3D0.jpg" alt="斯坦福大学-CS193p Paul"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/23/组件化实践/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Unruly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/blogImg/mine.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Unruly的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/23/组件化实践/" itemprop="url">组件化实践</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-23T16:40:25+08:00">
+                2018-05-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>组件化大体思路<br><img src="https://upload-images.jianshu.io/upload_images/1064540-f949b35414955594.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/665" alt="持续集成"></p>
+<p>框架说明:</p>
+<ul>
+<li>持续集成: 主工程(壳工程),包含所有内容，用于发布打包等</li>
+<li>基础组件: 不依赖其他任何组件，独立完成功能。主要有：与业务无法的功能（如string或data的加密，category的封装）对第三方库的封装（如AFNetworking，SDWebImage的封装）</li>
+<li>业务公用组件: 依赖基础组件或UIKit等系统组件，创建业务共同使用的功能（如分享，支付，网络访问）</li>
+<li>中间组件: 连接业务公用组件和业务组件，及业务组件之间的互相调用。（如Mediator的组件）</li>
+<li>业务组件：单独的业务功能，不依赖其他业务组件。</li>
+</ul>
+<p>##基础组件：<br>没有业务场景 不允许依赖业务组件</p>
+<p>###公共基础<br>多项目可用</p>
+<p>###非公共基础<br>ProjectA依赖，但是ProjectB不依赖</p>
+<h2 id="桥接层"><a href="#桥接层" class="headerlink" title="桥接层"></a>桥接层</h2><ul>
+<li>桥接层的主要作用是为上层业务层和下层基础框架层做桥接，主要考虑底层业务层的开放接口变动频繁以及不适配上层业务。</li>
+<li>想要达到每个组件之间相对低耦合，比较常用的方案就是断掉<strong>横向依赖</strong>，使用中间人模式将依赖下沉至<strong>中间件</strong>，而且组件对中间件是<strong>单向依赖</strong></li>
+</ul>
+<p>##业务组件<br>业务之间不允许相互依赖</p>
+<p>隐性依赖库 -&gt; Podfile.lock</p>
+<p>##过程</p>
+<p>开源组件-&gt;基础组件-&gt;平台中间件-&gt;业务组件-&gt;壳工程</p>
+<p>副作用：因为多库开发在发布与集成时 很多依赖冲突lock文件冲突</p>
+<p>自动发版与自动集成</p>
+<p>壳工程分离</p>
 
           
         
@@ -1669,7 +1669,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-count">52</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

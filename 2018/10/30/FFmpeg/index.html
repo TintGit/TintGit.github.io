@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="采用FFmpeg从视频中提取音频(声音)保存为mp3文件###下载mp3的编码库因为FFmpeg默认只支持mp3的解码，不支持mp3编码.需要借助第三方的mp3编码库。这里采用lame编码库 下载地址 1234cd lame-3.100./configuremakemake install ###下载FFmpeg ####下载 1git clone https://git.ffmpeg.org/f">
+<meta name="description" content="采用FFmpeg从视频中提取音频(声音)保存为mp3文件下载mp3的编码库因为FFmpeg默认只支持mp3的解码，不支持mp3编码.需要借助第三方的mp3编码库。这里采用lame编码库 下载地址 1234cd lame-3.100./configuremakemake install 下载FFmpeg下载1git clone https://git.ffmpeg.org/ffmpeg.git ff">
 <meta name="keywords" content="音视频,FFmpeg">
 <meta property="og:type" content="article">
 <meta property="og:title" content="FFmpeg">
 <meta property="og:url" content="http://yoursite.com/2018/10/30/FFmpeg/index.html">
 <meta property="og:site_name" content="Unruly的博客">
-<meta property="og:description" content="采用FFmpeg从视频中提取音频(声音)保存为mp3文件###下载mp3的编码库因为FFmpeg默认只支持mp3的解码，不支持mp3编码.需要借助第三方的mp3编码库。这里采用lame编码库 下载地址 1234cd lame-3.100./configuremakemake install ###下载FFmpeg ####下载 1git clone https://git.ffmpeg.org/f">
+<meta property="og:description" content="采用FFmpeg从视频中提取音频(声音)保存为mp3文件下载mp3的编码库因为FFmpeg默认只支持mp3的解码，不支持mp3编码.需要借助第三方的mp3编码库。这里采用lame编码库 下载地址 1234cd lame-3.100./configuremakemake install 下载FFmpeg下载1git clone https://git.ffmpeg.org/ffmpeg.git ff">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-14T07:36:23.769Z">
+<meta property="og:updated_time" content="2018-11-14T07:44:10.385Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="FFmpeg">
-<meta name="twitter:description" content="采用FFmpeg从视频中提取音频(声音)保存为mp3文件###下载mp3的编码库因为FFmpeg默认只支持mp3的解码，不支持mp3编码.需要借助第三方的mp3编码库。这里采用lame编码库 下载地址 1234cd lame-3.100./configuremakemake install ###下载FFmpeg ####下载 1git clone https://git.ffmpeg.org/f">
+<meta name="twitter:description" content="采用FFmpeg从视频中提取音频(声音)保存为mp3文件下载mp3的编码库因为FFmpeg默认只支持mp3的解码，不支持mp3编码.需要借助第三方的mp3编码库。这里采用lame编码库 下载地址 1234cd lame-3.100./configuremakemake install 下载FFmpeg下载1git clone https://git.ffmpeg.org/ffmpeg.git ff">
 
 
 
@@ -330,23 +330,22 @@
       
 
       
-        <h2 id="采用FFmpeg从视频中提取音频-声音-保存为mp3文件"><a href="#采用FFmpeg从视频中提取音频-声音-保存为mp3文件" class="headerlink" title="采用FFmpeg从视频中提取音频(声音)保存为mp3文件"></a>采用FFmpeg从视频中提取音频(声音)保存为mp3文件</h2><p>###下载mp3的编码库<br>因为FFmpeg默认只支持mp3的解码，不支持mp3编码.需要借助第三方的mp3编码库。这里采用lame编码库 <a href="https://sourceforge.net/projects/lame/files/lame/" target="_blank" rel="noopener">下载地址</a></p>
+        <h2 id="采用FFmpeg从视频中提取音频-声音-保存为mp3文件"><a href="#采用FFmpeg从视频中提取音频-声音-保存为mp3文件" class="headerlink" title="采用FFmpeg从视频中提取音频(声音)保存为mp3文件"></a>采用FFmpeg从视频中提取音频(声音)保存为mp3文件</h2><h3 id="下载mp3的编码库"><a href="#下载mp3的编码库" class="headerlink" title="下载mp3的编码库"></a>下载mp3的编码库</h3><p>因为FFmpeg默认只支持mp3的解码，不支持mp3编码.需要借助第三方的mp3编码库。这里采用lame编码库 <a href="https://sourceforge.net/projects/lame/files/lame/" target="_blank" rel="noopener">下载地址</a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd lame-3.100</span><br><span class="line">./configure</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
-<p>###下载FFmpeg</p>
-<p>####下载</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://git.ffmpeg.org/ffmpeg.git ffmpeg</span><br></pre></td></tr></table></figure>
+<h3 id="下载FFmpeg"><a href="#下载FFmpeg" class="headerlink" title="下载FFmpeg"></a>下载FFmpeg</h3><h4 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://git.ffmpeg.org/ffmpeg.git ffmpeg</span><br></pre></td></tr></table></figure>
 <p>brew</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install ffmpeg</span><br></pre></td></tr></table></figure>
-<p>####编译<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./configure --enable-libmp3lame </span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure></p>
-<p>###提取音频<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i apple.mp4 -f mp3 -vn apple.mp3</span><br></pre></td></tr></table></figure></p>
+<h4 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./configure --enable-libmp3lame </span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+<h3 id="提取音频"><a href="#提取音频" class="headerlink" title="提取音频"></a>提取音频</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i apple.mp4 -f mp3 -vn apple.mp3</span><br></pre></td></tr></table></figure>
 <p>mp4 -&gt; wav</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i .xx.mp4 -f wav -ar 16000 xx.wav</span><br></pre></td></tr></table></figure>
 <p>wav -&gt; mp3</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmepg -i input.wav -f mp3 -acodec libmp3lame -y output.mp3</span><br></pre></td></tr></table></figure>
-<p>###扩展信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i apple.mp4</span><br><span class="line">ffmpeg -i apple.mp3</span><br></pre></td></tr></table></figure></p>
+<h3 id="扩展信息"><a href="#扩展信息" class="headerlink" title="扩展信息"></a>扩展信息</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i apple.mp4</span><br><span class="line">ffmpeg -i apple.mp3</span><br></pre></td></tr></table></figure>
 <h4 id="常用参数说明："><a href="#常用参数说明：" class="headerlink" title="常用参数说明："></a>常用参数说明：</h4><p>主要参数： -i 设定输入流 -f 设定输出格式 -ss 开始时间 </p>
 <p>视频参数： -b 设定视频流量，默认为200Kbit/s -r 设定帧速率，默认为25 -s 设定画面的宽与高 -aspect 设定画面的比例 -vn 不处理视频 -vcodec 设定视频编解码器，未设定时则使用与输入流相同的编解码器 </p>
 <p>音频参数： -ar 设定采样率 -ac 设定声音的Channel数 -acodec 设定声音编解码器，未设定时则使用与输入流相同的编解码器 -an 不处理音频</p>
+<a id="more"></a>
 <h3 id="混音"><a href="#混音" class="headerlink" title="混音"></a>混音</h3><p>会把2个输入音频流混合成一个输出流，持续时间采用第一个输入流的持续时间并且有2秒的结束过渡<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i apple.mp3 -i 天后.mp3 -filter_complex amix=inputs=2:duration=first:dropout_transition=2 -f mp3 a.mp3</span><br></pre></td></tr></table></figure></p>
 <ul>
 <li><p>inputs: 输入数，如果没有指定则默认为2</p>
@@ -411,8 +410,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/10/18/Tips5/" rel="next" title="iOS 知识小集(5)">
-                <i class="fa fa-chevron-left"></i> iOS 知识小集(5)
+              <a href="/2018/10/30/值得看的文章/" rel="next" title="好文章">
+                <i class="fa fa-chevron-left"></i> 好文章
               </a>
             
           </div>
@@ -526,7 +525,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-count">52</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -589,7 +588,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#采用FFmpeg从视频中提取音频-声音-保存为mp3文件"><span class="nav-number">1.</span> <span class="nav-text">采用FFmpeg从视频中提取音频(声音)保存为mp3文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#常用参数说明："><span class="nav-number">1.0.1.</span> <span class="nav-text">常用参数说明：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#混音"><span class="nav-number">1.1.</span> <span class="nav-text">混音</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图片-音频-视频"><span class="nav-number">1.2.</span> <span class="nav-text">图片 + 音频 = 视频</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#采用FFmpeg从视频中提取音频-声音-保存为mp3文件"><span class="nav-number">1.</span> <span class="nav-text">采用FFmpeg从视频中提取音频(声音)保存为mp3文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载mp3的编码库"><span class="nav-number">1.1.</span> <span class="nav-text">下载mp3的编码库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载FFmpeg"><span class="nav-number">1.2.</span> <span class="nav-text">下载FFmpeg</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#下载"><span class="nav-number">1.2.1.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#编译"><span class="nav-number">1.2.2.</span> <span class="nav-text">编译</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#提取音频"><span class="nav-number">1.3.</span> <span class="nav-text">提取音频</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展信息"><span class="nav-number">1.4.</span> <span class="nav-text">扩展信息</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#常用参数说明："><span class="nav-number">1.4.1.</span> <span class="nav-text">常用参数说明：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#混音"><span class="nav-number">1.5.</span> <span class="nav-text">混音</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图片-音频-视频"><span class="nav-number">1.6.</span> <span class="nav-text">图片 + 音频 = 视频</span></a></li></ol></li></ol></div>
             
 
           </div>

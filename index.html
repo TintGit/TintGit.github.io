@@ -472,55 +472,163 @@
 
       
         
-          
-            <h2 id="采用FFmpeg从视频中提取音频-声音-保存为mp3文件"><a href="#采用FFmpeg从视频中提取音频-声音-保存为mp3文件" class="headerlink" title="采用FFmpeg从视频中提取音频(声音)保存为mp3文件"></a>采用FFmpeg从视频中提取音频(声音)保存为mp3文件</h2><p>###下载mp3的编码库<br>因为FFmpeg默认只支持mp3的解码，不支持mp3编码.需要借助第三方的mp3编码库。这里采用lame编码库 <a href="https://sourceforge.net/projects/lame/files/lame/" target="_blank" rel="noopener">下载地址</a></p>
+          <h2 id="采用FFmpeg从视频中提取音频-声音-保存为mp3文件"><a href="#采用FFmpeg从视频中提取音频-声音-保存为mp3文件" class="headerlink" title="采用FFmpeg从视频中提取音频(声音)保存为mp3文件"></a>采用FFmpeg从视频中提取音频(声音)保存为mp3文件</h2><h3 id="下载mp3的编码库"><a href="#下载mp3的编码库" class="headerlink" title="下载mp3的编码库"></a>下载mp3的编码库</h3><p>因为FFmpeg默认只支持mp3的解码，不支持mp3编码.需要借助第三方的mp3编码库。这里采用lame编码库 <a href="https://sourceforge.net/projects/lame/files/lame/" target="_blank" rel="noopener">下载地址</a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd lame-3.100</span><br><span class="line">./configure</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
-<p>###下载FFmpeg</p>
-<p>####下载</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://git.ffmpeg.org/ffmpeg.git ffmpeg</span><br></pre></td></tr></table></figure>
+<h3 id="下载FFmpeg"><a href="#下载FFmpeg" class="headerlink" title="下载FFmpeg"></a>下载FFmpeg</h3><h4 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://git.ffmpeg.org/ffmpeg.git ffmpeg</span><br></pre></td></tr></table></figure>
 <p>brew</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install ffmpeg</span><br></pre></td></tr></table></figure>
-<p>####编译<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./configure --enable-libmp3lame </span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure></p>
-<p>###提取音频<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i apple.mp4 -f mp3 -vn apple.mp3</span><br></pre></td></tr></table></figure></p>
+<h4 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./configure --enable-libmp3lame </span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+<h3 id="提取音频"><a href="#提取音频" class="headerlink" title="提取音频"></a>提取音频</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i apple.mp4 -f mp3 -vn apple.mp3</span><br></pre></td></tr></table></figure>
 <p>mp4 -&gt; wav</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i .xx.mp4 -f wav -ar 16000 xx.wav</span><br></pre></td></tr></table></figure>
 <p>wav -&gt; mp3</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmepg -i input.wav -f mp3 -acodec libmp3lame -y output.mp3</span><br></pre></td></tr></table></figure>
-<p>###扩展信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i apple.mp4</span><br><span class="line">ffmpeg -i apple.mp3</span><br></pre></td></tr></table></figure></p>
+<h3 id="扩展信息"><a href="#扩展信息" class="headerlink" title="扩展信息"></a>扩展信息</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i apple.mp4</span><br><span class="line">ffmpeg -i apple.mp3</span><br></pre></td></tr></table></figure>
 <h4 id="常用参数说明："><a href="#常用参数说明：" class="headerlink" title="常用参数说明："></a>常用参数说明：</h4><p>主要参数： -i 设定输入流 -f 设定输出格式 -ss 开始时间 </p>
 <p>视频参数： -b 设定视频流量，默认为200Kbit/s -r 设定帧速率，默认为25 -s 设定画面的宽与高 -aspect 设定画面的比例 -vn 不处理视频 -vcodec 设定视频编解码器，未设定时则使用与输入流相同的编解码器 </p>
 <p>音频参数： -ar 设定采样率 -ac 设定声音的Channel数 -acodec 设定声音编解码器，未设定时则使用与输入流相同的编解码器 -an 不处理音频</p>
-<h3 id="混音"><a href="#混音" class="headerlink" title="混音"></a>混音</h3><p>会把2个输入音频流混合成一个输出流，持续时间采用第一个输入流的持续时间并且有2秒的结束过渡<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i apple.mp3 -i 天后.mp3 -filter_complex amix=inputs=2:duration=first:dropout_transition=2 -f mp3 a.mp3</span><br></pre></td></tr></table></figure></p>
-<ul>
-<li><p>inputs: 输入数，如果没有指定则默认为2</p>
-</li>
-<li><p>duration: 确定流结束的方法，有：</p>
-<ul>
-<li>longest: 按最长持续时间输入（默认） </li>
-<li>shortest: 按最短持续时间输入 </li>
-<li>first: 按第一个输入持续时间 </li>
-</ul>
-</li>
-<li>dropout_trnsition: 过渡时间，单位秒，指一个输入流结束时音量从正常到无声渐止效果，默认为2秒</li>
-</ul>
-<h3 id="图片-音频-视频"><a href="#图片-音频-视频" class="headerlink" title="图片 + 音频 = 视频"></a>图片 + 音频 = 视频</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -threads2 -y -r 10 -i /tmpdir/image%04d.jpg -i audio.mp3 -absf aac_adtstoasc output.mp4</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p>-threads 2 以两个线程进行运行， 加快处理的速度。</p>
-</li>
-<li><p>-y 对输出文件进行覆盖</p>
-</li>
-<li><p>-r 10 fps 帧率 设置为10帧/秒 可以指定两个帧率，输入帧率，输出帧率；</p>
-<ul>
-<li>输入帧率：-i之前，设定读入帧率，比如 -r 0.5 ,也就是说1秒要播0.5个图片，那么一个图也就是要播2s；</li>
-<li>输出频率：-i之后，真正的输出视频播放帧率，不写话，是默认和输入频率一样。比如设 -r 30 ,对应上面的设定，一个图播2<br>s，那么输出文件播放时，这2s内，都是这张图，但是播放了60帧。</li>
-</ul>
-</li>
-<li><p>-i /tmpdir/image%04d.jpg 输入图片文件，图片文件保存为 image0001.jpg image0002.jpg ….</p>
-</li>
-<li><p>-i audio.mp3 输入的音频文件</p>
-</li>
-<li><p>-absf aac_adtstoasc 将结果的音频格式转为faac格式时需要这个选项。将音频格式转为faac是因为在iphone上某些音频格式的视频无法播放，例如mp3. 但faac格式的音频的视频在iphone上可以播放。-absf 的意思是设置一个bitstream filter进行某些转换。可以用ffmpeg -bsfs 查看所有支持的bitstream filter。 bitstream filter和 aac_adtstoasc的具体含义我也说不上。但是如果不用这个选项又会导致转换失败。！</p>
-</li>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/10/30/FFmpeg/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-tags" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/30/值得看的文章/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Unruly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/blogImg/mine.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Unruly的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/30/值得看的文章/" itemprop="url">好文章</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-30T00:00:00+08:00">
+                2018-10-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="优秀文章"><a href="#优秀文章" class="headerlink" title="优秀文章"></a>优秀文章</h1><p>##工具<br><a href="https://xiaozhuanlan.com/topic/4059136728" target="_blank" rel="noopener">Git 如何遗弃已经 Push 的提交</a></p>
+<p><a href="https://www.jianshu.com/p/c5b6c49d9f06" target="_blank" rel="noopener">iOS调试WebView,简单到无门槛</a></p>
+<p>##底层<br><a href="http://v.youku.com/v_show/id_XODgxODkzODI0.html" target="_blank" rel="noopener">孙源的Runloop视频</a></p>
+<p><a href="https://blog.ibireme.com/2015/05/18/runloop/" target="_blank" rel="noopener">深入理解RunLoop</a></p>
+<p><a href="https://www.jianshu.com/p/f6dad8e1b848?utm_source=desktop&amp;utm_medium=timeline" target="_blank" rel="noopener">Runtime Method Swizzling开发实例汇总（持续更新中</a></p>
+<h2 id="UI"><a href="#UI" class="headerlink" title="UI"></a>UI</h2><p><a href="https://juejin.im/post/5bd2bf936fb9a05cef177644" target="_blank" rel="noopener">iOS系统中导航栏的转场解决方案与最佳实践</a></p>
+<p><a href="https://juejin.im/post/5bdd497de51d4502b064eb42" target="_blank" rel="noopener">iOS 渲染框架</a></p>
+<p><a href="http://www.hangge.com/blog/cache/detail_1597.html" target="_blank" rel="noopener">实现自定义的Slider滑块组件（轨道上带有刻度标记）</a></p>
+<p><a href="https://sq.163yun.com/blog/article/200743376636538880" target="_blank" rel="noopener">揭秘iOS布局</a></p>
+<h2 id="存储"><a href="#存储" class="headerlink" title="存储"></a>存储</h2><p><a href="https://juejin.im/post/5be3e75ce51d4538a4243818" target="_blank" rel="noopener">iOS 文件操作简介</a></p>
+<h2 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h2><p><a href="https://xiaozhuanlan.com/topic/9486532710" target="_blank" rel="noopener">老生常谈的圆角图片优化，结合SDWebImage的解决方案</a></p>
+<p><a href="https://mp.weixin.qq.com/s/J_XYpIfDeeWJBlk9sRQMAA" target="_blank" rel="noopener">iOS 瘦包常见方式梳理</a></p>
+<h2 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h2><p><a href="https://mp.weixin.qq.com/s/KGDD-Qe1TLzIVlDIEzM25g" target="_blank" rel="noopener">支付宝客户端架构解析：iOS 容器化框架初探</a></p>
+<p><a href="https://www.jianshu.com/p/510ee1290ab4?utm_source=desktop&amp;utm_medium=timeline" target="_blank" rel="noopener">手把手实践《iOS组件化》</a></p>
+<h2 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h2><h3 id="录屏"><a href="#录屏" class="headerlink" title="录屏"></a>录屏</h3><ul>
+<li><a href="https://www.jianshu.com/p/b8ce67fb08e1" target="_blank" rel="noopener">iOS端屏幕录制（replaykit）调研</a></li>
+<li><a href="https://www.jianshu.com/p/392777d1995c" target="_blank" rel="noopener">iOS端屏幕录制Replaykit项目实践</a></li>
+<li><a href="https://www.jianshu.com/p/401b5b632d5b" target="_blank" rel="noopener">iOS端使用replaykit录制屏幕的技术细节</a></li>
 </ul>
 
           
@@ -720,7 +828,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/05/值得看的文章/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/30/Tips3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Unruly">
@@ -739,7 +847,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/09/05/值得看的文章/" itemprop="url">未命名</a></h1>
+                <a class="post-title-link" href="/2018/07/30/Tips3/" itemprop="url">iOS 知识小集(3)</a></h1>
         
 
         <div class="post-meta">
@@ -751,8 +859,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-05T18:17:26+08:00">
-                2018-09-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-30T00:00:00+08:00">
+                2018-07-30
               </time>
             
 
@@ -761,6 +869,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/知识小集/" itemprop="url" rel="index">
+                    <span itemprop="name">知识小集</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -791,26 +921,13 @@
       
         
           
-            <p>##工具<br><a href="https://xiaozhuanlan.com/topic/4059136728" target="_blank" rel="noopener">Git 如何遗弃已经 Push 的提交</a></p>
-<p><a href="https://www.jianshu.com/p/c5b6c49d9f06" target="_blank" rel="noopener">iOS调试WebView,简单到无门槛</a></p>
-<p>##底层<br><a href="http://v.youku.com/v_show/id_XODgxODkzODI0.html" target="_blank" rel="noopener">孙源的Runloop视频</a></p>
-<p><a href="https://blog.ibireme.com/2015/05/18/runloop/" target="_blank" rel="noopener">深入理解RunLoop</a></p>
-<p><a href="https://www.jianshu.com/p/f6dad8e1b848?utm_source=desktop&amp;utm_medium=timeline" target="_blank" rel="noopener">Runtime Method Swizzling开发实例汇总（持续更新中</a></p>
-<h2 id="UI"><a href="#UI" class="headerlink" title="UI"></a>UI</h2><p><a href="https://juejin.im/post/5bd2bf936fb9a05cef177644" target="_blank" rel="noopener">iOS系统中导航栏的转场解决方案与最佳实践</a></p>
-<p><a href="https://juejin.im/post/5bdd497de51d4502b064eb42" target="_blank" rel="noopener">iOS 渲染框架</a></p>
-<p><a href="http://www.hangge.com/blog/cache/detail_1597.html" target="_blank" rel="noopener">实现自定义的Slider滑块组件（轨道上带有刻度标记）</a></p>
-<p><a href="https://sq.163yun.com/blog/article/200743376636538880" target="_blank" rel="noopener">揭秘iOS布局</a></p>
-<h2 id="存储"><a href="#存储" class="headerlink" title="存储"></a>存储</h2><p><a href="https://juejin.im/post/5be3e75ce51d4538a4243818" target="_blank" rel="noopener">iOS 文件操作简介</a></p>
-<h2 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h2><p><a href="https://xiaozhuanlan.com/topic/9486532710" target="_blank" rel="noopener">老生常谈的圆角图片优化，结合SDWebImage的解决方案</a></p>
-<p><a href="https://mp.weixin.qq.com/s/J_XYpIfDeeWJBlk9sRQMAA" target="_blank" rel="noopener">iOS 瘦包常见方式梳理</a></p>
-<h2 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h2><p><a href="https://mp.weixin.qq.com/s/KGDD-Qe1TLzIVlDIEzM25g" target="_blank" rel="noopener">支付宝客户端架构解析：iOS 容器化框架初探</a></p>
-<p><a href="https://www.jianshu.com/p/510ee1290ab4?utm_source=desktop&amp;utm_medium=timeline" target="_blank" rel="noopener">手把手实践《iOS组件化》</a></p>
-<h2 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h2><h3 id="录屏"><a href="#录屏" class="headerlink" title="录屏"></a>录屏</h3><ul>
-<li><a href="https://www.jianshu.com/p/b8ce67fb08e1" target="_blank" rel="noopener">iOS端屏幕录制（replaykit）调研</a></li>
-<li><a href="https://www.jianshu.com/p/392777d1995c" target="_blank" rel="noopener">iOS端屏幕录制Replaykit项目实践</a></li>
-<li><a href="https://www.jianshu.com/p/401b5b632d5b" target="_blank" rel="noopener">iOS端使用replaykit录制屏幕的技术细节</a></li>
+            <p> resizableImage: 该方法可以指定一个矩形区域，这个图片在矩形内的部分会拉伸变形，而这个矩形区域外的部分则会保持原样。该方法有如下两个参数：<br>（1）withCapInsets：通过设置 UIEdgeInsets 的 left、right、top、bottom 来分别指定这个矩形区域距离左侧、右侧、顶部、底部的距离。</p>
+<p>（2）resizingMode：设置矩形区域的拉伸变形模式，具体有如下两种：</p>
+<ul>
+<li>.stretch：拉伸模式，通过拉伸 UIEdgeInsets 指定的矩形区域来填充图片。 </li>
+<li>.tile：平铺模式，通过重复显示 UIEdgeInsets 指定的矩形区域来填充图片。</li>
 </ul>
-
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let imageView = UIImageView(frame: CGRect(x:10, y:100, width:300, height:66))</span><br><span class="line">let image = UIImage(named: &quot;bg&quot;)?</span><br><span class="line">    .resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15),</span><br><span class="line">                    resizingMode: .stretch) //左右15像素的部分不变，中间部分来拉伸</span><br><span class="line">imageView.image = image</span><br><span class="line">view.addSubview(imageView)</span><br></pre></td></tr></table></figure>
           
         
       
@@ -1108,153 +1225,6 @@
 <li>Do not hide behind the layer</li>
 </ul>
 
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/30/Tips3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Unruly">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/assets/blogImg/mine.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Unruly的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/30/Tips3/" itemprop="url">iOS 知识小集(3)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-30T00:00:00+08:00">
-                2018-07-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/知识小集/" itemprop="url" rel="index">
-                    <span itemprop="name">知识小集</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p> resizableImage: 该方法可以指定一个矩形区域，这个图片在矩形内的部分会拉伸变形，而这个矩形区域外的部分则会保持原样。该方法有如下两个参数：<br>（1）withCapInsets：通过设置 UIEdgeInsets 的 left、right、top、bottom 来分别指定这个矩形区域距离左侧、右侧、顶部、底部的距离。</p>
-<p>（2）resizingMode：设置矩形区域的拉伸变形模式，具体有如下两种：</p>
-<ul>
-<li>.stretch：拉伸模式，通过拉伸 UIEdgeInsets 指定的矩形区域来填充图片。 </li>
-<li>.tile：平铺模式，通过重复显示 UIEdgeInsets 指定的矩形区域来填充图片。</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let imageView = UIImageView(frame: CGRect(x:10, y:100, width:300, height:66))</span><br><span class="line">let image = UIImage(named: &quot;bg&quot;)?</span><br><span class="line">    .resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15),</span><br><span class="line">                    resizingMode: .stretch) //左右15像素的部分不变，中间部分来拉伸</span><br><span class="line">imageView.image = image</span><br><span class="line">view.addSubview(imageView)</span><br></pre></td></tr></table></figure>
           
         
       
@@ -1893,7 +1863,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-count">52</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
