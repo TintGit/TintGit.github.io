@@ -260,6 +260,437 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/25/杭州游玩攻略/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Unruly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/blogImg/mine.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Unruly的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/25/杭州游玩攻略/" itemprop="url">杭州游玩美食攻略</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-25T20:12:40+08:00">
+                2018-07-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>自古就有“上有天堂，下有苏杭”的美誉。</p>
+<p>鱼米之乡、丝绸之府、 文物之邦，</p>
+<p>都是世人对杭州的唯美印象。</p>
+<p>整理了杭州的旅游攻略，想去杭州旅游的小伙伴们看过来吧！</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/07/25/杭州游玩攻略/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/25/组件化实践/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Unruly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/blogImg/mine.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Unruly的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/25/组件化实践/" itemprop="url">组件化实践</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-25T20:12:31+08:00">
+                2018-07-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>组件化大体思路<br><img src="https://upload-images.jianshu.io/upload_images/1064540-f949b35414955594.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/665" alt="持续集成"></p>
+<p>框架说明:</p>
+<ul>
+<li>持续集成: 主工程(壳工程),包含所有内容，用于发布打包等</li>
+<li>基础组件: 不依赖其他任何组件，独立完成功能。主要有：与业务无法的功能（如string或data的加密，category的封装）对第三方库的封装（如AFNetworking，SDWebImage的封装）</li>
+<li>业务公用组件: 依赖基础组件或UIKit等系统组件，创建业务共同使用的功能（如分享，支付，网络访问）</li>
+<li>中间组件: 连接业务公用组件和业务组件，及业务组件之间的互相调用。（如Mediator的组件）</li>
+<li>业务组件：单独的业务功能，不依赖其他业务组件。</li>
+</ul>
+<p>##基础组件：<br>没有业务场景 不允许依赖业务组件</p>
+<p>###公共基础<br>多项目可用</p>
+<p>###非公共基础<br>ProjectA依赖，但是ProjectB不依赖</p>
+<h2 id="桥接层"><a href="#桥接层" class="headerlink" title="桥接层"></a>桥接层</h2><ul>
+<li>桥接层的主要作用是为上层业务层和下层基础框架层做桥接，主要考虑底层业务层的开放接口变动频繁以及不适配上层业务。</li>
+<li>想要达到每个组件之间相对低耦合，比较常用的方案就是断掉<strong>横向依赖</strong>，使用中间人模式将依赖下沉至<strong>中间件</strong>，而且组件对中间件是<strong>单向依赖</strong></li>
+</ul>
+<p>##业务组件<br>业务之间不允许相互依赖</p>
+<p>隐性依赖库 -&gt; Podfile.lock</p>
+<p>##过程</p>
+<p>开源组件-&gt;基础组件-&gt;平台中间件-&gt;业务组件-&gt;壳工程</p>
+<p>副作用：因为多库开发在发布与集成时 很多依赖冲突lock文件冲突</p>
+<p>自动发版与自动集成</p>
+<p>壳工程分离</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-tags" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/26/创建私有SepcRepo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Unruly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/blogImg/mine.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Unruly的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/26/创建私有SepcRepo/" itemprop="url">Sepc Repo</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-26T00:00:00+08:00">
+                2018-06-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="创建私有-Sepc-Repo"><a href="#创建私有-Sepc-Repo" class="headerlink" title="创建私有 Sepc Repo"></a>创建私有 Sepc Repo</h3><p>CocoaPods对于一名iOS开发来说再熟悉不过了，它的工作原理就是在GitHub上面有个<strong>Spec Repo</strong>，它里面包括成千上万的<strong>podspec</strong>文件索引目录。然后我们在项目集成的时候可以通过它去找到我们需要的开源代码。其实CocoaPods的<strong>Spec Repo</strong>就是一个中介。</p>
+<ul>
+<li>The Specs Repo is the repository on GitHub that contains the list of all available pods. Every library has an individual folder, which contains sub folders of the available versions of that pod.</li>
+</ul>
+<p>创建私有 <strong>Spec Repo</strong>，然后把我们公共组件的<strong>podspec</strong>文件放在里面，然后集成的时候让CocoaPods帮我们集成那我们就能达到目的</p>
+<p>私有 Spec 仓库需要在 git 托管平台托管，现有的免费私有仓库有 Coding、CSDN 以及自己搭建 Gitlab，本文选用 Gitlab 托管平台演示如何进行组件化开发。</p>
+<h4 id="进入-cocoapods-repos-查看已经存在的spec-repo"><a href="#进入-cocoapods-repos-查看已经存在的spec-repo" class="headerlink" title="进入 ./cocoapods/repos 查看已经存在的spec repo"></a>进入 ./cocoapods/repos 查看已经存在的spec repo</h4><ul>
+<li>cd ./cocoapods/repos</li>
+<li>ls -l</li>
+</ul>
+<h4 id="在私有git服务器上创建自己的sepc-repo"><a href="#在私有git服务器上创建自己的sepc-repo" class="headerlink" title="在私有git服务器上创建自己的sepc repo"></a>在私有git服务器上创建自己的sepc repo</h4><ul>
+<li>创建项目 获取访问地址 <a href="https://git.xxx.cn/TestSpecs.git" target="_blank" rel="noopener">https://git.xxx.cn/TestSpecs.git</a></li>
+<li>终端执行 pod repo add [本地名字] <a href="https://git.xxx.cn/TestSpecs.git" target="_blank" rel="noopener">https://git.xxx.cn/TestSpecs.git</a></li>
+<li>ls -l 或者 pod repo list 查看</li>
+</ul>
+<h3 id="创建Pods仓库"><a href="#创建Pods仓库" class="headerlink" title="创建Pods仓库"></a>创建Pods仓库</h3><p>详见 <a href="https://tintgit.github.io/2017/08/09/CocoaPods/" target="_blank" rel="noopener">CocoaPods建立自己的Podspec</a></p>
+<p>验证通过后 提交podspec 到私有spec repo</p>
+<ul>
+<li>pod repo push [本地名字] xx.podspec<br>成功后 在目录 ./cocoapods/repos 查看</li>
+</ul>
+<h3 id="集成测试"><a href="#集成测试" class="headerlink" title="集成测试"></a>集成测试</h3><ul>
+<li>pod search xx</li>
+<li>创建项目测试 </li>
+</ul>
+<ul>
+<li><code>-</code> pod install 如果[!] Unable to find a specification for <code>xx</code> 因为默认是去公有的索引库查找<ul>
+<li><strong>解决：</strong> 增加两个source  # 表示先去找私有，再找公有</li>
+<li>source ‘<a href="https://git.xxx.cn/TestSpecs.git&#39;" target="_blank" rel="noopener">https://git.xxx.cn/TestSpecs.git&#39;</a></li>
+<li>source ‘<a href="https://github.com/CocoaPods/Specs.git&#39;" target="_blank" rel="noopener">https://github.com/CocoaPods/Specs.git&#39;</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>pod lib lint时 私有库中含有私有库 索引不到 需要添加 –sources=’私有仓库地址,<a href="https://github.com/CocoaPods/Specs.git&#39;" target="_blank" rel="noopener">https://github.com/CocoaPods/Specs.git&#39;</a></li>
+<li>search 失败 可能同名覆盖 或者移除搜索映射：rm ~/Library/Caches/CocoaPods/search_index.json</li>
+<li>pod update xx</li>
+</ul>
+<h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><ul>
+<li>git status</li>
+<li>更新 repo: pod repo update <code>REPO_NAME</code></li>
+<li>git clean -f</li>
+</ul>
+<h3 id="Development-Pod"><a href="#Development-Pod" class="headerlink" title="Development Pod"></a>Development Pod</h3><h3 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h3><p>官方文档: <a href="http://guides.cocoapods.org/making/private-cocoapods.html" target="_blank" rel="noopener">Private Pods</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/11/Tips/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -679,161 +1110,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/23/noun/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Unruly">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/assets/blogImg/mine.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Unruly的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/23/noun/" itemprop="url">noun</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-23T16:40:25+08:00">
-                2018-05-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>研发效能<br><a href="https://yq.aliyun.com/promotion/566?utm_content=m_50108" target="_blank" rel="noopener">https://yq.aliyun.com/promotion/566?utm_content=m_50108</a></p>
-<h3 id="康威定律"><a href="#康威定律" class="headerlink" title="康威定律"></a>康威定律</h3><ul>
-<li>第一定律: 组织沟通方式会通过系统设计表达出来</li>
-<li>第二定律: 时间再多一件事情也不可能做的完美，但总有时间做完一件事情</li>
-<li>第三定律: 线型系统和线型组织架构间有潜在的异质同态特性</li>
-<li>第四定律: 大的系统组织总是比小系统更倾向于分解</li>
-<li><a href="https://yq.aliyun.com/articles/8611" target="_blank" rel="noopener">微服务架构的理论基础 - 康威定律</a></li>
-</ul>
-<ul>
-<li>异地多活</li>
-<li>CAP</li>
-<li>BUSINESS UNIT (BU)</li>
-<li>devops</li>
-<li>ued</li>
-<li>work round</li>
-<li>KPI/OKR</li>
-<li>技术债</li>
-<li>headcount</li>
-<li>0.618 balance</li>
-<li>组织架构 领域架构 技术架构</li>
-<li>paas iaas </li>
-<li>oceanbase</li>
-<li>持续集成</li>
-<li>敏捷开发</li>
-<li>POP OOP</li>
-<li>横切关注点</li>
-<li>菱形缺陷</li>
-<li>中间件</li>
-<li>云技术</li>
-<li>SaaS PaaS IaaS</li>
-<li>spec repo</li>
-<li>git: git-flow rebase pr&amp;mr</li>
-<li>CI/CD</li>
-<li>软件开发模型</li>
-<li>namespace</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/23/MVC/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -909,275 +1185,6 @@
 <p><img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1526556597900&amp;di=986c24c58fc7f939f2baba1aec18f02c&amp;imgtype=jpg&amp;src=http%3A%2F%2Fimg4.imgtn.bdimg.com%2Fit%2Fu%3D3732253054%2C1631968037%26fm%3D214%26gp%3D0.jpg" alt="斯坦福大学-CS193p Paul"></p>
 
           
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/23/组件化实践/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Unruly">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/assets/blogImg/mine.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Unruly的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/23/组件化实践/" itemprop="url">组件化实践</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-23T16:40:25+08:00">
-                2018-05-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>组件化大体思路<br><img src="https://upload-images.jianshu.io/upload_images/1064540-f949b35414955594.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/665" alt="持续集成"></p>
-<p>框架说明:</p>
-<ul>
-<li>持续集成: 主工程(壳工程),包含所有内容，用于发布打包等</li>
-<li>基础组件: 不依赖其他任何组件，独立完成功能。主要有：与业务无法的功能（如string或data的加密，category的封装）对第三方库的封装（如AFNetworking，SDWebImage的封装）</li>
-<li>业务公用组件: 依赖基础组件或UIKit等系统组件，创建业务共同使用的功能（如分享，支付，网络访问）</li>
-<li>中间组件: 连接业务公用组件和业务组件，及业务组件之间的互相调用。（如Mediator的组件）</li>
-<li>业务组件：单独的业务功能，不依赖其他业务组件。</li>
-</ul>
-<p>##基础组件：<br>没有业务场景 不允许依赖业务组件</p>
-<p>###公共基础<br>多项目可用</p>
-<p>###非公共基础<br>ProjectA依赖，但是ProjectB不依赖</p>
-<h2 id="桥接层"><a href="#桥接层" class="headerlink" title="桥接层"></a>桥接层</h2><ul>
-<li>桥接层的主要作用是为上层业务层和下层基础框架层做桥接，主要考虑底层业务层的开放接口变动频繁以及不适配上层业务。</li>
-<li>想要达到每个组件之间相对低耦合，比较常用的方案就是断掉<strong>横向依赖</strong>，使用中间人模式将依赖下沉至<strong>中间件</strong>，而且组件对中间件是<strong>单向依赖</strong></li>
-</ul>
-<p>##业务组件<br>业务之间不允许相互依赖</p>
-<p>隐性依赖库 -&gt; Podfile.lock</p>
-<p>##过程</p>
-<p>开源组件-&gt;基础组件-&gt;平台中间件-&gt;业务组件-&gt;壳工程</p>
-<p>副作用：因为多库开发在发布与集成时 很多依赖冲突lock文件冲突</p>
-<p>自动发版与自动集成</p>
-<p>壳工程分离</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/07/杭州游玩攻略/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Unruly">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/assets/blogImg/mine.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Unruly的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/07/杭州游玩攻略/" itemprop="url">杭州游玩美食攻略</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-07T11:03:08+08:00">
-                2018-05-07
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>自古就有“上有天堂，下有苏杭”的美誉。</p>
-<p>鱼米之乡、丝绸之府、 文物之邦，</p>
-<p>都是世人对杭州的唯美印象。</p>
-<p>整理了杭州的旅游攻略，想去杭州旅游的小伙伴们看过来吧！</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/05/07/杭州游玩攻略/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
         
       
     </div>
@@ -1736,7 +1743,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
