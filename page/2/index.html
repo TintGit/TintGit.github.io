@@ -260,6 +260,249 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/25/WCDB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Unruly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/blogImg/mine.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Unruly的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/25/WCDB/" itemprop="url">WCDB</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-25T20:12:41+08:00">
+                2018-07-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="模型绑定"><a href="#模型绑定" class="headerlink" title="模型绑定"></a>模型绑定</h2><blockquote>
+<p>模型绑定（Object-relational Mapping，简称 ORM），通过对 Swift 类或结构进行绑定，形成类或结构 - 表模型、类或结构对象 - 表的映射关系，从而达到通过对象直接操作数据库的目的。</p>
+</blockquote>
+<ul>
+<li>字段映射</li>
+<li>字段约束</li>
+<li>索引</li>
+<li>表约束</li>
+<li>虚拟表映射</li>
+</ul>
+<h3 id="字段映射"><a href="#字段映射" class="headerlink" title="字段映射"></a>字段映射</h3><blockquote>
+<p>在类内定义 CodingKeys 的枚举类，并遵循 String 和CodingTableKey。枚举列举每一个需要定义的字段。</p>
+</blockquote>
+<p>1.别名映射 =&gt; case identifier = “id”</p>
+<p>2.对于变量名与 SQLite 的保留关键字冲突 =&gt; case offset = “db_offset”</p>
+<h3 id="字段约束"><a href="#字段约束" class="headerlink" title="字段约束"></a>字段约束</h3><blockquote>
+<p>它用于定于针对单个字段的约束，如主键约束、非空约束、唯一约束、默认值等。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ColumnConstraintBinding(</span><br><span class="line">    isPrimary: Bool = false, // 该字段是否为主键。字段约束中只能同时存在一个主键</span><br><span class="line">    orderBy term: OrderTerm? = nil, // 当该字段是主键时，存储顺序是升序还是降序</span><br><span class="line">    isAutoIncrement: Bool = false, // 当该字段是主键时，其是否支持自增。只有整型数据可以定义为自增。</span><br><span class="line">    onConflict conflict: Conflict? = nil, // 当该字段是主键时，若产生冲突，应如何处理</span><br><span class="line">    isNotNull: Bool = false, // 该字段是否可以为空</span><br><span class="line">    isUnique: Bool = false, // 该字段是否可以具有唯一性</span><br><span class="line">    defaultTo defaultValue: ColumnDef.DefaultType? = nil // 该字段在数据库内使用什么默认值</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h4 id="自增"><a href="#自增" class="headerlink" title="自增"></a>自增</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">let autoIncrementObject = Sample()</span><br><span class="line">autoIncrementObject.isAutoIncrement = true</span><br><span class="line"></span><br><span class="line">// 插入自增数据</span><br><span class="line">try database.insert(objects: autoIncrementObject, intoTable: &quot;sampleTable&quot;)</span><br><span class="line">print(autoIncrementObject.lastInsertedRowID) // 输出 1</span><br><span class="line"></span><br><span class="line">// 再次插入自增数据</span><br><span class="line">try database.insert(objects: autoIncrementObject, intoTable: &quot;sampleTable&quot;)</span><br><span class="line">print(autoIncrementObject.lastInsertedRowID) // 输出 2</span><br><span class="line"></span><br><span class="line">// 插入非自增的指定数据</span><br><span class="line">let specificObject = Sample()</span><br><span class="line">specificObject.identifier = 10</span><br><span class="line">try database.insert(objects: specificObject, intoTable: &quot;sampleTable&quot;)</span><br></pre></td></tr></table></figure>
+<h3 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h3><blockquote>
+<p>它用于定于针对单个或多个字段的索引，索引后的数据在能有更高的查询效率。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">class Sample: TableCodable &#123;</span><br><span class="line">    var identifier: Int? = nil</span><br><span class="line">    var description: String? = nil</span><br><span class="line">    var multiIndexPart1: Int = 0</span><br><span class="line">    var multiIndexPart2: Int = 0</span><br><span class="line">        </span><br><span class="line">    enum CodingKeys: String, CodingTableKey &#123;</span><br><span class="line">        typealias Root = Sample</span><br><span class="line">        static let objectRelationalMapping = TableBinding(CodingKeys.self)</span><br><span class="line">        case identifier</span><br><span class="line">        case description</span><br><span class="line">        case multiIndexPart1</span><br><span class="line">        case multiIndexPart2</span><br><span class="line"></span><br><span class="line">        static var indexBindings: [IndexBinding.Subfix: IndexBinding]? &#123;</span><br><span class="line">            return [</span><br><span class="line">                &quot;_uniqueIndex&quot;: IndexBinding(isUnique: true, indexesBy: identifier),</span><br><span class="line">                &quot;_descendingIndex&quot;: IndexBinding(indexesBy: description.asIndex(orderBy: .descending)),</span><br><span class="line">                &quot;_multiIndex&quot;: IndexBinding(indexesBy: multiIndexPart1, multiIndexPart2.asIndex(orderBy: .ascending))</span><br><span class="line">            ]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>完整的索引名为表名+索引后缀，如：表 “sampleTable” 的索引分别为 “sampleTable_uniqueIndex”、”sampleTable_descendingIndex” 和 “sampleTable_multiIndex”。</p>
+</blockquote>
+<h3 id="表约束"><a href="#表约束" class="headerlink" title="表约束"></a>表约束</h3><blockquote>
+<p>它用于定于针对多个字段或表本身的约束。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">class Sample: TableCodable &#123;</span><br><span class="line">    var identifier: Int? = nil</span><br><span class="line">    var multiPrimaryKeyPart1: Int = 0</span><br><span class="line">    var multiPrimaryKeyPart2: Int = 0</span><br><span class="line">    var multiUniquePart1: Int = 0</span><br><span class="line">    var multiUniquePart2: Int = 0</span><br><span class="line">        </span><br><span class="line">    enum CodingKeys: String, CodingTableKey &#123;</span><br><span class="line">        typealias Root = Sample</span><br><span class="line">        static let objectRelationalMapping = TableBinding(CodingKeys.self)</span><br><span class="line">        case identifier</span><br><span class="line">        case multiPrimaryKeyPart1</span><br><span class="line">        case multiPrimaryKeyPart2</span><br><span class="line">        case multiUniquePart1</span><br><span class="line">        case multiUniquePart2</span><br><span class="line"></span><br><span class="line">        static var tableConstraintBindings: [TableConstraintBinding.Name: TableConstraintBinding]? &#123;</span><br><span class="line">            let multiPrimaryBinding =</span><br><span class="line">                MultiPrimaryBinding(indexesBy: multiPrimaryKeyPart1.asIndex(orderBy: .descending), multiPrimaryKeyPart2)</span><br><span class="line">            let multiUniqueBinding =</span><br><span class="line">                MultiUniqueBinding(indexesBy: multiUniquePart1, multiUniquePart2.asIndex(orderBy: .ascending))</span><br><span class="line">            return [</span><br><span class="line">                &quot;MultiPrimaryConstraint&quot;: multiPrimaryBinding,</span><br><span class="line">                &quot;MultiUniqueConstraint&quot;: multiUniqueBinding</span><br><span class="line">            ]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>1.MultiPrimaryBinding: 联合主键约束</p>
+<p>2.MultiUniqueBinding: 联合唯一约束</p>
+<p>3.CheckBinding: 检查约束</p>
+<p>4.ForeignKeyBinding: 外键约束</p>
+<h3 id="虚拟表映射"><a href="#虚拟表映射" class="headerlink" title="虚拟表映射"></a>虚拟表映射</h3><blockquote>
+<p>它用于定于虚拟表以进行全文搜索等特性。</p>
+</blockquote>
+<h2 id="增删改查"><a href="#增删改查" class="headerlink" title="增删改查"></a>增删改查</h2><h3 id="插入操作"><a href="#插入操作" class="headerlink" title="插入操作"></a>插入操作</h3><blockquote>
+<p>插入操作有 “insert” 和 “insertOrReplace” 两个接口。故名思义，前者只是单纯的插入数据，当数据出现冲突时会失败，而后者在主键一致时，新数据会覆盖旧数据。<br>propertyConvertibleList 插入指定字段</p>
+</blockquote>
+<h3 id="删除操作"><a href="#删除操作" class="headerlink" title="删除操作"></a>删除操作</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">func delete(fromTable table: String, // 表名</span><br><span class="line">            where condition: Condition? = nil, // 符合删除的条件</span><br><span class="line">            orderBy orderList: [OrderBy]? = nil, // 排序的方式</span><br><span class="line">            limit: Limit? = nil, // 删除的个数</span><br><span class="line">            offset: Offset? = nil // 从第几个开始删除</span><br><span class="line">) throws</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>将 table 表内，满足 condition 的数据，按照 orderList 的方式进行排序，然后从头开始第 offset 行数据后的 limit 行数据删除</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">// 删除 sampleTable 中所有 identifier 大于 1 的行的数据</span><br><span class="line">try database.delete(fromTable: &quot;sampleTable&quot;, </span><br><span class="line">                    where: Sample.Properties.identifier &gt; 1)</span><br><span class="line"></span><br><span class="line">// 删除 sampleTable 中 identifier 降序排列后的前 2 行数据</span><br><span class="line">try database.delete(fromTable: &quot;sampleTable&quot;, </span><br><span class="line">                    orderBy: Sample.Properties.identifier.asOrder(by: .descending), </span><br><span class="line">                    limit: 2)</span><br><span class="line"></span><br><span class="line">// 删除 sampleTable 中 description 非空的数据，按 identifier 降序排列后的前 3 行的后 2 行数据</span><br><span class="line">try database.delete(fromTable: &quot;sampleTable&quot;, </span><br><span class="line">                    where: Sample.Properties.description.isNotNull(), </span><br><span class="line">                    orderBy: Sample.Properties.identifier.asOrder(by: .descending), </span><br><span class="line">                    limit: 2,</span><br><span class="line">                    offset: 3)</span><br><span class="line"></span><br><span class="line">// 删除 sampleTable 中的所有数据</span><br><span class="line">try database.delete(fromTable: &quot;sampleTable&quot;)</span><br></pre></td></tr></table></figure>
+<h3 id="更新操作"><a href="#更新操作" class="headerlink" title="更新操作"></a>更新操作</h3><blockquote>
+<p>update with object<br>update with row</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">let object = Sample()</span><br><span class="line">object.description = &quot;update&quot;</span><br><span class="line"></span><br><span class="line">// 将 sampleTable 中所有 identifier 大于 1 且 description 字段不为空 的行的 description 字段更新为 &quot;update&quot;</span><br><span class="line">try database.update(table: &quot;sampleTable&quot;</span><br><span class="line">                    on: Sample.Properties.description,</span><br><span class="line">                    with: object,</span><br><span class="line">                    where: Sample.Properites.identifier &gt; 1 &amp;&amp; Sample.Properties.description.isNotNull())</span><br><span class="line"></span><br><span class="line">// 将 sampleTable 中前三行的 description 字段更新为 &quot;update&quot;</span><br><span class="line">try database.update(table: &quot;sampleTable&quot;</span><br><span class="line">                    on: Sample.Properties.description,</span><br><span class="line">                    with: object,</span><br><span class="line">                    limit: 3)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">let row: [ColumnCodableBase] = [&quot;update&quot;]</span><br><span class="line"></span><br><span class="line">// 将 sampleTable 中所有 identifier 大于 1 且 description 字段不为空 的行的 description 字段更新为 &quot;update&quot;</span><br><span class="line">try database.update(table: &quot;sampleTable&quot;</span><br><span class="line">                    on: Sample.Properties.description,</span><br><span class="line">                    with: row,</span><br><span class="line">                    where: Sample.Properites.identifier &gt; 1 &amp;&amp; Sample.Properties.description.isNotNull())</span><br><span class="line"></span><br><span class="line">// 将 sampleTable 中前三行的 description 字段更新为 &quot;update&quot;</span><br><span class="line">try database.update(table: &quot;sampleTable&quot;</span><br><span class="line">                    on: Sample.Properties.description,</span><br><span class="line">                    with: row,</span><br><span class="line">                    limit: 3)</span><br></pre></td></tr></table></figure>
+<h3 id="查找操作"><a href="#查找操作" class="headerlink" title="查找操作"></a>查找操作</h3><ul>
+<li>getObjects</li>
+<li>getObject</li>
+<li>getRows</li>
+<li>getRow</li>
+<li>getColumn</li>
+<li>getDistinctColumn</li>
+<li>getValue</li>
+<li>getDistinctValue</li>
+</ul>
+<h4 id="对象查找"><a href="#对象查找" class="headerlink" title="对象查找"></a>对象查找</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// 返回 sampleTable 中的所有数据</span><br><span class="line">let allObjects: [Sample] = try database.getObjects(fromTable: &quot;sampleTable&quot;)</span><br><span class="line"></span><br><span class="line">// 返回 sampleTable 中 identifier 小于 5 或 大于 10 的行的数据</span><br><span class="line">let objects: [Sample] = try database.getObjects(fromTable: &quot;sampleTable&quot;, </span><br><span class="line">                                                where: Sample.Properties.identifier &lt; 5 || Sample.Properties.identifier &gt; 10)</span><br><span class="line"></span><br><span class="line">// 返回 sampleTable 中 identifier 最大的行的数据</span><br><span class="line">let object: Sample? = try database.getObject(fromTable: &quot;sampleTable&quot;, </span><br><span class="line">                                             orderBy: Sample.Properties.identifier.asOrder(by: .descending))</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意: 由于对象查找操作使用了范型，因此需要显式声明返回值的类型以匹配范型</p>
+</blockquote>
+<h4 id="对象部分查询"><a href="#对象部分查询" class="headerlink" title="对象部分查询"></a>对象部分查询</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let objects: [Sample] = try database.getObjects(fromTable: &quot;sampleTable&quot;, </span><br><span class="line">                                                on: Sample.Properties.identifier)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意:这里只获取了 identifier 字段，而没有获取 description 的值。这就可能与 Swift 本身存在冲突。 Swift 规定了对象创建时，必须初始化所有成员变量。而进行对象部分查询时，则可能出现某部分变量没有变查询，因此无法初始化的情况。因此，对于可能不被查询的成员变量，应将其类型定义为可选值。<br>倘若开发者不确定哪些字段可能会被进行对象部分查询，可以将所有字段都定义为可选。</p>
+</blockquote>
+<h4 id="值查询操作"><a href="#值查询操作" class="headerlink" title="值查询操作"></a>值查询操作</h4><table>
+<thead>
+<tr>
+<th>identifier</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>“sample1”</td>
+</tr>
+<tr>
+<td>2</td>
+<td>“sample2”</td>
+</tr>
+<tr>
+<td>3</td>
+<td>“sample3”</td>
+</tr>
+<tr>
+<td>4</td>
+<td>“sample4”</td>
+</tr>
+<tr>
+<td>5</td>
+<td>“sample5”</td>
+</tr>
+<tr>
+<td>6</td>
+<td>“sample6”</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>getRows</strong> 接口获取整个矩阵的所有内容，即返回值为二维数组。</li>
+<li><strong>getRow</strong> 接口获取某一横行的数据，即返回值为一维数组。</li>
+<li><strong>getColumn</strong> 接口获取某一纵列的数据，即返回值为一维数组。</li>
+<li><strong>getDistinctColumn</strong> 与 <strong>getColumn</strong> 类似，但它会过滤掉重复的值。</li>
+<li><strong>getValue</strong> 接口获取矩阵中某一个格的内容。</li>
+<li><strong>getDistinctValue</strong> 与 <strong>getValue</strong> 类似，但它会过滤掉重复的值。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">// 获取所有内容</span><br><span class="line">let allRows = try database.getRows(fromTable: &quot;sampleTable&quot;)</span><br><span class="line">print(allRows[row: 2, column: 0].int32Value) // 输出 3</span><br><span class="line"></span><br><span class="line">// 获取第二行</span><br><span class="line">let secondRow = try database.getRow(fromTable: &quot;sampleTable&quot;, offset: 1)</span><br><span class="line">print(secondRow[0].int32Value) // 输出 2</span><br><span class="line"></span><br><span class="line">// 获取 description 列</span><br><span class="line">let descriptionColumn = try database.getColumn(on: Sample.Properties.description, fromTable: &quot;sampleTable&quot;)</span><br><span class="line">print(descriptionColumn) // 输出 &quot;sample1&quot;, &quot;sample1&quot;, &quot;sample1&quot;, &quot;sample2&quot;, &quot;sample2&quot; </span><br><span class="line"></span><br><span class="line">// 获取不重复的 description 列的值</span><br><span class="line">let distinctDescriptionColumn = try database.getDistinctColumn(on: Sample.Properties.description, fromTable: &quot;sampleTable&quot;)</span><br><span class="line">print(distinctDescriptionColumn) // 输出 &quot;sample1&quot;, &quot;sample2&quot;</span><br><span class="line"></span><br><span class="line">// 获取第二行 description 列的值</span><br><span class="line">let value = try database.getValue(on: Sample.Properties.description, offset: 1)</span><br><span class="line">print(value.stringValue) // 输出 &quot;sample1&quot;</span><br><span class="line"></span><br><span class="line">// 获取 identifier 的最大值</span><br><span class="line">let maxIdentifier = try database.getValue(on: Sample.Properties.identifier.max(), fromTable: &quot;sampleTable&quot;)</span><br><span class="line"></span><br><span class="line">// 获取不重复的 description 的值</span><br><span class="line">let distinctDescription = try database.getDistinctValue(on: Sample.Properties.description, fromTable: &quot;sampleTable&quot;)</span><br><span class="line">print(distinctDescription.stringValue) // 输出 &quot;sample1&quot;</span><br></pre></td></tr></table></figure>
+<h2 id="数据库、表、事物"><a href="#数据库、表、事物" class="headerlink" title="数据库、表、事物"></a>数据库、表、事物</h2><blockquote>
+<p>数据库 - <code>Database</code>、表 - <code>Table</code> 和 事务 - <code>Transaction</code></p>
+</blockquote>
+<ul>
+<li>支持增删查改的便捷接口</li>
+<li>支持链式接口</li>
+<li>数据和状态共享</li>
+<li>线程安全</li>
+</ul>
+<p><strong>数据和状态共享</strong>，意味着对于 同一个路径的数据库 的 不同基础类，它们的标签、数据库是否打开、是否在进行读写操作等所有状态和数据都始终保持一致。</p>
+<p><strong>线程安全</strong>，意味着开发者可以在 任意线程 对 任意基础类 调用 任意接口，而不需要考虑数据库本身的线程安全问题。同时，WCDB Swift 会根据调用情况，并发执行操作，以达到更高的性能</p>
+<p><a href="https://github.com/Tencent/wcdb/wiki/Swift-%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%81%E8%A1%A8%E3%80%81%E4%BA%8B%E5%8A%A1" target="_blank" rel="noopener">文档</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/25/杭州游玩攻略/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1472,134 +1715,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-tags" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/06/小程序/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Unruly">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/assets/blogImg/mine.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Unruly的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/06/小程序/" itemprop="url">浅谈小程序</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-06T00:00:00+08:00">
-                2018-04-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ul>
-<li>触手可及</li>
-<li>用完即走</li>
-<li>无需安装卸载</li>
-</ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/04/06/小程序/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1654,7 +1769,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1676,7 +1791,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">52</span>
+                  <span class="site-state-item-count">53</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
