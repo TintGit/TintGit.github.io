@@ -260,7 +260,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/09/高效工具/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/14/AVAudioRecorder/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Unruly">
@@ -279,7 +279,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/09/高效工具/" itemprop="url">高效工具</a></h1>
+                <a class="post-title-link" href="/2019/05/14/AVAudioRecorder/" itemprop="url">AVAudioRecorder</a></h1>
         
 
         <div class="post-meta">
@@ -291,8 +291,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-09T00:00:00+08:00">
-                2019-01-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-14T00:00:00+08:00">
+                2019-05-14
               </time>
             
 
@@ -331,62 +331,217 @@
       
         
           
-            <h2 id="iTerm2-终端利器"><a href="#iTerm2-终端利器" class="headerlink" title="iTerm2 - 终端利器"></a>iTerm2 - 终端利器</h2><h3 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h3><table>
+            <h1 id="iOS录音-AVAudioRecorder"><a href="#iOS录音-AVAudioRecorder" class="headerlink" title="iOS录音- AVAudioRecorder"></a>iOS录音- AVAudioRecorder</h1><h2 id="音频采集-PCM编码"><a href="#音频采集-PCM编码" class="headerlink" title="音频采集 - PCM编码"></a>音频采集 - PCM编码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">模拟信号数字化必须经过三个过程，即抽样、量化和编码，以实现话音数字化的脉冲编码调制（PCM，Pulse Coding Modulation）技术</span><br></pre></td></tr></table></figure>
+<ul>
+<li>抽样</li>
+<li>量化</li>
+</ul>
+<ul>
+<li><code>-</code> 编码<ul>
+<li>抽样频率(Sampling Rate): 人对频率的识别范围是 20HZ - 20000HZ, 如果每秒钟能对声音做 20000 个采样, 回放时就足可以满足人耳的需求. 所以 22050 的采样频率是常用的, 44100已是CD音质, 超过48000的采样对人耳已经没有意义。这和电影的每秒 24 帧图片的道理差不多</li>
+<li>位宽(bit depth): 每一个采样点都需要用一个数值来表示大小，这个数值的数据类型大小可以是：4bit、8bit、16bit、32bit 等等，位数越多，表示得就越精细，声音质量自然就越好，而数据量也会成倍增大。我们在音频采样过程中常用的位宽是 8bit 或者 16bit</li>
+<li>声道数(channels): 声道数为 1 和 2 分别称为单声道和双声道 (iPhone只有一个麦克风，一个单声道的通道足够了，它把你的数据需求削减了一半)</li>
+<li>比特率(bit rate): 表示经过编码（压缩）后的音频数据每秒钟需要用多少个比特来表示，单位常为kbps</li>
+</ul>
+</li>
+</ul>
+<h2 id="音频压缩"><a href="#音频压缩" class="headerlink" title="音频压缩"></a>音频压缩</h2><p>常见的音频编码格式： MP3、AAC、WAV</p>
+<p><a href="https://blog.csdn.net/sinat_14826983/article/details/82634401" target="_blank" rel="noopener">音频基础概念及常见编码格式
+</a></p>
+<h2 id="AVAudioSession"><a href="#AVAudioSession" class="headerlink" title="AVAudioSession"></a>AVAudioSession</h2><ul>
+<li>Category</li>
+</ul>
+<table>
 <thead>
 <tr>
-<th>命令</th>
-<th>说明</th>
+<th style="text-align:left">Category</th>
+<th style="text-align:center">是否允许音频播放/录音</th>
+<th style="text-align:right">是否打断其他不支持混音APP</th>
+<th style="text-align:left">是否会被静音键或锁屏键静音</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>command + d</td>
-<td>垂直分屏</td>
+<td style="text-align:left">ambient</td>
+<td style="text-align:center">只支持播放</td>
+<td style="text-align:right">❎</td>
+<td style="text-align:left">✅</td>
 </tr>
 <tr>
-<td>command + shift + d</td>
-<td>水平分屏</td>
+<td style="text-align:left">soloAmbient (默认)</td>
+<td style="text-align:center">只支持播放</td>
+<td style="text-align:right">✅</td>
+<td style="text-align:left">✅</td>
 </tr>
 <tr>
-<td>command + ;</td>
-<td>查看历史命令</td>
+<td style="text-align:left">playback</td>
+<td style="text-align:center">只支持播放</td>
+<td style="text-align:right">✅，可以重写为❎</td>
+<td style="text-align:left">❎</td>
 </tr>
 <tr>
-<td>ctrl + u</td>
-<td>清除当前行</td>
+<td style="text-align:left">record</td>
+<td style="text-align:center">只支持录制</td>
+<td style="text-align:right">✅</td>
+<td style="text-align:left">❎（锁屏下仍可录制</td>
 </tr>
 <tr>
-<td>command + shift + h</td>
-<td>查看剪贴板历史</td>
+<td style="text-align:left">playAndRecord</td>
+<td style="text-align:center">支持播放，支持录制</td>
+<td style="text-align:right">✅，可以重写为❎</td>
+<td style="text-align:left">❎</td>
 </tr>
 <tr>
-<td>ctrl + u</td>
-<td>清除当前行</td>
+<td style="text-align:left">audioProcessing</td>
+<td style="text-align:center">不支持播放，不支持录制</td>
+<td style="text-align:right">✅</td>
+<td style="text-align:left">❎</td>
 </tr>
 <tr>
-<td>ctrl + a</td>
-<td>到行首</td>
-</tr>
-<tr>
-<td>ctrl + e</td>
-<td>到行尾</td>
-</tr>
-<tr>
-<td>ctrl + p</td>
-<td>上一条命令</td>
-</tr>
-<tr>
-<td>ctrl + r</td>
-<td>搜索命令历史</td>
-</tr>
-<tr>
-<td>command + r</td>
-<td>清屏</td>
+<td style="text-align:left">multiRoute</td>
+<td style="text-align:center">支持播放，支持录制</td>
+<td style="text-align:right">✅</td>
+<td style="text-align:left">❎</td>
 </tr>
 </tbody>
 </table>
-<h2 id="Hexo-快速、简洁且高效的博客框架"><a href="#Hexo-快速、简洁且高效的博客框架" class="headerlink" title="Hexo - 快速、简洁且高效的博客框架"></a>Hexo - 快速、简洁且高效的博客框架</h2><h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><p>hexo generate -&gt; 生成静态文件<br>hexo deploy -&gt; 部署网站<br>hexo server -&gt; 启动服务器<br>hexo server -p xxxx 重设端口<br>ctrl + c 取消</p>
-<h2 id="通用命令"><a href="#通用命令" class="headerlink" title="通用命令"></a>通用命令</h2><p>lsof -i:8080 -&gt; 查看8080端口号占用<br>kill -9 xxxx -&gt; kill进程</p>
+<ul>
+<li><p>Mode<br><img src="https://ws2.sinaimg.cn/large/006tNc79ly1g30x3glvwsj314q0n4te6.jpg" alt="session mode"></p>
+</li>
+<li><p>Options<br><img src="https://ws3.sinaimg.cn/large/006tNc79ly1g30x4rf4fcj316k0qgtek.jpg" alt="session options"></p>
+</li>
+<li><p>激活 AVAudioSession.sharedInstance().setActive(true)</p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-tags" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/18/私有/移动端架构/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Unruly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/blogImg/mine.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Unruly的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/18/私有/移动端架构/" itemprop="url">移动端架构</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-18T00:00:00+08:00">
+                2019-03-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>平台级客户端框架必须要解决的是<strong>模块化</strong>和<strong>动态化</strong>这两大核心问题。</p>
+<h2 id="框架设计原则"><a href="#框架设计原则" class="headerlink" title="框架设计原则"></a>框架设计原则</h2><ul>
+<li>根据基础技术层级、客户端的业务线等原则，对客户端应用程序进行模块化拆分。</li>
+<li>每一个模块由独立的小团队或者个人来进行开发、维护、测试、集成。</li>
+<li>模块与模块之间要做到彻底解耦，模块之间可以通过接口进行依赖。</li>
+<li>每一个模块可以进行热插拔，单个模块的插拔不影响整体的工程的编译运行。</li>
+</ul>
+<h3 id="MVVM"><a href="#MVVM" class="headerlink" title="MVVM"></a>MVVM</h3><p><strong>微软的</strong> <a href="https://docs.microsoft.com/en-us/previous-versions/msp-n-p/hh848246(v=pandp.10" target="_blank" rel="noopener">The MVVM Pattern</a>)</p>
+<p><a href="https://beeth0ven.github.io/RxSwift-Chinese-Documentation/content/architecture/mvvm.html" target="_blank" rel="noopener">RxSwift 中文文档</a></p>
+<p><a href="https://medium.com/swift2go/mvvm-with-rxswift-the-user-login-cc43df423c9e" target="_blank" rel="noopener">MVVM with RxSwift : User Login</a></p>
 
           
         
@@ -577,6 +732,135 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/30/FFmpeg/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Unruly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/blogImg/mine.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Unruly的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/30/FFmpeg/" itemprop="url">FFmpeg</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-30T00:00:00+08:00">
+                2018-10-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="采用FFmpeg从视频中提取音频-声音-保存为mp3文件"><a href="#采用FFmpeg从视频中提取音频-声音-保存为mp3文件" class="headerlink" title="采用FFmpeg从视频中提取音频(声音)保存为mp3文件"></a>采用FFmpeg从视频中提取音频(声音)保存为mp3文件</h2><h3 id="下载mp3的编码库"><a href="#下载mp3的编码库" class="headerlink" title="下载mp3的编码库"></a>下载mp3的编码库</h3><p>因为FFmpeg默认只支持mp3的解码，不支持mp3编码.需要借助第三方的mp3编码库。这里采用lame编码库 <a href="https://sourceforge.net/projects/lame/files/lame/" target="_blank" rel="noopener">下载地址</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd lame-3.100</span><br><span class="line">./configure</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+<h3 id="下载FFmpeg"><a href="#下载FFmpeg" class="headerlink" title="下载FFmpeg"></a>下载FFmpeg</h3><h4 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://git.ffmpeg.org/ffmpeg.git ffmpeg</span><br></pre></td></tr></table></figure>
+<p>brew</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install ffmpeg</span><br></pre></td></tr></table></figure>
+<h4 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./configure --enable-libmp3lame </span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/10/30/FFmpeg/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-tags" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/30/值得看的文章/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -667,137 +951,12 @@
 <li><a href="https://www.jianshu.com/p/392777d1995c" target="_blank" rel="noopener">iOS端屏幕录制Replaykit项目实践</a></li>
 <li><a href="https://www.jianshu.com/p/401b5b632d5b" target="_blank" rel="noopener">iOS端使用replaykit录制屏幕的技术细节</a></li>
 </ul>
+<h3 id="图片合成视频"><a href="#图片合成视频" class="headerlink" title="图片合成视频"></a>图片合成视频</h3><ul>
+<li><a href="https://zwo28.wordpress.com/2015/03/06/%E8%A7%86%E9%A2%91%E5%90%88%E6%88%90%E4%B8%ADcmtime%E7%9A%84%E7%90%86%E8%A7%A3%EF%BC%8C%E4%BB%A5%E5%8F%8A%E5%88%A9%E7%94%A8cmtime%E5%AE%9E%E7%8E%B0%E8%BF%87%E6%B8%A1%E6%95%88%E6%9E%9C/" target="_blank" rel="noopener">CMTime</a></li>
+</ul>
+<h2 id="前端"><a href="#前端" class="headerlink" title="前端"></a>前端</h2><p><img src="https://ws3.sinaimg.cn/large/006tNc79ly1g03dz7fvb2j30j61043zw.jpg" alt="学习前端的路径图"></p>
 
           
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-tags" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/30/FFmpeg/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Unruly">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/assets/blogImg/mine.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Unruly的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/30/FFmpeg/" itemprop="url">FFmpeg</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-30T00:00:00+08:00">
-                2018-10-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="采用FFmpeg从视频中提取音频-声音-保存为mp3文件"><a href="#采用FFmpeg从视频中提取音频-声音-保存为mp3文件" class="headerlink" title="采用FFmpeg从视频中提取音频(声音)保存为mp3文件"></a>采用FFmpeg从视频中提取音频(声音)保存为mp3文件</h2><h3 id="下载mp3的编码库"><a href="#下载mp3的编码库" class="headerlink" title="下载mp3的编码库"></a>下载mp3的编码库</h3><p>因为FFmpeg默认只支持mp3的解码，不支持mp3编码.需要借助第三方的mp3编码库。这里采用lame编码库 <a href="https://sourceforge.net/projects/lame/files/lame/" target="_blank" rel="noopener">下载地址</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd lame-3.100</span><br><span class="line">./configure</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
-<h3 id="下载FFmpeg"><a href="#下载FFmpeg" class="headerlink" title="下载FFmpeg"></a>下载FFmpeg</h3><h4 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://git.ffmpeg.org/ffmpeg.git ffmpeg</span><br></pre></td></tr></table></figure>
-<p>brew</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install ffmpeg</span><br></pre></td></tr></table></figure>
-<h4 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./configure --enable-libmp3lame </span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/10/30/FFmpeg/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
         
       
     </div>
@@ -1556,153 +1715,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/29/Tips3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Unruly">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/assets/blogImg/mine.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Unruly的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/29/Tips3/" itemprop="url">iOS 知识小集(3)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-29T00:00:00+08:00">
-                2018-07-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/知识小集/" itemprop="url" rel="index">
-                    <span itemprop="name">知识小集</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p> resizableImage: 该方法可以指定一个矩形区域，这个图片在矩形内的部分会拉伸变形，而这个矩形区域外的部分则会保持原样。该方法有如下两个参数：<br>（1）withCapInsets：通过设置 UIEdgeInsets 的 left、right、top、bottom 来分别指定这个矩形区域距离左侧、右侧、顶部、底部的距离。</p>
-<p>（2）resizingMode：设置矩形区域的拉伸变形模式，具体有如下两种：</p>
-<ul>
-<li>.stretch：拉伸模式，通过拉伸 UIEdgeInsets 指定的矩形区域来填充图片。 </li>
-<li>.tile：平铺模式，通过重复显示 UIEdgeInsets 指定的矩形区域来填充图片。</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let imageView = UIImageView(frame: CGRect(x:10, y:100, width:300, height:66))</span><br><span class="line">let image = UIImage(named: &quot;bg&quot;)?</span><br><span class="line">    .resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15),</span><br><span class="line">                    resizingMode: .stretch) //左右15像素的部分不变，中间部分来拉伸</span><br><span class="line">imageView.image = image</span><br><span class="line">view.addSubview(imageView)</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1757,7 +1769,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1779,7 +1791,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-count">56</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

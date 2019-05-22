@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Unruly的博客">
 <meta property="og:description" content="采用FFmpeg从视频中提取音频(声音)保存为mp3文件下载mp3的编码库因为FFmpeg默认只支持mp3的解码，不支持mp3编码.需要借助第三方的mp3编码库。这里采用lame编码库 下载地址 1234cd lame-3.100./configuremakemake install 下载FFmpeg下载1git clone https://git.ffmpeg.org/ffmpeg.git ff">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-14T09:12:12.000Z">
+<meta property="og:updated_time" content="2019-01-14T07:15:27.582Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="FFmpeg">
 <meta name="twitter:description" content="采用FFmpeg从视频中提取音频(声音)保存为mp3文件下载mp3的编码库因为FFmpeg默认只支持mp3的解码，不支持mp3编码.需要借助第三方的mp3编码库。这里采用lame编码库 下载地址 1234cd lame-3.100./configuremakemake install 下载FFmpeg下载1git clone https://git.ffmpeg.org/ffmpeg.git ff">
@@ -386,6 +386,14 @@
 <li>-b 指定200k码率 </li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i image.mp4 -i a.mp3 imageVideo.mp4</span><br></pre></td></tr></table></figure>
+<h4 id="方案三"><a href="#方案三" class="headerlink" title="方案三"></a>方案三</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -loop 1 -f image2 -s 720x1280 -r 5 -i img/black.png -vcodec libx264 -pix_fmt yuv420p -t 180 black.mp4</span><br></pre></td></tr></table></figure>
+<ul>
+<li>-r is the framerate (fps)</li>
+<li>-crf is the quality, lower means better quality, 15-25 is usually good</li>
+<li>-s is the resolution</li>
+<li>-pix_fmt yuv420p specifies the pixel format, change this as needed</li>
+</ul>
+<p><a href="http://hamelot.io/visualization/using-ffmpeg-to-convert-a-set-of-images-into-a-video/" target="_blank" rel="noopener">源地址</a></p>
 <h5 id="问题：-1"><a href="#问题：-1" class="headerlink" title="问题："></a>问题：</h5><p>视频 跟音频的时长必须统一</p>
 
       
@@ -419,8 +427,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/10/18/Tips5/" rel="next" title="iOS 知识小集(5)">
-                <i class="fa fa-chevron-left"></i> iOS 知识小集(5)
+              <a href="/2018/10/30/值得看的文章/" rel="next" title="好文章">
+                <i class="fa fa-chevron-left"></i> 好文章
               </a>
             
           </div>
@@ -429,8 +437,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/10/30/值得看的文章/" rel="prev" title="好文章">
-                好文章 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/11/06/Tips6/" rel="prev" title="iOS 知识小集(6)">
+                iOS 知识小集(6) <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -512,7 +520,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -534,7 +542,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-count">56</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -597,7 +605,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#采用FFmpeg从视频中提取音频-声音-保存为mp3文件"><span class="nav-number">1.</span> <span class="nav-text">采用FFmpeg从视频中提取音频(声音)保存为mp3文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载mp3的编码库"><span class="nav-number">1.1.</span> <span class="nav-text">下载mp3的编码库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载FFmpeg"><span class="nav-number">1.2.</span> <span class="nav-text">下载FFmpeg</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#下载"><span class="nav-number">1.2.1.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#编译"><span class="nav-number">1.2.2.</span> <span class="nav-text">编译</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#提取音频"><span class="nav-number">1.3.</span> <span class="nav-text">提取音频</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展信息"><span class="nav-number">1.4.</span> <span class="nav-text">扩展信息</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#常用参数说明："><span class="nav-number">1.4.1.</span> <span class="nav-text">常用参数说明：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#混音"><span class="nav-number">1.5.</span> <span class="nav-text">混音</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图片-音频-视频"><span class="nav-number">1.6.</span> <span class="nav-text">图片 + 音频 = 视频</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#方案一"><span class="nav-number">1.6.1.</span> <span class="nav-text">方案一</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#问题："><span class="nav-number">1.6.1.1.</span> <span class="nav-text">问题：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方案二"><span class="nav-number">1.6.2.</span> <span class="nav-text">方案二</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#问题：-1"><span class="nav-number">1.6.2.1.</span> <span class="nav-text">问题：</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#采用FFmpeg从视频中提取音频-声音-保存为mp3文件"><span class="nav-number">1.</span> <span class="nav-text">采用FFmpeg从视频中提取音频(声音)保存为mp3文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载mp3的编码库"><span class="nav-number">1.1.</span> <span class="nav-text">下载mp3的编码库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载FFmpeg"><span class="nav-number">1.2.</span> <span class="nav-text">下载FFmpeg</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#下载"><span class="nav-number">1.2.1.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#编译"><span class="nav-number">1.2.2.</span> <span class="nav-text">编译</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#提取音频"><span class="nav-number">1.3.</span> <span class="nav-text">提取音频</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展信息"><span class="nav-number">1.4.</span> <span class="nav-text">扩展信息</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#常用参数说明："><span class="nav-number">1.4.1.</span> <span class="nav-text">常用参数说明：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#混音"><span class="nav-number">1.5.</span> <span class="nav-text">混音</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图片-音频-视频"><span class="nav-number">1.6.</span> <span class="nav-text">图片 + 音频 = 视频</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#方案一"><span class="nav-number">1.6.1.</span> <span class="nav-text">方案一</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#问题："><span class="nav-number">1.6.1.1.</span> <span class="nav-text">问题：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方案二"><span class="nav-number">1.6.2.</span> <span class="nav-text">方案二</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方案三"><span class="nav-number">1.6.3.</span> <span class="nav-text">方案三</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#问题：-1"><span class="nav-number">1.6.3.1.</span> <span class="nav-text">问题：</span></a></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>
