@@ -260,6 +260,454 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/01/私有/面试之UIKit/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Unruly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/blogImg/mine.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Unruly的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/01/私有/面试之UIKit/" itemprop="url">面试 - UIKit</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-01T00:00:00+08:00">
+                2019-07-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="UIView-和-CALayer"><a href="#UIView-和-CALayer" class="headerlink" title="UIView 和 CALayer"></a>UIView 和 CALayer</h2><h3 id="联系"><a href="#联系" class="headerlink" title="联系"></a>联系</h3><blockquote>
+<p>在每一个UIView实例当中，都有一个默认的支持图层layer，UIView负责创建并且管理这个图层。实际上 UIView之所以能够显示,就是因为它里面有这个一个层,才具有显示的功能 ，UIView仅仅是对它的一层封装，实现了CALayer的delegate，提供了处理事件交互的具体功能，还有动画底层方法的高级API。可以说CALayer是UIView的内部实现细节</p>
+</blockquote>
+<ul>
+<li>UIView 是CALayer轻量级封装 使用CALayer不会带来显著的性能优势 iOS MacOS CALayer无缝衔接</li>
+</ul>
+<h3 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h3><ul>
+<li>首先UIView可以响应事件，CALayer不可以响应事件</li>
+<li>一个 Layer 的 frame 是由它的anchorPoint,position,bounds,和 transform 共同决定的，而一个 View 的 frame 只是简单的返回 Layer的 frame</li>
+<li>UIView主要是对显示内容的管理而 CALayer 主要侧重显示内容的绘制<br>在做 </li>
+<li>iOS 动画的时候，修改非 RootLayer的属性（譬如位置、背景色等）会默认产生隐式动画，而修改UIView则不会。</li>
+</ul>
+<h2 id="图像显示原理"><a href="#图像显示原理" class="headerlink" title="图像显示原理"></a>图像显示原理</h2><h3 id="分工"><a href="#分工" class="headerlink" title="分工"></a>分工</h3><ul>
+<li>CPU：计算视图frame 输出位图</li>
+<li>CPU：绘制纹理、图层渲染</li>
+<li>结果放到帧缓存区（frame buffer）</li>
+<li>再由视频控制器根据vsync信号在指定时间之前去提取帧缓冲区的屏幕显示内容</li>
+</ul>
+<h3 id="卡顿分析"><a href="#卡顿分析" class="headerlink" title="卡顿分析"></a>卡顿分析</h3><ul>
+<li>UI渲染时间过长</li>
+<li>计算过多，主线程阻塞，无法渲染UI界面</li>
+<li>网络请求慢 UI层无响应</li>
+<li>总结 &lt;60fps 1/60 如果CPU和GPU加起来的处理时间超过了16.7ms，就会造成掉帧甚至卡顿</li>
+</ul>
+<h3 id="CPU资源消耗分析"><a href="#CPU资源消耗分析" class="headerlink" title="CPU资源消耗分析"></a>CPU资源消耗分析</h3><ul>
+<li>对象创建：主线程创建对象、读取文件等</li>
+<li>对象调整：frame、bounds、transform及视图层次等属性调整很耗费CPU资源。尽量减少不必要属性的修改，尽量避免调整视图层次、添加和移除视图</li>
+<li>布局计算：autolayout 提前算好布局</li>
+<li>文本渲染、图片解码：当用UIImage或CGImageSource创建图片时，图片数据并不会立刻解码。图片设置到UIImageView或CALayer.contents中去，并且CALayer被提交到GPU前，CGImage中的数据才会得到解码。这一步是发生在主线程的，并且不可避免。</li>
+</ul>
+<ul>
+<li><code>-</code> SD_WebImage处理方式：在后台线程先把图片绘制到CGBitmapContext中，然后从Bitmap直接创建图片</li>
+</ul>
+<ul>
+<li>图像绘制</li>
+</ul>
+<h3 id="CPU资源消耗分析-1"><a href="#CPU资源消耗分析-1" class="headerlink" title="CPU资源消耗分析"></a>CPU资源消耗分析</h3><ul>
+<li>纹理混合：尽量减少短时间内大量图片的显示，尽可能将多张图片合成一张进行显示。</li>
+<li>视图混合：尽量减少视图层次和数量，并在不透明的视图里标明opaque属性以避免无用的Alpha通道合成。</li>
+<li>图形生成：尽量避免离屏渲染，尽量采用异步绘制，尽量避免使用圆角、阴影、遮罩等属性。必要时用静态图片实现展示效果，也可尝试光栅化缓存复用属性</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-tags" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/01/私有/面试 - OC语言特性/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Unruly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/blogImg/mine.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Unruly的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/01/私有/面试 - OC语言特性/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-01T00:00:00+08:00">
+                2019-07-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="成员变量和属性"><a href="#成员变量和属性" class="headerlink" title="成员变量和属性"></a>成员变量和属性</h2><p>属性：成员变量+setter+getter</p>
+<h2 id="Category（类别-分类-类目）"><a href="#Category（类别-分类-类目）" class="headerlink" title="Category（类别/分类/类目）"></a>Category（类别/分类/类目）</h2><h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><ul>
+<li>多人维护同一个类</li>
+<li>为已经存在的类添加方法</li>
+<li>声明私有方法</li>
+<li>模拟多继承</li>
+<li>把frameowork的私有方法公开</li>
+</ul>
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><ul>
+<li>分类只能添加方法 不能增加成员变量</li>
+<li>分类同名的方法会覆盖原来的方法（原来的方法还有只是在顺序列表的后面）</li>
+<li>分类方法中不可以调用super</li>
+<li>相同方法的优先级 分类（最后编译的分类优先）-&gt; 原类 -&gt; 父类</li>
+<li>分类是runtime时加载 不是编译时</li>
+<li>分类可通过runtime 关联对象 添加属性（类别中添加@property描述的属性，（只会生成这个属性的set,get方法的声明,也就不是会实现.）这时候编译是没问题的没警告没报错，但是一旦在创建对象后为属性赋值或者使用这个属性的时候，程序就崩溃了，奔溃的原因也很简单，就是找不到属性的set/get方法）</li>
+</ul>
+<h2 id="Extension（扩展）"><a href="#Extension（扩展）" class="headerlink" title="Extension（扩展）"></a>Extension（扩展）</h2><ul>
+<li>为一个类添加额外的原来没有变量，方法和属性</li>
+<li>一般的类扩展写到.m文件中</li>
+<li>一般的私有属性写到.m文件中的类扩展中<h2 id="Category-和-Extension-区别"><a href="#Category-和-Extension-区别" class="headerlink" title="Category 和 Extension 区别"></a>Category 和 Extension 区别</h2></li>
+<li>Class Extension 在编译期就会将定义的 Ivar、属性、方法等直接合入主类，而 Category 在程序启动 Runtime Loading 时才会将属性（没 Ivar）和方法合入主类</li>
+<li>Class Extension 是匿名的 Category</li>
+<li>主要的区别在于，对于扩展，编译器将期望您在主@implementation中实现方法，而对于类别，您有一个单独的@implementation块</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/22/Tips7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Unruly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/blogImg/mine.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Unruly的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/22/Tips7/" itemprop="url">iOS 知识小集(7)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-22T00:00:00+08:00">
+                2019-05-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/知识小集/" itemprop="url" rel="index">
+                    <span itemprop="name">知识小集</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li>plist: View controller-based status bar appearance -&gt; true</li>
+<li>preferredStatusBarStyle</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">class NavigationController: UINavigationController &#123;</span><br><span class="line">    override var childViewControllerForStatusBarStyle: UIViewController? &#123;</span><br><span class="line">        return visibleViewController</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class TabBarController: UITabBarController &#123;</span><br><span class="line">    override var childViewControllerForStatusBarStyle: UIViewController? &#123;</span><br><span class="line">        return selectedViewController</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-tags" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/14/AVAudioRecorder/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1150,316 +1598,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/15/noun/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Unruly">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/assets/blogImg/mine.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Unruly的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/15/noun/" itemprop="url">noun</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-15T16:13:06+08:00">
-                2018-08-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>研发效能<br><a href="https://yq.aliyun.com/promotion/566?utm_content=m_50108" target="_blank" rel="noopener">https://yq.aliyun.com/promotion/566?utm_content=m_50108</a></p>
-<h3 id="康威定律"><a href="#康威定律" class="headerlink" title="康威定律"></a>康威定律</h3><ul>
-<li>第一定律: 组织沟通方式会通过系统设计表达出来</li>
-<li>第二定律: 时间再多一件事情也不可能做的完美，但总有时间做完一件事情</li>
-<li>第三定律: 线型系统和线型组织架构间有潜在的异质同态特性</li>
-<li>第四定律: 大的系统组织总是比小系统更倾向于分解</li>
-<li><a href="https://yq.aliyun.com/articles/8611" target="_blank" rel="noopener">微服务架构的理论基础 - 康威定律</a></li>
-</ul>
-<ul>
-<li>异地多活</li>
-<li>CAP</li>
-<li>BUSINESS UNIT (BU)</li>
-<li>devops</li>
-<li>ued</li>
-<li>work round</li>
-<li>KPI/OKR</li>
-<li>技术债</li>
-<li>headcount</li>
-<li>0.618 balance</li>
-<li>组织架构 领域架构 技术架构</li>
-<li>paas iaas </li>
-<li>oceanbase</li>
-<li>持续集成</li>
-<li>敏捷开发</li>
-<li>POP OOP</li>
-<li>横切关注点</li>
-<li>菱形缺陷</li>
-<li>中间件</li>
-<li>云技术</li>
-<li>SaaS PaaS IaaS</li>
-<li>spec repo</li>
-<li>git: git-flow rebase pr&amp;mr</li>
-<li>CI/CD</li>
-<li>软件开发模型</li>
-<li>namespace</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/30/Tips2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Unruly">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/assets/blogImg/mine.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Unruly的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/30/Tips2/" itemprop="url">iOS 知识小集(2)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-30T00:00:00+08:00">
-                2018-07-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/知识小集/" itemprop="url" rel="index">
-                    <span itemprop="name">知识小集</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li>Write more code</li>
-<li>Incorporate tests</li>
-<li>Be honest</li>
-<li>Contribute to open source</li>
-<li>Be open to help</li>
-<li>Pick a personal project</li>
-<li>Lower your ego</li>
-<li>Understand the “why”</li>
-<li>Don’t be lazy</li>
-<li>Solving coding challenges</li>
-<li>Encourage the good stuff</li>
-<li>Do not hide behind the layer</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/30/Tips4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1589,153 +1727,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/29/Tips3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Unruly">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/assets/blogImg/mine.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Unruly的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/29/Tips3/" itemprop="url">iOS 知识小集(3)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-29T00:00:00+08:00">
-                2018-07-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/知识小集/" itemprop="url" rel="index">
-                    <span itemprop="name">知识小集</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p> resizableImage: 该方法可以指定一个矩形区域，这个图片在矩形内的部分会拉伸变形，而这个矩形区域外的部分则会保持原样。该方法有如下两个参数：<br>（1）withCapInsets：通过设置 UIEdgeInsets 的 left、right、top、bottom 来分别指定这个矩形区域距离左侧、右侧、顶部、底部的距离。</p>
-<p>（2）resizingMode：设置矩形区域的拉伸变形模式，具体有如下两种：</p>
-<ul>
-<li>.stretch：拉伸模式，通过拉伸 UIEdgeInsets 指定的矩形区域来填充图片。 </li>
-<li>.tile：平铺模式，通过重复显示 UIEdgeInsets 指定的矩形区域来填充图片。</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let imageView = UIImageView(frame: CGRect(x:10, y:100, width:300, height:66))</span><br><span class="line">let image = UIImage(named: &quot;bg&quot;)?</span><br><span class="line">    .resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15),</span><br><span class="line">                    resizingMode: .stretch) //左右15像素的部分不变，中间部分来拉伸</span><br><span class="line">imageView.image = image</span><br><span class="line">view.addSubview(imageView)</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1790,7 +1781,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1811,8 +1802,8 @@
               
               
               <div class="site-state-item site-state-tags">
-                <a href="/私有/学习规划.html">
-                  <span class="site-state-item-count">53</span>
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">56</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
