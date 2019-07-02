@@ -260,7 +260,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/01/私有/面试之UIKit/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/01/私有/面试 - Runtime运行时拾遗/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Unruly">
@@ -279,7 +279,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/07/01/私有/面试之UIKit/" itemprop="url">面试 - UIKit</a></h1>
+                <a class="post-title-link" href="/2019/07/01/私有/面试 - Runtime运行时拾遗/" itemprop="url">面试 - Runtime运行时拾遗</a></h1>
         
 
         <div class="post-meta">
@@ -293,6 +293,300 @@
               
               <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-01T00:00:00+08:00">
                 2019-07-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-tags" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/30/私有/面试 - OC语言特性/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Unruly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/blogImg/mine.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Unruly的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/30/私有/面试 - OC语言特性/" itemprop="url">面试 - OC语言特性</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-30T00:00:00+08:00">
+                2019-06-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="动态性（Dynamic）"><a href="#动态性（Dynamic）" class="headerlink" title="动态性（Dynamic）"></a>动态性（Dynamic）</h2><ul>
+<li><code>-</code> 动态类型<ul>
+<li>指的是对象指针类型的动态性、具体是指使用id任意类型将对象的类型确定推迟到运行时 </li>
+<li>动态类型识别 isKindOfClass</li>
+</ul>
+</li>
+<li><code>-</code> 动态绑定<ul>
+<li>核心是在运行时动态的为类添加属性和方法</li>
+<li>消息传递机制</li>
+</ul>
+</li>
+<li><code>-</code> 动态加载<ul>
+<li>动态资源加载</li>
+<li>可执行代码模块的加载</li>
+</ul>
+</li>
+</ul>
+<h2 id="成员变量和属性"><a href="#成员变量和属性" class="headerlink" title="成员变量和属性"></a>成员变量和属性</h2><p>属性：成员变量+setter+getter</p>
+<h2 id="Category（类别-分类-类目）"><a href="#Category（类别-分类-类目）" class="headerlink" title="Category（类别/分类/类目）"></a>Category（类别/分类/类目）</h2><h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><ul>
+<li>多人维护同一个类</li>
+<li>为已经存在的类添加方法</li>
+<li>声明私有方法</li>
+<li>模拟多继承</li>
+<li>把frameowork的私有方法公开</li>
+</ul>
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><ul>
+<li>分类只能添加方法 不能增加成员变量</li>
+<li>分类同名的方法会覆盖原来的方法（原来的方法还有只是在顺序列表的后面）</li>
+<li>分类方法中不可以调用super</li>
+<li>相同方法的优先级 分类（最后编译的分类优先）-&gt; 原类 -&gt; 父类</li>
+<li>分类是runtime时加载 不是编译时</li>
+<li>分类可通过runtime 关联对象 添加属性（类别中添加@property描述的属性，（只会生成这个属性的set,get方法的声明,也就不是会实现.）这时候编译是没问题的没警告没报错，但是一旦在创建对象后为属性赋值或者使用这个属性的时候，程序就崩溃了，奔溃的原因也很简单，就是找不到属性的set/get方法）</li>
+</ul>
+<h2 id="Extension（扩展）"><a href="#Extension（扩展）" class="headerlink" title="Extension（扩展）"></a>Extension（扩展）</h2><ul>
+<li>为一个类添加额外的原来没有变量，方法和属性</li>
+<li>一般的类扩展写到.m文件中</li>
+<li>一般的私有属性写到.m文件中的类扩展中</li>
+</ul>
+<h2 id="Category-和-Extension-区别"><a href="#Category-和-Extension-区别" class="headerlink" title="Category 和 Extension 区别"></a>Category 和 Extension 区别</h2><ul>
+<li>Class Extension 在编译期就会将定义的 Ivar、属性、方法等直接合入主类，而 Category 在程序启动 Runtime Loading 时才会将属性（没 Ivar）和方法合入主类</li>
+<li>Class Extension 是匿名的 Category</li>
+<li>主要的区别在于，对于扩展，编译器将期望您在主@implementation中实现方法，而对于类别，您有一个单独的@implementation块</li>
+</ul>
+<h2 id="Delegate"><a href="#Delegate" class="headerlink" title="Delegate"></a>Delegate</h2><p>使用weak 防止循环引用</p>
+<h2 id="NSNotification"><a href="#NSNotification" class="headerlink" title="NSNotification"></a>NSNotification</h2><p>观察者模式</p>
+<h2 id="KVO-Key-value-observing"><a href="#KVO-Key-value-observing" class="headerlink" title="KVO(Key-value observing)"></a>KVO(Key-value observing)</h2><p>观察者模式</p>
+<h3 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h3><blockquote>
+<p>Apple 使用了 isa 混写（isa-swizzling）来实现 KVO 。当观察对象A时，KVO机制动态创建一个新的名为：NSKVONotifying_A 的派生类，并将被观察对象的isa 指向这个派生类，该类继承自对象A的本类，且 KVO 为 NSKVONotifying_A 重写观察属性的 setter 方法，setter 方法会负责在调用原 setter 方法之前和之后，通知所有观察对象属性值的更改情况。<br>（备注： isa 混写（isa-swizzling）isa：is a kind of ； swizzling：混合，搅合；）</p>
+</blockquote>
+<h3 id="注意-1"><a href="#注意-1" class="headerlink" title="注意"></a>注意</h3><p>必须继承NSObject 因为NSObject可监听值的变化 NSKeyValueObserving</p>
+<h3 id="KVC（Key-value-Coding）"><a href="#KVC（Key-value-Coding）" class="headerlink" title="KVC（Key-value Coding）"></a>KVC（Key-value Coding）</h3><ul>
+<li>动态set、get</li>
+<li>访问私有属性</li>
+<li>KVC和Objc的runtime组合可以很容易的实现Model和字典的转换</li>
+<li>KVO是基于KVC实现的</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-tags" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/29/私有/面试之UIKit/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Unruly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/blogImg/mine.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Unruly的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/29/私有/面试之UIKit/" itemprop="url">面试 - UIKit</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-29T00:00:00+08:00">
+                2019-06-29
               </time>
             
 
@@ -420,7 +714,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/01/私有/面试 - OC语言特性/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/25/私有/面经/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Unruly">
@@ -439,7 +733,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/07/01/私有/面试 - OC语言特性/" itemprop="url">未命名</a></h1>
+                <a class="post-title-link" href="/2019/06/25/私有/面经/" itemprop="url">iOS 面试</a></h1>
         
 
         <div class="post-meta">
@@ -451,8 +745,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-01T00:00:00+08:00">
-                2019-07-01
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-25T00:00:00+08:00">
+                2019-06-25
               </time>
             
 
@@ -491,30 +785,153 @@
       
         
           
-            <h2 id="成员变量和属性"><a href="#成员变量和属性" class="headerlink" title="成员变量和属性"></a>成员变量和属性</h2><p>属性：成员变量+setter+getter</p>
-<h2 id="Category（类别-分类-类目）"><a href="#Category（类别-分类-类目）" class="headerlink" title="Category（类别/分类/类目）"></a>Category（类别/分类/类目）</h2><h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><ul>
-<li>多人维护同一个类</li>
-<li>为已经存在的类添加方法</li>
-<li>声明私有方法</li>
-<li>模拟多继承</li>
-<li>把frameowork的私有方法公开</li>
+            <h2 id="数据持久化"><a href="#数据持久化" class="headerlink" title="数据持久化"></a>数据持久化</h2><ul>
+<li>NSKeyedArchiver -&gt; 用户信息</li>
+<li>NSUserDefaults -&gt; 状态、版本</li>
+<li>Write􏰴􏱼􏰲􏰳􏲅 -&gt; plist、txt等文件</li>
+<li>数据库 -&gt; WCDB、FMDB等</li>
+<li>CoreData -&gt; 苹果自带的数据库</li>
 </ul>
-<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><ul>
-<li>分类只能添加方法 不能增加成员变量</li>
-<li>分类同名的方法会覆盖原来的方法（原来的方法还有只是在顺序列表的后面）</li>
-<li>分类方法中不可以调用super</li>
-<li>相同方法的优先级 分类（最后编译的分类优先）-&gt; 原类 -&gt; 父类</li>
-<li>分类是runtime时加载 不是编译时</li>
-<li>分类可通过runtime 关联对象 添加属性（类别中添加@property描述的属性，（只会生成这个属性的set,get方法的声明,也就不是会实现.）这时候编译是没问题的没警告没报错，但是一旦在创建对象后为属性赋值或者使用这个属性的时候，程序就崩溃了，奔溃的原因也很简单，就是找不到属性的set/get方法）</li>
+<h2 id="深、浅拷贝"><a href="#深、浅拷贝" class="headerlink" title="深、浅拷贝"></a>深、浅拷贝</h2><ul>
+<li>拷贝需实现 NSCopying协议</li>
+<li>浅拷贝: 􏱭􏱙􏰵􏰈􏱊􏱋􏳽􏳄􏱜􏱯􏳾􏴏􏰩􏴐􏱃􏱜􏱯􏱭􏱙􏰵􏰈􏱊􏱋􏳽􏳄􏱜􏱯􏳾􏴏􏰩􏴐􏱃􏱜􏱯􏱭􏱙􏰵􏰈􏱊􏱋􏳽􏳄􏱜􏱯􏳾􏴏􏰩􏴐􏱃􏱜􏱯􏱭􏱙􏰵􏰈􏱊􏱋􏳽􏳄􏱜􏱯􏳾􏴏􏰩􏴐􏱃􏱜􏱯􏱭􏱙􏰵􏰈􏱊􏱋􏳽􏳄􏱜􏱯􏳾􏴏􏰩􏴐􏱃􏱜􏱯copy指针 指向相同地址</li>
+<li>深拷贝: 新的对象 新的指针</li>
 </ul>
-<h2 id="Extension（扩展）"><a href="#Extension（扩展）" class="headerlink" title="Extension（扩展）"></a>Extension（扩展）</h2><ul>
-<li>为一个类添加额外的原来没有变量，方法和属性</li>
-<li>一般的类扩展写到.m文件中</li>
-<li>一般的私有属性写到.m文件中的类扩展中<h2 id="Category-和-Extension-区别"><a href="#Category-和-Extension-区别" class="headerlink" title="Category 和 Extension 区别"></a>Category 和 Extension 区别</h2></li>
-<li>Class Extension 在编译期就会将定义的 Ivar、属性、方法等直接合入主类，而 Category 在程序启动 Runtime Loading 时才会将属性（没 Ivar）和方法合入主类</li>
-<li>Class Extension 是匿名的 Category</li>
-<li>主要的区别在于，对于扩展，编译器将期望您在主@implementation中实现方法，而对于类别，您有一个单独的@implementation块</li>
+<h2 id="单例"><a href="#单例" class="headerlink" title="单例"></a>单例</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">+ (AccountManager *)sharedManager</span><br><span class="line">&#123;</span><br><span class="line">       static AccountManager *staticInstance = nil;</span><br><span class="line">       static dispatch_once_t predicate;</span><br><span class="line">       dispatch_once(&amp;predicate, ^&#123;</span><br><span class="line">               staticInstance = [[self alloc] init];</span><br><span class="line">   return staticInstance;</span><br><span class="line">&#125;); &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="RunLoop"><a href="#RunLoop" class="headerlink" title="RunLoop"></a>RunLoop</h2><blockquote>
+<p>RunLoop 是什么？RunLoop 还是比较顾名思义的一个东西，说白了就是一种循环，只不过它这种循环比较高级。一般的 while 循环会导致 CPU 进入忙等待状态，而 RunLoop 则是一种“闲”等待，这部分可以类比 Linux 下的 epoll。当没有事件时，RunLoop 会进入休眠状态，有事件发生时， RunLoop 会去找对应的 Handler 处理事件。RunLoop 可以让线程在需要做事的时候忙起来，不需要的话就让线程休眠。</p>
+</blockquote>
+<h3 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h3><blockquote>
+<p>一个RunLoop对象，主要包含了一个线程，若干个Mode，若干个commonMode，还有一个当前运行的Mode</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">struct __CFRunLoop &#123;</span><br><span class="line">    CFRuntimeBase _base;</span><br><span class="line">    pthread_mutex_t _lock;  /* locked for accessing mode list */</span><br><span class="line">    __CFPort _wakeUpPort;   // used for CFRunLoopWakeUp 内核向该端口发送消息可以唤醒runloop</span><br><span class="line">    Boolean _unused;</span><br><span class="line">    volatile _per_run_data *_perRunData; // reset for runs of the run loop</span><br><span class="line">    pthread_t _pthread;             //RunLoop对应的线程</span><br><span class="line">    uint32_t _winthread;</span><br><span class="line">    CFMutableSetRef _commonModes;    //存储的是字符串，记录所有标记为common的mode</span><br><span class="line">    CFMutableSetRef _commonModeItems;//存储所有commonMode的item(source、timer、observer)</span><br><span class="line">    CFRunLoopModeRef _currentMode;   //当前运行的mode</span><br><span class="line">    CFMutableSetRef _modes;          //存储的是CFRunLoopModeRef</span><br><span class="line">    struct _block_item *_blocks_head;//doblocks的时候用到</span><br><span class="line">    struct _block_item *_blocks_tail;</span><br><span class="line">    CFTypeRef _counterpart;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>详见 <a href="https://juejin.im/post/5aca2b0a6fb9a028d700e1f8" target="_blank" rel="noopener">RunLoop详解</a></p>
+<h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><blockquote>
+<p>一个 Timer 一次只能加入到一个 RunLoop 中。我们日常使用的时候，通常就是加入到当前的 runLoop 的 default mode 中，而 ScrollView 在用户滑动时，主线程 RunLoop 会转到 UITrackingRunLoopMode 。而这个时候， Timer 就不会运行</p>
+</blockquote>
+<p>有如下两种解决方案：</p>
+<ul>
+<li>设置 RunLoop Mode，例如 NSTimer,我们指定它运行于 NSRunLoopCommonModes ，这是一个 Mode 的集合。注册到这个 Mode 下后，无论当前 runLoop 运行哪个 mode ，事件都能得到执行。</li>
+<li>在另外一个线程执行和处理 Timer 事件，然后在主线程更新 UI</li>
 </ul>
+<h2 id="内存管理机制"><a href="#内存管理机制" class="headerlink" title="内存管理机制"></a>内存管理机制</h2><h3 id="Autorelease-释放时机"><a href="#Autorelease-释放时机" class="headerlink" title="Autorelease 释放时机"></a>Autorelease 释放时机</h3><blockquote>
+<p>在没有手加Autorelease Pool的情况下，Autorelease对象是在当前的runloop迭代结束时释放的，而它能够释放的原因是系统在每个runloop迭代中都加入了自动释放池Push和Pop(双向链表)</p>
+</blockquote>
+<h3 id="关键字"><a href="#关键字" class="headerlink" title="关键字"></a>关键字</h3><ul>
+<li>retain(􏰀􏰁􏰂􏰃􏰄引用计数+1)-&gt;release􏰅􏰀􏰁􏰂􏰃􏰆1(引用计数-1)</li>
+<li>alloc（申请内存空间）-&gt; dealloc（释放内存空间）</li>
+<li>readwrite 既有getter,也有setter（默认）</li>
+<li>readonly 只有getter,没有setter</li>
+<li>nonatomic 不考虑线程安全</li>
+<li>原子性: atomic 线程操作安全（默认）nonatomic不使用自旋锁<br>比如，线程 A 的 getter 方法运行到一半，线程 B 调用了 setter：那么线程 A 的 getter 还是能得到一个完好无损的对象。<br>而nonatomic就没有这个保证了。所以，nonatomic的速度要比atomic快。<br>不过atomic可并不能保证线程安全。如果线程 A 调了 getter，与此同时线程 B 、线程 C 都调了 setter——那最后线程 A get 到的值，3种都有可能：可能是 B、C set 之前原始的值，也可能是 B set 的值，也可能是 C set 的值。同时，最终这个属性的值，可能是 B set 的值，也有可能是 C set 的值。<br>保证数据完整性——这个多线程编程的最大挑战之一——往往还需要借助其他手段</li>
+</ul>
+<p>线程安全下的 setter、getter</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">- (NSString *) value</span><br><span class="line">&#123;</span><br><span class="line">  @synchronized(self) &#123;</span><br><span class="line">     return [[_value retain] autorelease];</span><br><span class="line">&#125; &#125;</span><br><span class="line">- (void)setValue:(NSString *)aValue</span><br><span class="line">&#123;</span><br><span class="line">  @synchronized(self) &#123;</span><br><span class="line">   [aValue retain];</span><br><span class="line">   [_value release];</span><br><span class="line">   _value = aValue;</span><br><span class="line">&#125; &#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>retain： release旧的对象 retain新的对象</li>
+<li>assign：简单赋值 不更改引用计数（默认）</li>
+<li>copy：copy相同对象（retain指针拷贝，copy：内容拷贝）</li>
+<li>strong： ARC中 同MRC retain一样</li>
+<li>weak：同assign一样，weak当指向的内存释放后自动nil话，防止野指针 assign 可以用非 OC 对象,而 weak 必须用于 OC 对象(weak：a.delegate = b, a和b指向同一位置，当b释放 a也释放，如果delegate用assign就会变成野指针)</li>
+<li>unsafe_unretained：<strong>weak修饰的对象被释放后，指向对象的指针会置空，也就是指向nil,不会产生野指针；而</strong>unsafe_unretained修饰的对象被释放后，指针不会置空，而是变成一个野指针，那么此时如果访问这个对象的话，程序就会Crash，抛出BAD_ACCESS的异常（它会比weak性能更好，明确对象声明周期时可使用，YYKit内大量使用）</li>
+</ul>
+<h2 id="序列化和反序列化"><a href="#序列化和反序列化" class="headerlink" title="序列化和反序列化"></a>序列化和反序列化</h2><blockquote>
+<ul>
+<li>序列化：对象-&gt;字节序列</li>
+<li>反序列化：字节-&gt; 对象</li>
+<li>NSCoding协议、Codable协议</li>
+</ul>
+</blockquote>
+<h2 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h2><h3 id="进程、线程"><a href="#进程、线程" class="headerlink" title="进程、线程"></a>进程、线程</h3><blockquote>
+<ul>
+<li>进程：操作系统多个软件在运行（微信、抖音等）</li>
+<li>线程：进程内好多线程</li>
+<li>线程是进程的基本组成单元</li>
+</ul>
+</blockquote>
+<h3 id="多线程的好处"><a href="#多线程的好处" class="headerlink" title="多线程的好处"></a>多线程的好处</h3><ul>
+<li>时间长的任务放到后台处理</li>
+<li>程序运行更快</li>
+<li>等待任务<h3 id="多线程的缺点"><a href="#多线程的缺点" class="headerlink" title="多线程的缺点"></a>多线程的缺点</h3></li>
+<li>大量影响性能、因为操作系统需要在他们之间切换</li>
+<li>占用更多的内存空间</li>
+<li>线程死锁</li>
+</ul>
+<h3 id="多线程实现"><a href="#多线程实现" class="headerlink" title="多线程实现"></a>多线程实现</h3><ul>
+<li>Thread</li>
+<li>NSOperation</li>
+<li>GCD</li>
+</ul>
+<h2 id="字符串去重"><a href="#字符串去重" class="headerlink" title="字符串去重"></a>字符串去重</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">func testString(str: String) -&gt; String&#123;</span><br><span class="line">        var dict: [String: Int] = [:]</span><br><span class="line">        var result: String = &quot;&quot;</span><br><span class="line">        let _ = str.map &#123; (char) in</span><br><span class="line">            let temp = &quot;\(char)&quot;</span><br><span class="line">            if dict[temp] == nil &#123;</span><br><span class="line">                result += &quot;\(char)&quot;</span><br><span class="line">                dict[temp] = 10</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return result</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="UIImage初始化"><a href="#UIImage初始化" class="headerlink" title="UIImage初始化"></a>UIImage初始化</h2><ul>
+<li>imageNamed 检查系统缓存</li>
+<li>contentsOfFile: 直接加载</li>
+<li>cgImage</li>
+</ul>
+<h2 id="便利构造器"><a href="#便利构造器" class="headerlink" title="便利构造器"></a>便利构造器</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">extension UIButton &#123;</span><br><span class="line">    convenience init(imageName: String) &#123;</span><br><span class="line">        self.init()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>iOS 类不可以多继承 可protocol实现</p>
+<h2 id="APP启动流程"><a href="#APP启动流程" class="headerlink" title="APP启动流程"></a>APP启动流程</h2><p>main函数 -&gt; UIApplication -&gt; rootVC</p>
+<ul>
+<li><p>application:willFinishLaunchingWithOptions: - 这个方法是你在启动时的第一次机会来执行代码</p>
+</li>
+<li><p>application:didFinishLaunchingWithOptions: - 这个方法允许你在显示app给用户之前执行最后的初始化操作</p>
+</li>
+<li><p>applicationDidBecomeActive: - app已经切换到active状态后需要执行的操作</p>
+</li>
+<li><p>applicationWillResignActive: - app将要从前台切换到后台时需要执行的操作</p>
+</li>
+<li><p>applicationDidEnterBackground: - app已经进入后台后需要执行的操作</p>
+</li>
+<li><p>applicationWillEnterForeground: - app将要从后台切换到前台需要执行的操作，但app还不是active状态</p>
+</li>
+<li><p>applicationWillTerminate: - app将要结束时需要执行的操作</p>
+</li>
+</ul>
+<h2 id="ViewController-生命周期"><a href="#ViewController-生命周期" class="headerlink" title="ViewController 生命周期"></a>ViewController 生命周期</h2><p>init loadView viewDidLoad viewWillAppear viewWillDisAppear viewDidDisappear didReceiveMemoryWarning deinit/dealloc</p>
+<h2 id="字典的工作原理"><a href="#字典的工作原理" class="headerlink" title="字典的工作原理"></a>字典的工作原理</h2><blockquote>
+<p>使用hash表来实现key-value之间的映射和存储的</p>
+</blockquote>
+<h3 id="哈希冲突"><a href="#哈希冲突" class="headerlink" title="哈希冲突"></a>哈希冲突</h3><ul>
+<li>1.开放定址法（线性探测再散列，二次探测再散列，伪随机探测再散列）</li>
+<li>2.再哈希法</li>
+<li>3.链地址法(Java hashmap就是这么做的)</li>
+<li>4.建立一个公共溢出区</li>
+</ul>
+<p>什么是hash冲突？</p>
+<p>假设hash表的大小为9（即有9个槽），现在要把一串数据存到表里：5,28,19,15,20,33,12,17,10</p>
+<p>简单计算一下：hash(5)=5, 所以数据5应该放在hash表的第5个槽里；hash(28)=1，所以数据28应该放在hash表的第1个槽里；hash(19)=1，也就是说，数据19也应该放在hash表的第1个槽里——于是就造成了碰撞（也称为冲突，collision）。</p>
+<p>常用的Hash冲突解决方法有以下几种：</p>
+<p>1.开放定址法<br>这种方法也称再散列法，其基本思想是：当关键字key的哈希地址p=H（key）出现冲突时，以p为基础，产生另一个哈希地址p1，如果p1仍然冲突，再以p为基础，产生另一个哈希地址p2，…，直到找出一个不冲突的哈希地址pi ，将相应元素存入其中。这种方法有一个通用的再散列函数形式：</p>
+<p>Hi=（H（key）+di）% m i=1，2，…，n</p>
+<p>其中H（key）为哈希函数，m 为表长，di称为增量序列。增量序列的取值方式不同，相应的再散列方式也不同。主要有以下三种：</p>
+<p>线性探测再散列</p>
+<p>dii=1，2，3，…，m-1</p>
+<p>这种方法的特点是：冲突发生时，顺序查看表中下一单元，直到找出一个空单元或查遍全表。</p>
+<p>二次探测再散列</p>
+<p>di=12，-12，22，-22，…，k2，-k2 ( k&lt;=m/2 )</p>
+<p>这种方法的特点是：冲突发生时，在表的左右进行跳跃式探测，比较灵活。</p>
+<p>伪随机探测再散列</p>
+<p>di=伪随机数序列。</p>
+<p>具体实现时，应建立一个伪随机数发生器，（如i=(i+p) % m），并给定一个随机数做起点。</p>
+<p>例如，已知哈希表长度m=11，哈希函数为：H（key）= key % 11，则H（47）=3，H（26）=4，H（60）=5，假设下一个关键字为69，则H（69）=3，与47冲突。</p>
+<p>如果用线性探测再散列处理冲突，下一个哈希地址为H1=（3 + 1）% 11 = 4，仍然冲突，再找下一个哈希地址为H2=（3 + 2）% 11 = 5，还是冲突，继续找下一个哈希地址为H3=（3 + 3）% 11 = 6，此时不再冲突，将69填入5号单元。</p>
+<p>如果用二次探测再散列处理冲突，下一个哈希地址为H1=（3 + 12）% 11 = 4，仍然冲突，再找下一个哈希地址为H2=（3 - 12）% 11 = 2，此时不再冲突，将69填入2号单元。</p>
+<p>如果用伪随机探测再散列处理冲突，且伪随机数序列为：2，5，9，……..，则下一个哈希地址为H1=（3 + 2）% 11 = 5，仍然冲突，再找下一个哈希地址为H2=（3 + 5）% 11 = 8，此时不再冲突，将69填入8号单元。</p>
+<p>2.再哈希法<br>这种方法是同时构造多个不同的哈希函数：</p>
+<p>Hi=RH1（key） i=1，2，…，k</p>
+<p>当哈希地址Hi=RH1（key）发生冲突时，再计算Hi=RH2（key）……，直到冲突不再产生。这种方法不易产生聚集，但增加了计算时间。</p>
+<p>3.链地址法<br>这种方法的基本思想是将所有哈希地址为i的元素构成一个称为同义词链的单链表，并将单链表的头指针存在哈希表的第i个单元中，因而查找、插入和删除主要在同义词链中进行。链地址法适用于经常进行插入和删除的情况。</p>
+<p>4.建立公共溢出区<br>这种方法的基本思想是：将哈希表分为基本表和溢出表两部分，凡是和基本表发生冲突的元素，一律填入溢出表。</p>
+<p>拉链法与开放地址法相比的缺点：<br>拉链法的优点</p>
+<p>与开放定址法相比，拉链法有如下几个优点：</p>
+<p>①拉链法处理冲突简单，且无堆积现象，即非同义词决不会发生冲突，因此平均查找长度较短；</p>
+<p>②由于拉链法中各链表上的结点空间是动态申请的，故它更适合于造表前无法确定表长的情况；</p>
+<p>③开放定址法为减少冲突，要求装填因子α较小，故当结点规模较大时会浪费很多空间。而拉链法中可取α≥1，且结点较大时，拉链法中增加的指针域可忽略不计，因此节省空间；</p>
+<p>④在用拉链法构造的散列表中，删除结点的操作易于实现。只要简单地删去链表上相应的结点即可。而对开放地址法构造的散列表，删除结点不能简单地将被删结 点的空间置为空，否则将截断在它之后填人散列表的同义词结点的查找路径。这是因为各种开放地址法中，空地址单元(即开放地址)都是查找失败的条件。因此在 用开放地址法处理冲突的散列表上执行删除操作，只能在被删结点上做删除标记，而不能真正删除结点。</p>
+<p>拉链法的缺点</p>
+<p>　拉链法的缺点是：指针需要额外的空间，故当结点规模较小时，开放定址法较为节省空间，而若将节省的指针空间用来扩大散列表的规模，可使装填因子变小，这又减少了开放定址法中的冲突，从而提高平均查找速度。</p>
+<h2 id="反射机制"><a href="#反射机制" class="headerlink" title="反射机制"></a>反射机制</h2><p>OC：字符串访问 类和方法<br>NSClassFromString NSSelectorFromString<br>Swift: Mirror Class</p>
+<h2 id="KVO-实现"><a href="#KVO-实现" class="headerlink" title="KVO 实现"></a>KVO 实现</h2><h2 id="热修复"><a href="#热修复" class="headerlink" title="热修复"></a>热修复</h2><h2 id="Block"><a href="#Block" class="headerlink" title="Block"></a>Block</h2><h3 id="Block和函数指针的区别"><a href="#Block和函数指针的区别" class="headerlink" title="Block和函数指针的区别"></a>Block和函数指针的区别</h3><p>函数指针是函数地址的引用 block是函数对象</p>
 
           
         
@@ -1054,135 +1471,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/30/FFmpeg/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Unruly">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/assets/blogImg/mine.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Unruly的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/30/FFmpeg/" itemprop="url">FFmpeg</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-30T00:00:00+08:00">
-                2018-10-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="采用FFmpeg从视频中提取音频-声音-保存为mp3文件"><a href="#采用FFmpeg从视频中提取音频-声音-保存为mp3文件" class="headerlink" title="采用FFmpeg从视频中提取音频(声音)保存为mp3文件"></a>采用FFmpeg从视频中提取音频(声音)保存为mp3文件</h2><h3 id="下载mp3的编码库"><a href="#下载mp3的编码库" class="headerlink" title="下载mp3的编码库"></a>下载mp3的编码库</h3><p>因为FFmpeg默认只支持mp3的解码，不支持mp3编码.需要借助第三方的mp3编码库。这里采用lame编码库 <a href="https://sourceforge.net/projects/lame/files/lame/" target="_blank" rel="noopener">下载地址</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd lame-3.100</span><br><span class="line">./configure</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
-<h3 id="下载FFmpeg"><a href="#下载FFmpeg" class="headerlink" title="下载FFmpeg"></a>下载FFmpeg</h3><h4 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://git.ffmpeg.org/ffmpeg.git ffmpeg</span><br></pre></td></tr></table></figure>
-<p>brew</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install ffmpeg</span><br></pre></td></tr></table></figure>
-<h4 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./configure --enable-libmp3lame </span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/10/30/FFmpeg/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-tags" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/30/值得看的文章/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1279,6 +1567,135 @@
 <h2 id="前端"><a href="#前端" class="headerlink" title="前端"></a>前端</h2><p><img src="https://ws3.sinaimg.cn/large/006tNc79ly1g03dz7fvb2j30j61043zw.jpg" alt="学习前端的路径图"></p>
 
           
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-tags" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/30/FFmpeg/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Unruly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/blogImg/mine.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Unruly的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/30/FFmpeg/" itemprop="url">FFmpeg</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-30T00:00:00+08:00">
+                2018-10-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="采用FFmpeg从视频中提取音频-声音-保存为mp3文件"><a href="#采用FFmpeg从视频中提取音频-声音-保存为mp3文件" class="headerlink" title="采用FFmpeg从视频中提取音频(声音)保存为mp3文件"></a>采用FFmpeg从视频中提取音频(声音)保存为mp3文件</h2><h3 id="下载mp3的编码库"><a href="#下载mp3的编码库" class="headerlink" title="下载mp3的编码库"></a>下载mp3的编码库</h3><p>因为FFmpeg默认只支持mp3的解码，不支持mp3编码.需要借助第三方的mp3编码库。这里采用lame编码库 <a href="https://sourceforge.net/projects/lame/files/lame/" target="_blank" rel="noopener">下载地址</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd lame-3.100</span><br><span class="line">./configure</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+<h3 id="下载FFmpeg"><a href="#下载FFmpeg" class="headerlink" title="下载FFmpeg"></a>下载FFmpeg</h3><h4 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://git.ffmpeg.org/ffmpeg.git ffmpeg</span><br></pre></td></tr></table></figure>
+<p>brew</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install ffmpeg</span><br></pre></td></tr></table></figure>
+<h4 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./configure --enable-libmp3lame </span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/10/30/FFmpeg/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1462,276 +1879,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/27/音视频编解码/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Unruly">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/assets/blogImg/mine.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Unruly的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/27/音视频编解码/" itemprop="url">视音频编解码技术</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-27T16:11:27+08:00">
-                2018-08-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="视频播放器的原理："><a href="#视频播放器的原理：" class="headerlink" title="视频播放器的原理："></a>视频播放器的原理：</h3><p><img src="https://img-blog.csdn.net/20140201120523046?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGVpeGlhb2h1YTEwMjA=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="图片"></p>
-<ul>
-<li>解协议: <strong>流媒体协议</strong>(HTTP，RTMP，或是MMS)的数据解析成标准的相应的<strong>封装格式数据</strong></li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/30/Tips4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Unruly">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/assets/blogImg/mine.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Unruly的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/30/Tips4/" itemprop="url">iOS 知识小集(4)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-30T00:00:00+08:00">
-                2018-07-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/知识小集/" itemprop="url" rel="index">
-                    <span itemprop="name">知识小集</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Color Literal<br>Image Literal</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1781,7 +1933,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">31</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1803,7 +1955,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
