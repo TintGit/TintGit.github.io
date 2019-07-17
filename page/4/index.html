@@ -260,6 +260,171 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/09/CocoaPods/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Unruly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/blogImg/mine.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Unruly的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/09/CocoaPods/" itemprop="url">CocoaPods</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-09T00:00:00+08:00">
+                2017-08-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="CocoaPods-使用"><a href="#CocoaPods-使用" class="headerlink" title="CocoaPods 使用"></a>CocoaPods 使用</h2><h3 id="项目支持pod"><a href="#项目支持pod" class="headerlink" title="项目支持pod"></a>项目支持pod</h3><ul>
+<li>cd 项目目录</li>
+<li>建立配置文件 vim Podfile</li>
+</ul>
+<ul>
+<li><code>-</code> 编辑 Podfile<ul>
+<li>platform :ios, ‘8.0’</li>
+<li>target “TextDemo” do</li>
+<li>pod ‘AFNetworking’</li>
+<li>end</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>pod install</li>
+</ul>
+<h3 id="修改pod-版本"><a href="#修改pod-版本" class="headerlink" title="修改pod 版本"></a>修改pod 版本</h3><ul>
+<li>pod –version</li>
+<li>gem list</li>
+<li>安装版本 sudo gem install cocoapods -v 1.0.0</li>
+<li>移除版本 sudo gem uninstall cocoapods -v 0.36.0</li>
+</ul>
+<h2 id="CocoaPods建立自己的Podspec"><a href="#CocoaPods建立自己的Podspec" class="headerlink" title="CocoaPods建立自己的Podspec"></a>CocoaPods建立自己的Podspec</h2><ul>
+<li>创建podspec文件 pod spec create TextDemo</li>
+<li>编辑podspec文件</li>
+<li><code>-</code> 验证podspec<ul>
+<li>pod spec lint 本地校验</li>
+<li>pod lib lint 远程本地检验</li>
+</ul>
+</li>
+<li><code>-</code> podspec验证失败错误排查<ul>
+<li>^ 文件语法错误</li>
+<li>–verbose 查看详细错误</li>
+<li>.a静态库错误 解决：可以使用 –use-libraries 通过</li>
+<li>-allow-warnings 允许警告</li>
+<li>用了Swift库的同学都知道必须加上use_frameworks! 这个标记是说Pod管理的依赖全部编译为动态库，然后呢我们的很多组件又依赖了诸如百度地图，微信分享等静态库 会报 上面静态库的错误 解决：把静态库放到你自己的 pod 内，自己 vendor 这个静态 framework <a href="http://www.cocoachina.com/ios/20170427/19136.html" target="_blank" rel="noopener">参考文章</a></li>
+<li>Don’t forget to anonymize any private data! 解决：重新安装cocoapods  gem install cocoapods</li>
+<li>include of non-modular header inside framework module解决: pod lib lint –verbose –allow-warnings –use-libraries</li>
+<li>静态framework问题:将framework 打包成.a <a href="https://blog.csdn.net/wiseuc_jianghai/article/details/79170098" target="_blank" rel="noopener">参考</a></li>
+</ul>
+</li>
+<li>使用 Trunk 发布 pod trunk register 邮箱 “名字”</li>
+<li>pod trunk push –allow-warnings –use-libraries</li>
+<li>版本升级 </li>
+</ul>
+<p>优秀文章: <a href="https://juejin.im/post/5b0f98b75188251576540041" target="_blank" rel="noopener">玩转iOS开发《创建CocoaPods开发库》</a>   </p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-tags" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/16/组件化/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -677,7 +842,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">34</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -698,8 +863,8 @@
               
               
               <div class="site-state-item site-state-tags">
-                <a href="/私有/学习规划.html">
-                  <span class="site-state-item-count">60</span>
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">61</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
