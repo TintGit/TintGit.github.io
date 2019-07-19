@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="拾遗,多线程," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="对比 GCD是面向底层的C语言的API，NSOpertaionQueue用GCD构建封装的，是GCD的高级抽象 GCD只支持FIFO队列 NSOperationQueue可设置最大并发数、设置优先级、设置依赖关系等调整执行顺序 NSThread需要我们自己去管理线程的生命周期，还要考虑线程同步、加锁问题，造成一些性能上的开销  死锁一定是发生在一个或多个线程之间的。那么死锁和线程阻塞的关系呢，可以">
+<meta name="keywords" content="拾遗,多线程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="拾遗 - 多线程">
+<meta property="og:url" content="http://yoursite.com/2018/07/03/拾遗/拾遗 - 多线程/index.html">
+<meta property="og:site_name" content="Unruly的博客">
+<meta property="og:description" content="对比 GCD是面向底层的C语言的API，NSOpertaionQueue用GCD构建封装的，是GCD的高级抽象 GCD只支持FIFO队列 NSOperationQueue可设置最大并发数、设置优先级、设置依赖关系等调整执行顺序 NSThread需要我们自己去管理线程的生命周期，还要考虑线程同步、加锁问题，造成一些性能上的开销  死锁一定是发生在一个或多个线程之间的。那么死锁和线程阻塞的关系呢，可以">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-07-19T06:39:33.161Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="拾遗 - 多线程">
+<meta name="twitter:description" content="对比 GCD是面向底层的C语言的API，NSOpertaionQueue用GCD构建封装的，是GCD的高级抽象 GCD只支持FIFO队列 NSOperationQueue可设置最大并发数、设置优先级、设置依赖关系等调整执行顺序 NSThread需要我们自己去管理线程的生命周期，还要考虑线程同步、加锁问题，造成一些性能上的开销  死锁一定是发生在一个或多个线程之间的。那么死锁和线程阻塞的关系呢，可以">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/07/03/拾遗/拾遗 - 多线程/"/>
+
+
+
+
+
+  <title>拾遗 - 多线程 | Unruly的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Unruly的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">心存善念，必有善行；善念善行，天必佑之。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/03/拾遗/拾遗 - 多线程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Unruly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/blogImg/mine.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Unruly的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">拾遗 - 多线程</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-03T00:00:00+08:00">
+                2018-07-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/拾遗/" itemprop="url" rel="index">
+                    <span itemprop="name">拾遗</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h2><ul>
+<li>GCD是面向底层的C语言的API，NSOpertaionQueue用GCD构建封装的，是GCD的高级抽象</li>
+<li>GCD只支持FIFO队列</li>
+<li>NSOperationQueue可设置最大并发数、设置优先级、设置依赖关系等调整执行顺序</li>
+<li>NSThread需要我们自己去管理线程的生命周期，还要考虑线程同步、加锁问题，造成一些性能上的开销</li>
+</ul>
+<h2 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h2><p>一定是发生在一个或多个线程之间的。那么死锁和线程阻塞的关系呢，可以这么理解，双向的阻塞导致了死锁</p>
+<p>多个进程因循环等待资源而造成无法执行的现象</p>
+<h3 id="主队列同步"><a href="#主队列同步" class="headerlink" title="主队列同步"></a>主队列同步</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">override func viewDidLoad() &#123;</span><br><span class="line">  	super.viewDidLoad()</span><br><span class="line"></span><br><span class="line">    DispatchQueue.main.sync &#123;</span><br><span class="line">    	print(&quot;deadlock&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">或者</span><br><span class="line">dispatch_queue_t serialQueue = dispatch_queue_create(&quot;test&quot;, DISPATCH_QUEUE_SERIAL);</span><br><span class="line"></span><br><span class="line">dispatch_async(serialQueue, ^&#123;</span><br><span class="line">       </span><br><span class="line">        dispatch_sync(serialQueue, ^&#123;</span><br><span class="line">            </span><br><span class="line">            NSLog(@&quot;deadlock&quot;);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
+<p>解决： 异步或者其它队列</p>
+<h2 id="GCD"><a href="#GCD" class="headerlink" title="GCD"></a>GCD</h2><h3 id="执行顺序：串行队列先异步后同步"><a href="#执行顺序：串行队列先异步后同步" class="headerlink" title="执行顺序：串行队列先异步后同步"></a>执行顺序：串行队列先异步后同步</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">dispatch_queue_t serialQueue = dispatch_queue_create(&quot;test&quot;, DISPATCH_QUEUE_SERIAL);</span><br><span class="line">    </span><br><span class="line">    NSLog(@&quot;1&quot;);</span><br><span class="line">    </span><br><span class="line">    dispatch_async(serialQueue, ^&#123;</span><br><span class="line">        </span><br><span class="line">         NSLog(@&quot;2&quot;);</span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line">    NSLog(@&quot;3&quot;);</span><br><span class="line">    </span><br><span class="line">    dispatch_sync(serialQueue, ^&#123;</span><br><span class="line">        </span><br><span class="line">        NSLog(@&quot;4&quot;);</span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line">    NSLog(@&quot;5&quot;);</span><br></pre></td></tr></table></figure>
+<p>打印顺序是13245</p>
+<p>首先先打印1<br>接下来将任务2其添加至串行队列上，由于任务2是异步，不会阻塞线程，继续向下执行，打印3<br>然后是任务4,将任务4添加至串行队列上，因为任务4和任务2在同一串行队列，根据队列先进先出原则，任务4必须等任务2执行后才能执行，又因为任务4是同步任务，会阻塞线程，只有执行完任务4才能继续向下执行打印5</p>
+<p>所以最终顺序就是13245。<br>这里的任务4在主线程中执行，而任务2在子线程中执行。<br>如果任务4是添加到另一个串行队列或者并行队列，则任务2和任务4无序执行(可以添加多个任务看效果)</p>
+<h3 id="dispatch-barrier-sync-栅栏函数"><a href="#dispatch-barrier-sync-栅栏函数" class="headerlink" title="dispatch_barrier_sync(栅栏函数)"></a>dispatch_barrier_sync(栅栏函数)</h3><p>场景多读单写：可以多个读者同时读取数据，而在读的时候，不能取写入数据。并且，在写的过程中，不能有其他写者去写。即读者之间是并发的，写者与读者或其他写者是互斥的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">- (id)readDataForKey:(NSString *)key</span><br><span class="line">&#123;</span><br><span class="line">    __block id result;</span><br><span class="line">    </span><br><span class="line">    dispatch_sync(_concurrentQueue, ^&#123;</span><br><span class="line">       </span><br><span class="line">        result = [self valueForKey:key];</span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)writeData:(id)data forKey:(NSString *)key</span><br><span class="line">&#123;</span><br><span class="line">    dispatch_barrier_async(_concurrentQueue, ^&#123;</span><br><span class="line">       </span><br><span class="line">        [self setValue:data forKey:key];</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="dispatch-group-async"><a href="#dispatch-group-async" class="headerlink" title="dispatch_group_async"></a>dispatch_group_async</h3><p>场景：在n个耗时并发任务都完成后，再去执行接下来的任务。比如，在n个网络请求完成后去刷新UI页面</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">dispatch_queue_t concurrentQueue = dispatch_queue_create(&quot;test1&quot;, DISPATCH_QUEUE_CONCURRENT);</span><br><span class="line"></span><br><span class="line">    dispatch_group_t group = dispatch_group_create();</span><br><span class="line">    </span><br><span class="line">    for (NSInteger i = 0; i &lt; 10; i++) &#123;</span><br><span class="line">        </span><br><span class="line">        dispatch_group_async(group, concurrentQueue, ^&#123;</span><br><span class="line">            </span><br><span class="line">            sleep(1);</span><br><span class="line">            </span><br><span class="line">            NSLog(@&quot;%zd:网络请求&quot;,i);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    dispatch_group_notify(group, dispatch_get_main_queue(), ^&#123;</span><br><span class="line">        </span><br><span class="line">        NSLog(@&quot;刷新页面&quot;);</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="Dispatch-Semaphore（信号量）"><a href="#Dispatch-Semaphore（信号量）" class="headerlink" title="Dispatch Semaphore（信号量）"></a>Dispatch Semaphore（信号量）</h3><ul>
+<li>保持线程同步，将异步执行任务转换为同步执行任务</li>
+<li>保证线程安全，为线程加锁</li>
+</ul>
+<h3 id="dispatch-after（延时函数）"><a href="#dispatch-after（延时函数）" class="headerlink" title="dispatch_after（延时函数）"></a>dispatch_after（延时函数）</h3><h3 id="dispatch-once（单例）"><a href="#dispatch-once（单例）" class="headerlink" title="dispatch_once（单例）"></a>dispatch_once（单例）</h3><h2 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h2><p><a href="https://www.jianshu.com/p/c6ebcc200ce2" target="_blank" rel="noopener">执行顺序</a></p>
+<h2 id="NSThread-runloop实现常驻线程"><a href="#NSThread-runloop实现常驻线程" class="headerlink" title="NSThread+runloop实现常驻线程"></a>NSThread+runloop实现常驻线程</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">+ (NSThread *)shareThread &#123;</span><br><span class="line">    </span><br><span class="line">    static NSThread *shareThread = nil;</span><br><span class="line">    </span><br><span class="line">    static dispatch_once_t oncePredicate;</span><br><span class="line">    </span><br><span class="line">    dispatch_once(&amp;oncePredicate, ^&#123;</span><br><span class="line">        </span><br><span class="line">        shareThread = [[NSThread alloc] initWithTarget:self selector:@selector(threadTest2) object:nil];</span><br><span class="line">        </span><br><span class="line">        [shareThread setName:@&quot;threadTest&quot;];</span><br><span class="line">        </span><br><span class="line">        [shareThread start];</span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line">    return shareThread;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (void)threadTest</span><br><span class="line">&#123;</span><br><span class="line">    @autoreleasepool &#123;</span><br><span class="line">        </span><br><span class="line">        NSRunLoop *runLoop = [NSRunLoop currentRunLoop];</span><br><span class="line">        </span><br><span class="line">        [runLoop addPort:[NSMachPort port] forMode:NSDefaultRunLoopMode];</span><br><span class="line">        </span><br><span class="line">        [runLoop run];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h2><h3 id="自旋锁"><a href="#自旋锁" class="headerlink" title="自旋锁"></a>自旋锁</h3><p>是一种用于保护多线程共享资源的锁，与一般互斥锁（mutex）不同之处在于当自旋锁尝试获取锁时以忙等待（busy waiting）的形式不断地循环检查锁是否可用。当上一个线程的任务没有执行完毕的时候（被锁住），那么下一个线程会一直等待（不会睡眠），当上一个线程的任务执行完毕，下一个线程会立即执行。<br>在多CPU的环境中，对持有锁较短的程序来说，使用自旋锁代替一般的互斥锁往往能够提高程序的性能。</p>
+<h3 id="互斥锁"><a href="#互斥锁" class="headerlink" title="互斥锁"></a>互斥锁</h3><p>当上一个线程的任务没有执行完毕的时候（被锁住），那么下一个线程会进入睡眠状态等待任务执行完毕，当上一个线程的任务执行完毕，下一个线程会自动唤醒然后执行任务。</p>
+<h2 id="对比-1"><a href="#对比-1" class="headerlink" title="对比"></a>对比</h2><p>自旋锁的优点在于，因为自旋锁不会引起调用者睡眠，所以不会进行线程调度，CPU时间片轮转等耗时操作。所有如果能在很短的时间内获得锁，自旋锁的效率远高于互斥锁。<br>　　缺点在于，自旋锁一直占用CPU，他在未获得锁的情况下，一直运行－－自旋，所以占用着CPU，如果不能在很短的时 间内获得锁，这无疑会使CPU效率降低。自旋锁不能实现递归调用。</p>
+<ul>
+<li>自旋锁：atomic、OSSpinLock、dispatch_semaphore_t</li>
+<li>互斥锁：pthread_mutex、@ synchronized、NSLock、NSConditionLock 、NSCondition、NSRecursiveLock</li>
+</ul>
+<h2 id="atomic和nonatomic的对比"><a href="#atomic和nonatomic的对比" class="headerlink" title="atomic和nonatomic的对比"></a>atomic和nonatomic的对比</h2><ol>
+<li>atomic和nonatomic用来决定编译器生成的getter和setter是否为原子操作。</li>
+<li>atomic：系统生成的 getter/setter 会保证 get、set 操作的完整性，不受其他线程影响。getter 还是能得到一个完好无损的对象（可以保证数据的完整性），但这个对象在多线程的情况下是不能确定的，比如上面的例子。<br>也就是说：如果有多个线程同时调用setter的话，不会出现某一个线程执行完setter全部语句之前，另一个线程开始执行setter情况，相当于函数头尾加了锁一样，每次只能有一个线程调用对象的setter方法，所以可以保证数据的完整性。<br>atomic所说的线程安全只是保证了getter和setter存取方法的线程安全，并不能保证整个对象是线程安全的。</li>
+<li>nonatomic：就没有这个保证了，nonatomic返回你的对象可能就不是完整的value。因此，在多线程的环境下原子操作是非常必要的，否则有可能会引起错误的结果。但仅仅使用atomic并不会使得对象线程安全，我们还要为对象线程添加lock来确保线程的安全。</li>
+<li>nonatomic的速度要比atomic的快。</li>
+<li>atomic与nonatomic的本质区别其实也就是在setter方法上的操作不同</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/拾遗/" rel="tag"># 拾遗</a>
+          
+            <a href="/tags/多线程/" rel="tag"># 多线程</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/02/拾遗/拾遗 - 内存/" rel="next" title="拾遗 - 内存">
+                <i class="fa fa-chevron-left"></i> 拾遗 - 内存
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/25/组件化实践/" rel="prev" title="组件化实践">
+                组件化实践 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/assets/blogImg/mine.jpg"
+                alt="Unruly" />
+            
+              <p class="site-author-name" itemprop="name">Unruly</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/TintGit" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/u/5027328866" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>微博</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.kalman03.com" title="kalman" target="_blank">kalman</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#对比"><span class="nav-number">1.</span> <span class="nav-text">对比</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#死锁"><span class="nav-number">2.</span> <span class="nav-text">死锁</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#主队列同步"><span class="nav-number">2.1.</span> <span class="nav-text">主队列同步</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GCD"><span class="nav-number">3.</span> <span class="nav-text">GCD</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#执行顺序：串行队列先异步后同步"><span class="nav-number">3.1.</span> <span class="nav-text">执行顺序：串行队列先异步后同步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dispatch-barrier-sync-栅栏函数"><span class="nav-number">3.2.</span> <span class="nav-text">dispatch_barrier_sync(栅栏函数)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dispatch-group-async"><span class="nav-number">3.3.</span> <span class="nav-text">dispatch_group_async</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dispatch-Semaphore（信号量）"><span class="nav-number">3.4.</span> <span class="nav-text">Dispatch Semaphore（信号量）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dispatch-after（延时函数）"><span class="nav-number">3.5.</span> <span class="nav-text">dispatch_after（延时函数）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dispatch-once（单例）"><span class="nav-number">3.6.</span> <span class="nav-text">dispatch_once（单例）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面试题"><span class="nav-number">4.</span> <span class="nav-text">面试题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSThread-runloop实现常驻线程"><span class="nav-number">5.</span> <span class="nav-text">NSThread+runloop实现常驻线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#锁"><span class="nav-number">6.</span> <span class="nav-text">锁</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#自旋锁"><span class="nav-number">6.1.</span> <span class="nav-text">自旋锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#互斥锁"><span class="nav-number">6.2.</span> <span class="nav-text">互斥锁</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对比-1"><span class="nav-number">7.</span> <span class="nav-text">对比</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#atomic和nonatomic的对比"><span class="nav-number">8.</span> <span class="nav-text">atomic和nonatomic的对比</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Unruly</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

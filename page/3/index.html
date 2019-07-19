@@ -260,7 +260,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/11/Tips/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/30/拾遗/拾遗 - OC语言特性/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Unruly">
@@ -279,7 +279,366 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/06/11/Tips/" itemprop="url">iOS 知识小集(1)</a></h1>
+                <a class="post-title-link" href="/2018/06/30/拾遗/拾遗 - OC语言特性/" itemprop="url">拾遗 - OC语言特性</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-30T00:00:00+08:00">
+                2018-06-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/拾遗/" itemprop="url" rel="index">
+                    <span itemprop="name">拾遗</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="动态性（Dynamic）"><a href="#动态性（Dynamic）" class="headerlink" title="动态性（Dynamic）"></a>动态性（Dynamic）</h2><ul>
+<li><code>-</code> 动态类型<ul>
+<li>指的是对象指针类型的动态性、具体是指使用id任意类型将对象的类型确定推迟到运行时 </li>
+<li>动态类型识别 isKindOfClass</li>
+</ul>
+</li>
+<li><code>-</code> 动态绑定<ul>
+<li>核心是在运行时动态的为类添加属性和方法</li>
+<li>消息传递机制</li>
+</ul>
+</li>
+<li><code>-</code> 动态加载<ul>
+<li>动态资源加载</li>
+<li>可执行代码模块的加载</li>
+</ul>
+</li>
+</ul>
+<h2 id="成员变量和属性"><a href="#成员变量和属性" class="headerlink" title="成员变量和属性"></a>成员变量和属性</h2><p>属性：成员变量+setter+getter</p>
+<h2 id="Category（类别-分类-类目）"><a href="#Category（类别-分类-类目）" class="headerlink" title="Category（类别/分类/类目）"></a>Category（类别/分类/类目）</h2><h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><ul>
+<li>多人维护同一个类</li>
+<li>为已经存在的类添加方法</li>
+<li>声明私有方法</li>
+<li>模拟多继承</li>
+<li>把frameowork的私有方法公开</li>
+</ul>
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><ul>
+<li>分类只能添加方法 不能增加成员变量</li>
+<li>分类同名的方法会覆盖原来的方法（原来的方法还有只是在顺序列表的后面）</li>
+<li>分类方法中不可以调用super</li>
+<li>相同方法的优先级 分类（最后编译的分类优先）-&gt; 原类 -&gt; 父类</li>
+<li>分类是runtime时加载 不是编译时</li>
+<li>分类可通过runtime 关联对象 添加属性（类别中添加@property描述的属性，（只会生成这个属性的set,get方法的声明,也就不是会实现.）这时候编译是没问题的没警告没报错，但是一旦在创建对象后为属性赋值或者使用这个属性的时候，程序就崩溃了，奔溃的原因也很简单，就是找不到属性的set/get方法）</li>
+</ul>
+<h2 id="Extension（扩展）"><a href="#Extension（扩展）" class="headerlink" title="Extension（扩展）"></a>Extension（扩展）</h2><ul>
+<li>为一个类添加额外的原来没有变量，方法和属性</li>
+<li>一般的类扩展写到.m文件中</li>
+<li>一般的私有属性写到.m文件中的类扩展中</li>
+</ul>
+<h2 id="Category-和-Extension-区别"><a href="#Category-和-Extension-区别" class="headerlink" title="Category 和 Extension 区别"></a>Category 和 Extension 区别</h2><ul>
+<li>Class Extension 在编译期就会将定义的 Ivar、属性、方法等直接合入主类，而 Category 在程序启动 Runtime Loading 时才会将属性（没 Ivar）和方法合入主类</li>
+<li>Class Extension 是匿名的 Category</li>
+<li>主要的区别在于，对于扩展，编译器将期望您在主@implementation中实现方法，而对于类别，您有一个单独的@implementation块</li>
+</ul>
+<h2 id="Delegate"><a href="#Delegate" class="headerlink" title="Delegate"></a>Delegate</h2><p>使用weak 防止循环引用</p>
+<h2 id="NSNotification"><a href="#NSNotification" class="headerlink" title="NSNotification"></a>NSNotification</h2><p>观察者模式</p>
+<h2 id="KVO-Key-value-observing"><a href="#KVO-Key-value-observing" class="headerlink" title="KVO(Key-value observing)"></a>KVO(Key-value observing)</h2><p>观察者模式</p>
+<h3 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h3><blockquote>
+<p>Apple 使用了 isa 混写（isa-swizzling）来实现 KVO 。当观察对象A时，KVO机制动态创建一个新的名为：NSKVONotifying_A 的派生类，并将被观察对象的isa 指向这个派生类，该类继承自对象A的本类，且 KVO 为 NSKVONotifying_A 重写观察属性的 setter 方法，setter 方法会负责在调用原 setter 方法之前和之后，通知所有观察对象属性值的更改情况。<br>（备注： isa 混写（isa-swizzling）isa：is a kind of ； swizzling：混合，搅合；）</p>
+</blockquote>
+<h3 id="注意-1"><a href="#注意-1" class="headerlink" title="注意"></a>注意</h3><p>必须继承NSObject 因为NSObject可监听值的变化 NSKeyValueObserving</p>
+<h3 id="KVC（Key-value-Coding）"><a href="#KVC（Key-value-Coding）" class="headerlink" title="KVC（Key-value Coding）"></a>KVC（Key-value Coding）</h3><ul>
+<li>动态set、get</li>
+<li>访问私有属性</li>
+<li>KVC和Objc的runtime组合可以很容易的实现Model和字典的转换</li>
+<li>KVO是基于KVC实现的</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-tags" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/26/创建私有SepcRepo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Unruly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/blogImg/mine.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Unruly的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/26/创建私有SepcRepo/" itemprop="url">Sepc Repo</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-26T00:00:00+08:00">
+                2018-06-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="创建私有-Sepc-Repo"><a href="#创建私有-Sepc-Repo" class="headerlink" title="创建私有 Sepc Repo"></a>创建私有 Sepc Repo</h3><p>CocoaPods对于一名iOS开发来说再熟悉不过了，它的工作原理就是在GitHub上面有个<strong>Spec Repo</strong>，它里面包括成千上万的<strong>podspec</strong>文件索引目录。然后我们在项目集成的时候可以通过它去找到我们需要的开源代码。其实CocoaPods的<strong>Spec Repo</strong>就是一个中介。</p>
+<ul>
+<li>The Specs Repo is the repository on GitHub that contains the list of all available pods. Every library has an individual folder, which contains sub folders of the available versions of that pod.</li>
+</ul>
+<p>创建私有 <strong>Spec Repo</strong>，然后把我们公共组件的<strong>podspec</strong>文件放在里面，然后集成的时候让CocoaPods帮我们集成那我们就能达到目的</p>
+<p>私有 Spec 仓库需要在 git 托管平台托管，现有的免费私有仓库有 Coding、CSDN 以及自己搭建 Gitlab，本文选用 Gitlab 托管平台演示如何进行组件化开发。</p>
+<h4 id="进入-cocoapods-repos-查看已经存在的spec-repo"><a href="#进入-cocoapods-repos-查看已经存在的spec-repo" class="headerlink" title="进入 ./cocoapods/repos 查看已经存在的spec repo"></a>进入 ./cocoapods/repos 查看已经存在的spec repo</h4><ul>
+<li>cd ./cocoapods/repos</li>
+<li>ls -l</li>
+</ul>
+<h4 id="在私有git服务器上创建自己的sepc-repo"><a href="#在私有git服务器上创建自己的sepc-repo" class="headerlink" title="在私有git服务器上创建自己的sepc repo"></a>在私有git服务器上创建自己的sepc repo</h4><ul>
+<li>创建项目 获取访问地址 <a href="https://git.xxx.cn/TestSpecs.git" target="_blank" rel="noopener">https://git.xxx.cn/TestSpecs.git</a></li>
+<li>终端执行 pod repo add [本地名字] <a href="https://git.xxx.cn/TestSpecs.git" target="_blank" rel="noopener">https://git.xxx.cn/TestSpecs.git</a></li>
+<li>ls -l 或者 pod repo list 查看</li>
+</ul>
+<h3 id="创建Pods仓库"><a href="#创建Pods仓库" class="headerlink" title="创建Pods仓库"></a>创建Pods仓库</h3><p>详见 <a href="https://tintgit.github.io/2017/08/09/CocoaPods/" target="_blank" rel="noopener">CocoaPods建立自己的Podspec</a></p>
+<p>验证通过后 提交podspec 到私有spec repo</p>
+<ul>
+<li>pod repo push [本地名字] xx.podspec<br>成功后 在目录 ./cocoapods/repos 查看</li>
+</ul>
+<h3 id="集成测试"><a href="#集成测试" class="headerlink" title="集成测试"></a>集成测试</h3><ul>
+<li>pod search xx</li>
+<li>创建项目测试 </li>
+</ul>
+<ul>
+<li><code>-</code> pod install 如果[!] Unable to find a specification for <code>xx</code> 因为默认是去公有的索引库查找<ul>
+<li><strong>解决：</strong> 增加两个source  # 表示先去找私有，再找公有</li>
+<li>source ‘<a href="https://git.xxx.cn/TestSpecs.git&#39;" target="_blank" rel="noopener">https://git.xxx.cn/TestSpecs.git&#39;</a></li>
+<li>source ‘<a href="https://github.com/CocoaPods/Specs.git&#39;" target="_blank" rel="noopener">https://github.com/CocoaPods/Specs.git&#39;</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>pod lib lint时 私有库中含有私有库 索引不到 需要添加 –sources=’私有仓库地址,<a href="https://github.com/CocoaPods/Specs.git&#39;" target="_blank" rel="noopener">https://github.com/CocoaPods/Specs.git&#39;</a></li>
+<li>search 失败 可能同名覆盖 或者移除搜索映射：rm ~/Library/Caches/CocoaPods/search_index.json</li>
+<li>pod update xx</li>
+</ul>
+<h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><ul>
+<li>git status</li>
+<li>更新 repo: pod repo update <code>REPO_NAME</code></li>
+<li>git clean -f</li>
+</ul>
+<h3 id="Development-Pod"><a href="#Development-Pod" class="headerlink" title="Development Pod"></a>Development Pod</h3><h3 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h3><p>官方文档: <a href="http://guides.cocoapods.org/making/private-cocoapods.html" target="_blank" rel="noopener">Private Pods</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/11/知识小集/Tips/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Unruly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/blogImg/mine.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Unruly的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/11/知识小集/Tips/" itemprop="url">iOS 知识小集(1)</a></h1>
         
 
         <div class="post-meta">
@@ -403,7 +762,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/07/面试/面试之UIKit/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/07/拾遗/拾遗 - UIKit/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Unruly">
@@ -422,7 +781,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/06/07/面试/面试之UIKit/" itemprop="url">拾遗 - UIKit</a></h1>
+                <a class="post-title-link" href="/2018/06/07/拾遗/拾遗 - UIKit/" itemprop="url">拾遗 - UIKit</a></h1>
         
 
         <div class="post-meta">
@@ -732,7 +1091,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/06/面试/网络/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/06/拾遗/拾遗 - 网络/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Unruly">
@@ -751,7 +1110,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/06/06/面试/网络/" itemprop="url">拾遗 - 计算机网络</a></h1>
+                <a class="post-title-link" href="/2018/06/06/拾遗/拾遗 - 网络/" itemprop="url">拾遗 - 计算机网络</a></h1>
         
 
         <div class="post-meta">
@@ -830,6 +1189,7 @@
 <li>硬件部分，一个网络服务器是一台存储了网络服务软件以及网站的组成文件（比如，HTML文档、图片、CSS样式表和JavaScript文件）的计算机。它接入到互联网并且支持与其他连接到互联网的设备进行物理数据的交互。</li>
 <li>软件部分，网络服务器包括控制网络用户如何访问托管文件的几个部分，至少他要是一台HTTP服务器。一台HTTP服务器是一种能够理解URL（网络地址）和HTTP（浏览器用来查看网页的协议）的软件。通过服务器上存储的网站的域名（比如mozilla.org）可以访问这个服务器，并且他还可以将他的内容分发给最终用户的设备。</li>
 </ul>
+<p>OSI七层协议<br>应用层、表示层、会话层、传输层、网络层、数据链路层、物理层</p>
 <h2 id="CDN"><a href="#CDN" class="headerlink" title="CDN"></a>CDN</h2><p>内容分发网络。CDN是构建在网络之上的内容分发网络，依靠部署在各地的边缘服务器，通过中心平台的负载均衡、内容分发、调度等功能模块，使用户就近获取所需内容，降低网络拥塞，提高用户访问响应速度和命中率。CDN的关键技术主要有内容存储和分发技术</p>
 <h2 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h2><p>DNS、HTTP、HTTPS所在的层为应用层、浏览器会将应用层的包交给下一层去完成，通过 socket 编程实现</p>
 <h2 id="传输层"><a href="#传输层" class="headerlink" title="传输层"></a>传输层</h2><h3 id="两种协议"><a href="#两种协议" class="headerlink" title="两种协议"></a>两种协议</h3><ul>
@@ -984,148 +1344,6 @@
           
             <p>如何避免把 Model View Controller 写成 Massive View Controller 已经是老生常谈的问题了</p>
 <p><img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1526556597900&amp;di=986c24c58fc7f939f2baba1aec18f02c&amp;imgtype=jpg&amp;src=http%3A%2F%2Fimg4.imgtn.bdimg.com%2Fit%2Fu%3D3732253054%2C1631968037%26fm%3D214%26gp%3D0.jpg" alt="斯坦福大学-CS193p Paul"></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/10/面试/算法/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Unruly">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/assets/blogImg/mine.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Unruly的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/10/面试/算法/" itemprop="url">拾遗 - 算法</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-10T00:00:00+08:00">
-                2018-05-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/拾遗/" itemprop="url" rel="index">
-                    <span itemprop="name">拾遗</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="排序算法"><a href="#排序算法" class="headerlink" title="排序算法"></a>排序算法</h2><p><a href="https://www.cnblogs.com/onepixel/p/7674659.html" target="_blank" rel="noopener">十大经典排序算法（动图演示）</a></p>
 
           
         
@@ -1611,134 +1829,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-tags" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/06/小程序/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Unruly">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/assets/blogImg/mine.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Unruly的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/06/小程序/" itemprop="url">浅谈小程序</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-06T00:00:00+08:00">
-                2018-04-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ul>
-<li>触手可及</li>
-<li>用完即走</li>
-<li>无需安装卸载</li>
-</ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/04/06/小程序/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1793,7 +1883,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-count">38</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1804,7 +1894,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1814,8 +1904,8 @@
               
               
               <div class="site-state-item site-state-tags">
-                <a href="/私有/学习规划.html">
-                  <span class="site-state-item-count">64</span>
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">68</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
