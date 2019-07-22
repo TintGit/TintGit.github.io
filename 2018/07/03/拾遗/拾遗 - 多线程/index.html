@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Unruly的博客">
 <meta property="og:description" content="对比 GCD是面向底层的C语言的API，NSOpertaionQueue用GCD构建封装的，是GCD的高级抽象 GCD只支持FIFO队列 NSOperationQueue可设置最大并发数、设置优先级、设置依赖关系等调整执行顺序 NSThread需要我们自己去管理线程的生命周期，还要考虑线程同步、加锁问题，造成一些性能上的开销  死锁一定是发生在一个或多个线程之间的。那么死锁和线程阻塞的关系呢，可以">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-19T06:39:33.161Z">
+<meta property="og:updated_time" content="2019-07-22T01:54:55.159Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="拾遗 - 多线程">
 <meta name="twitter:description" content="对比 GCD是面向底层的C语言的API，NSOpertaionQueue用GCD构建封装的，是GCD的高级抽象 GCD只支持FIFO队列 NSOperationQueue可设置最大并发数、设置优先级、设置依赖关系等调整执行顺序 NSThread需要我们自己去管理线程的生命周期，还要考虑线程同步、加锁问题，造成一些性能上的开销  死锁一定是发生在一个或多个线程之间的。那么死锁和线程阻塞的关系呢，可以">
@@ -381,7 +381,7 @@
 <h2 id="对比-1"><a href="#对比-1" class="headerlink" title="对比"></a>对比</h2><p>自旋锁的优点在于，因为自旋锁不会引起调用者睡眠，所以不会进行线程调度，CPU时间片轮转等耗时操作。所有如果能在很短的时间内获得锁，自旋锁的效率远高于互斥锁。<br>　　缺点在于，自旋锁一直占用CPU，他在未获得锁的情况下，一直运行－－自旋，所以占用着CPU，如果不能在很短的时 间内获得锁，这无疑会使CPU效率降低。自旋锁不能实现递归调用。</p>
 <ul>
 <li>自旋锁：atomic、OSSpinLock、dispatch_semaphore_t</li>
-<li>互斥锁：pthread_mutex、@ synchronized、NSLock、NSConditionLock 、NSCondition、NSRecursiveLock</li>
+<li>互斥锁：pthread_mutex、@synchronized、NSLock、NSConditionLock 、NSCondition、NSRecursiveLock</li>
 </ul>
 <h2 id="atomic和nonatomic的对比"><a href="#atomic和nonatomic的对比" class="headerlink" title="atomic和nonatomic的对比"></a>atomic和nonatomic的对比</h2><ol>
 <li>atomic和nonatomic用来决定编译器生成的getter和setter是否为原子操作。</li>
@@ -515,7 +515,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-count">39</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
